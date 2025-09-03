@@ -1,0 +1,22 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="16dp"
+    android:viewportWidth="24"
+    android:viewportHeight="16">
+
+    <!-- Red background -->
+    <path
+        android:fillColor="#E30A17"
+        android:pathData="M0,0h24v16H0z" />
+
+    <!-- White crescent -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M8,4c-2.2,0 -4,1.8 -4,4s1.8,4 4,4c0.8,0 1.5,-0.2 2.1,-0.6C9.4,11.8 9,11 9,10s0.4,-1.8 1.1,-2.4C9.5,7.2 8.8,7 8,7c-1.7,0 -3,1.3 -3,3s1.3,3 3,3c0.6,0 1.1,-0.2 1.5,-0.5C8.9,12.2 8.5,11.6 8.5,11s0.4,-1.2 1,-1.5C9.1,9.2 8.6,9 8,9z" />
+
+    <!-- White star -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M15,6l0.5,1.5h1.5l-1.2,0.9 0.5,1.5L15,9l-1.3,0.9 0.5,-1.5L13,7.5h1.5z" />
+
+</vector>
