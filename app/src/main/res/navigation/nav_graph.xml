@@ -52,5 +52,50 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.example.culturex.MainFragment"
-        android:label="MainFragment" />
+        android:label="MainFragment">
+
+        <!-- Actions from MainFragment to other screens -->
+        <action
+            android:id="@+id/action_main_to_dressCodeFragment"
+            app:destination="@id/dressCodeFragment" />
+        <action
+            android:id="@+id/action_main_to_communicationFragment"
+            app:destination="@id/communicationFragment" />
+        <action
+            android:id="@+id/action_main_to_greetingsFragment"
+            app:destination="@id/greetingsFragment" />
+        <action
+            android:id="@+id/action_main_to_etiquetteFragment"
+            app:destination="@id/etiquetteFragment" />
+        <action
+            android:id="@+id/action_main_to_tippingFragment"
+            app:destination="@id/tippingFragment" />
+    </fragment>
+
+    <!-- Other fragments accessible from MainFragment -->
+    <fragment
+        android:id="@+id/dressCodeFragment"
+        android:name="com.example.culturex.DressCodeFragment"
+        android:label="DressCodeFragment" />
+
+    <fragment
+        android:id="@+id/communicationFragment"
+        android:name="com.example.culturex.CommunicationFragment"
+        android:label="CommunicationFragment" />
+
+    <fragment
+        android:id="@+id/greetingsFragment"
+        android:name="com.example.culturex.GreetingsFragment"
+        android:label="GreetingsFragment" />
+
+    <fragment
+        android:id="@+id/etiquetteFragment"
+        android:name="com.example.culturex.EtiquetteFragment"
+        android:label="EtiquetteFragment" />
+
+    <fragment
+        android:id="@+id/tippingFragment"
+        android:name="com.example.culturex.TippingFragment"
+        android:label="TippingFragment" />
+
 </navigation>
