@@ -72,7 +72,7 @@
                 android:src="@drawable/ic_shield"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="16dp"
-                android:tint="#3B82F6" />
+                app:tint="#3B82F6" />
 
             <!-- Login title -->
             <TextView
