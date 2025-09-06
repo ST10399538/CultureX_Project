@@ -7,6 +7,15 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
+    <string-array name="countries">
+        <item>South Africa</item>
+        <item>Spain</item>
+        <item>France</item>
+        <item>Mexico</item>
+        <item>USA</item>
+    </string-array>
+
+
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus

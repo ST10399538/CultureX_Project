@@ -88,43 +88,18 @@
                         android:textSize="14sp"
                         android:layout_marginBottom="8dp" />
 
-                    <!-- Country Dropdown -->
-                    <LinearLayout
-                        android:id="@+id/country_selector"
+                    <!-- Spinner Dropdown -->
+                    <Spinner
+                        android:id="@+id/country_spinner"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
                         android:background="@drawable/country_selector_background"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:padding="12dp"
-                        android:clickable="true"
-                        android:focusable="true">
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="16dp"
-                            android:src="@drawable/flag_south_africa"
-                            android:layout_marginEnd="8dp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="South Africa"
-                            android:textColor="@android:color/black"
-                            android:textSize="16sp" />
-
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@drawable/ic_arrow_drop_down"
-                            app:tint="#6B7280" />
-
-                    </LinearLayout>
-
+                        android:paddingHorizontal="12dp"
+                        android:spinnerMode="dropdown"/>
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
+
 
             <!-- Menu Items Card -->
             <androidx.cardview.widget.CardView
