@@ -1,0 +1,6 @@
+@CultureXAPI_HostAddress = http://localhost:5169
+
+GET {{CultureXAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
