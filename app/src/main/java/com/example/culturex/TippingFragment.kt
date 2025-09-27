@@ -1,35 +1,39 @@
 package com.example.culturex
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import android.widget.TextView
+import androidx.fragment.app.viewModels
+import com.example.culturex.data.viewmodels.ContentViewModel
 
-class TippingFragment : Fragment() {
+class TippingFragment : Fragment(R.layout.fragment_tipping) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the tipping layout
-        val view = inflater.inflate(R.layout.fragment_tipping, container, false)
+    private val contentViewModel: ContentViewModel by viewModels()
 
-        // Handle back arrow click
-        view.findViewById<View>(R.id.back_arrow).setOnClickListener {
-            // Navigate back
-            findNavController().popBackStack()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val countryId = arguments?.getString("countryId")
+        val categoryId = arguments?.getString("categoryId")
+
+        if (countryId != null && categoryId != null) {
+            contentViewModel.loadContent(countryId, categoryId)
+            setupObservers(view)
         }
 
-        // Handle Save for Offline click
-        view.findViewById<View>(R.id.save_offline_card).setOnClickListener {
-            // Replace this with your save logic
-            Toast.makeText(requireContext(), "Saved for offline viewing", Toast.LENGTH_SHORT).show()
+        view.findViewById<View>(R.id.back_arrow)?.setOnClickListener {
+            findNavController().navigateUp()
         }
+    }
 
-        return view
+    private fun setupObservers(view: View) {
+        contentViewModel.content.observe(viewLifecycleOwner) { content ->
+            content?.let {
+                view.findViewById<TextView>(R.id.content_title)?.text = it.title ?: "Tipping Norms"
+                view.findViewById<TextView>(R.id.content_description)?.text = it.content ?: ""
+            }
+        }
     }
 }

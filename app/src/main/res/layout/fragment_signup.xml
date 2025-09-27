@@ -22,7 +22,6 @@
             android:src="@drawable/ic_arrow_back"
             app:tint="@android:color/black"
             android:layout_marginEnd="8dp" />
-
     </LinearLayout>
 
     <!-- Sign Up Form Card -->
@@ -86,7 +85,6 @@
                     android:inputType="textPersonName"
                     android:padding="16dp"
                     android:textSize="16sp" />
-
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Email Input -->
@@ -110,9 +108,7 @@
                     android:hint="Email"
                     android:inputType="textEmailAddress"
                     android:padding="16dp"
-                    android:textSize="16sp"
-                    android:text="Lindokehdeveloper@gmail.com" />
-
+                    android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Password Input with Eye Icon -->
@@ -137,9 +133,7 @@
                     android:hint="Password"
                     android:inputType="textPassword"
                     android:padding="16dp"
-                    android:textSize="16sp"
-                    android:text="••••••••••••" />
-
+                    android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Terms and Conditions with Red Asterisk -->
@@ -168,7 +162,6 @@
                     android:fontFamily="sans-serif-medium"
                     android:clickable="true"
                     android:focusable="true" />
-
             </LinearLayout>
 
             <!-- Register Button -->
@@ -209,11 +202,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:padding="4dp" />
-
             </LinearLayout>
-
         </LinearLayout>
-
     </androidx.cardview.widget.CardView>
-
 </RelativeLayout>

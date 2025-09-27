@@ -1,357 +1,215 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background">
+    android:background="#F8F9FA">
 
-    <!-- Top Navigation Bar -->
     <LinearLayout
-        android:id="@+id/top_nav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:padding="16dp"
-        android:paddingTop="8dp">
+        android:orientation="vertical">
 
-        <!-- Back Arrow -->
-        <ImageView
-            android:id="@+id/back_arrow"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@drawable/ic_arrow_back"
-            android:background="@drawable/nav_icon_background"
-            android:padding="6dp"
-            android:clickable="true"
-            android:focusable="true"
-            app:tint="@android:color/black" />
-
-        <!-- Communication Style Title -->
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Communication Style"
-            android:textColor="@android:color/black"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:gravity="center" />
-
-        <!-- Empty space for symmetry -->
-        <View
-            android:layout_width="32dp"
-            android:layout_height="32dp" />
-
-    </LinearLayout>
-
-    <!-- Main Content Area -->
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/top_nav"
-        android:layout_above="@id/bottom_nav"
-        android:fillViewport="true">
-
-        <LinearLayout
+        <!-- Header -->
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:background="@android:color/white"
+            android:elevation="4dp"
             android:padding="16dp">
 
-            <!-- Country Banner Card -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp"
-                android:alpha="0.95">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="South Africa"
-                        android:textColor="@android:color/black"
-                        android:textSize="16sp"
-                        android:fontFamily="sans-serif-medium" />
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="16dp"
-                        android:layout_marginStart="8dp"
-                        android:src="@drawable/south-africa" />
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <!-- Save for Offline Button -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp"
-                android:alpha="0.95"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                app:cardBackgroundColor="#3B82F6">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:padding="16dp">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_download"
-                        android:layout_marginEnd="8dp"
-                        app:tint="@android:color/white" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Save for Offline Viewing"
-                        android:textColor="@android:color/white"
-                        android:textSize="14sp"
-                        android:fontFamily="sans-serif-medium" />
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <!-- Rainbow Nation Introduction Card -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp"
-                android:alpha="0.95">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="🌈 The Rainbow Nation"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="12dp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="South Africa is known as the 'Rainbow Nation' for its cultural and linguistic diversity. The country has 11 official languages, including English, Afrikaans, Zulu, Xhosa, and Sesotho, among others. English is the primary language for business and government, but many South Africans value greetings in their native tongue. Communication styles vary by culture and region, with urban areas often using direct communication while rural areas may lean towards a more indirect and polite approach."
-                        android:textColor="#374151"
-                        android:textSize="14sp"
-                        android:lineSpacingExtra="4dp" />
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <!-- Greetings Card -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp"
-                android:alpha="0.95">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="🤝 Greetings"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="16dp" />
-
-                    <!-- Handshake -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="👋"
-                            android:textSize="20sp"
-                            android:layout_marginEnd="12dp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="A firm handshake with eye contact is common in business and formal situations."
-                            android:textColor="#374151"
-                            android:textSize="14sp"
-                            android:lineSpacingExtra="2dp" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-        </LinearLayout>
-
-    </ScrollView>
-
-    <!-- Bottom Navigation Bar -->
-    <LinearLayout
-        android:id="@+id/bottom_nav"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/bottom_nav_background"
-        android:orientation="horizontal"
-        android:paddingVertical="12dp"
-        android:elevation="8dp">
-
-        <!-- Emergency -->
-        <LinearLayout
-            android:id="@+id/nav_emergency"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:padding="8dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="?android:attr/selectableItemBackground">
-
             <ImageView
+                android:id="@+id/back_arrow"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_emergency"
-                app:tint="#6B7280"
-                android:layout_marginBottom="4dp" />
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_arrow_back"
+                app:tint="@android:color/black" />
 
             <TextView
+                android:id="@+id/content_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Emergency"
-                android:textColor="#6B7280"
-                android:textSize="12sp" />
+                android:layout_centerInParent="true"
+                android:text="Communication Style"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
-        <!-- Home -->
-        <LinearLayout
-            android:id="@+id/nav_home"
-            android:layout_width="0dp"
+        <!-- Progress Bar -->
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:padding="8dp"
+            android:layout_gravity="center"
+            android:layout_margin="16dp"
+            android:visibility="gone" />
+
+        <!-- Content Description -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="2dp">
+
+            <TextView
+                android:id="@+id/content_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="Communication style information will appear here..."
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- Do's Section -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="✓ Do's"
+                    android:textColor="#4CAF50"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/dos_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:nestedScrollingEnabled="false" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- Don'ts Section -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="✗ Don'ts"
+                    android:textColor="#F44336"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/donts_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:nestedScrollingEnabled="false" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- Examples Section -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="💡 Examples"
+                    android:textColor="#FF9800"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/examples_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:nestedScrollingEnabled="false" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- Save Offline Card -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/save_offline_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
             android:clickable="true"
             android:focusable="true"
-            android:background="?android:attr/selectableItemBackground">
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="2dp">
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_home"
-                app:tint="#3B82F6"
-                android:layout_marginBottom="4dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Home"
-                android:textColor="#3B82F6"
-                android:textSize="12sp"
-                android:fontFamily="sans-serif-medium" />
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="16dp">
 
-        </LinearLayout>
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="8dp"
+                    android:src="@drawable/ic_download"
+                    app:tint="#3B82F6" />
 
-        <!-- Saved -->
-        <LinearLayout
-            android:id="@+id/nav_saved"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:padding="8dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="?android:attr/selectableItemBackground">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Save for Offline Reading"
+                    android:textColor="#3B82F6"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_bookmark"
-                app:tint="#6B7280"
-                android:layout_marginBottom="4dp" />
+            </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Saved"
-                android:textColor="#6B7280"
-                android:textSize="12sp" />
-
-        </LinearLayout>
-
-        <!-- Notifications -->
-        <LinearLayout
-            android:id="@+id/nav_notifications"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:padding="8dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="?android:attr/selectableItemBackground">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_notifications"
-                app:tint="#6B7280"
-                android:layout_marginBottom="4dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Notifications"
-                android:textColor="#6B7280"
-                android:textSize="12sp" />
-
-        </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
     </LinearLayout>
 
-</RelativeLayout>
+</ScrollView>

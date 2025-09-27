@@ -221,7 +221,7 @@
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="14dp"
-                        android:src="@drawable/flag_south_africa"
+                        android:src="@drawable/france"
                         android:layout_marginEnd="8dp" />
 
                     <TextView
