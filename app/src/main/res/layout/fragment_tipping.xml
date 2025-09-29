@@ -1,589 +1,568 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@drawable/gradient_background">
 
-    <!-- Top Navigation Bar -->
-    <LinearLayout
-        android:id="@+id/top_nav"
+    <!-- Enhanced Top Bar -->
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:padding="16dp"
-        android:paddingTop="8dp">
+        app:cardCornerRadius="0dp"
+        app:cardElevation="8dp"
+        app:cardBackgroundColor="@android:color/white">
 
-        <!-- Back Arrow -->
-        <ImageView
-            android:id="@+id/back_arrow"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@drawable/ic_arrow_back"
-            android:background="@drawable/nav_icon_background"
-            android:padding="6dp"
-            android:clickable="true"
-            android:focusable="true"
-            app:tint="@android:color/black" />
-
-        <!-- Tipping Norms Title -->
-        <TextView
-            android:layout_width="0dp"
+        <LinearLayout
+            android:id="@+id/top_nav"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Tipping Norms"
-            android:textColor="@android:color/black"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:gravity="center" />
+            android:orientation="vertical">
 
-        <!-- Empty space for symmetry -->
-        <View
-            android:layout_width="32dp"
-            android:layout_height="32dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="12dp">
 
-    </LinearLayout>
+                <!-- Animated Back Button -->
+                <FrameLayout
+                    android:id="@+id/back_arrow"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/ic_globe"
+                    android:backgroundTint="@color/white"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_arrow_back"
+                        app:tint="#1F2937" />
+                </FrameLayout>
+
+                <!-- Title Section -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginHorizontal="12dp">
+
+                    <TextView
+                        android:id="@+id/content_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tipping Culture"
+                        android:textColor="#111827"
+                        android:textSize="20sp"
+                        android:layout_gravity="center" />
+
+                    <TextView
+                        android:id="@+id/country_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Country"
+                        android:textColor="#6B7280"
+                        android:textSize="18sp"
+                        android:layout_gravity="center" />
+                </LinearLayout>
+
+                <!-- Favorite Button -->
+                <FrameLayout
+                    android:id="@+id/favorite_button"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/ic_globe"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <ImageView
+                        android:id="@+id/favorite_icon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_bookmark"
+                        app:tint="#EF4444" />
+                </FrameLayout>
+            </LinearLayout>
+
+            <!-- Tab Indicators -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingHorizontal="16dp"
+                android:paddingBottom="8dp">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="3dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/ic_globe"
+                    android:backgroundTint="#10B981"
+                    android:layout_marginEnd="8dp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="3dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/ic_globe"
+                    android:backgroundTint="#F59E0B"
+                    android:layout_marginHorizontal="8dp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="3dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/ic_globe"
+                    android:backgroundTint="#3B82F6"
+                    android:layout_marginStart="8dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
     <!-- Main Content Area -->
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/content_scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/top_nav"
-        android:layout_above="@id/bottom_nav"
-        android:fillViewport="true">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:paddingTop="16dp"
+            android:paddingBottom="100dp">
 
-            <!-- Country Banner Card -->
-            <androidx.cardview.widget.CardView
+            <!-- Hero Card with Tipping Calculator -->
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
                 android:layout_marginBottom="16dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp"
-                android:alpha="0.95">
+                app:cardCornerRadius="24dp"
+                app:cardElevation="8dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:padding="16dp">
+                    android:orientation="vertical"
+                    android:background="@drawable/bottom_nav_background"
+                    android:backgroundTint="#990000"
+                    android:padding="24dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="South Africa"
-                        android:textColor="@android:color/black"
-                        android:textSize="16sp"
-                        android:fontFamily="sans-serif-medium" />
+                        android:text="💰 Quick Tip Calculator"
+                        android:textColor="@android:color/white"
+                        android:textSize="22sp"
+                        android:layout_marginBottom="16dp" />
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="16dp"
-                        android:layout_marginStart="8dp"
-                        android:src="@drawable/france" />
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Enter bill amount"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                        android:layout_marginBottom="12dp">
 
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/bill_input"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:inputType="numberDecimal"
+                            android:singleLine="true" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/tip_result"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Tip: R0.00      |     Total: R0.00"
+                        android:textColor="@android:color/white"
+                        android:textSize="19sp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/tip_10"
+                            style="@style/Widget.Material3.Button.TonalButton"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_weight="1"
+                            android:text="10%"
+                            android:textColor="#1F2937"
+                            android:backgroundTint="#F3F4F6"
+                            app:cornerRadius="12dp"
+                            android:layout_marginEnd="8dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/tip_15"
+                            style="@style/Widget.Material3.Button.TonalButton"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_weight="1"
+                            android:text="15%"
+                            android:textColor="#1F2937"
+                            android:backgroundTint="#F3F4F6"
+                            app:cornerRadius="12dp"
+                            android:layout_marginHorizontal="8dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/tip_20"
+                            style="@style/Widget.Material3.Button.TonalButton"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_weight="1"
+                            android:text="20%"
+                            android:textColor="#1F2937"
+                            android:backgroundTint="#F3F4F6"
+                            app:cornerRadius="12dp"
+                            android:layout_marginStart="8dp" />
+                    </LinearLayout>
                 </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-            </androidx.cardview.widget.CardView>
-
-            <!-- Save for Offline Button -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/save_offline_card"
+            <!-- Action Buttons Row -->
+            <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp"
-                android:alpha="0.95"
+                android:scrollbars="none"
+                android:layout_marginBottom="20dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="16dp">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/save_offline_chip"
+                        style="@style/Widget.Material3.Chip.Assist"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Save Offline"
+                        app:chipIcon="@drawable/ic_download"
+                        app:chipIconTint="#6366F1"
+                        app:chipBackgroundColor="#EEF2FF"
+                        app:chipStrokeColor="#6366F1"
+                        app:chipStrokeWidth="1dp"
+                        android:layout_marginEnd="8dp" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/share_chip"
+                        style="@style/Widget.Material3.Chip.Assist"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Share"
+                        app:chipIcon="@drawable/ic_export"
+                        app:chipIconTint="#10B981"
+                        app:chipBackgroundColor="#F0FDF4"
+                        app:chipStrokeColor="#10B981"
+                        app:chipStrokeWidth="1dp"
+                        android:layout_marginEnd="8dp" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/translate_chip"
+                        style="@style/Widget.Material3.Chip.Assist"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Translate"
+                        app:chipIcon="@drawable/ic_search"
+                        app:chipIconTint="#F59E0B"
+                        app:chipBackgroundColor="#FEF3C7"
+                        app:chipStrokeColor="#F59E0B"
+                        app:chipStrokeWidth="1dp" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <!-- Content Description Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginBottom="20dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="#E5E7EB">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="12dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_itinerary"
+                            app:tint="#6366F1"
+                            android:layout_marginEnd="8dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tipping Guidelines"
+                            android:textColor="#1F2937"
+                            android:textSize="16sp"
+                            />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/content_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Loading tipping information..."
+                        android:textColor="#4B5563"
+                        android:textSize="14sp"
+                        android:lineSpacingExtra="6dp"
+                         />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Do's Section with Icons -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="When to Tip"
+                android:textColor="#059669"
+                android:textSize="17sp"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="12dp"
+                android:drawableStart="@drawable/ic_globe"
+                android:drawablePadding="8dp"
+                app:drawableTint="#059669" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/dos_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginBottom="20dp"
+                android:nestedScrollingEnabled="false" />
+
+            <!-- Don'ts Section with Icons -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="When Not to Tip"
+                android:textColor="#DC2626"
+                android:textSize="17sp"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="12dp"
+                android:drawableStart="@drawable/ic_globe"
+                android:drawablePadding="8dp"
+                app:drawableTint="#DC2626" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/donts_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginBottom="20dp"
+                android:nestedScrollingEnabled="false" />
+
+            <!-- Examples Section with Icons -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tipping Scenarios"
+                android:textColor="#1E40AF"
+                android:textSize="17sp"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="12dp"
+                android:drawableStart="@drawable/ic_light_mode"
+                android:drawablePadding="8dp"
+                app:drawableTint="#3B82F6" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/examples_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:nestedScrollingEnabled="false" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Progress Indicator -->
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminateTint="#6366F1"
+        android:visibility="gone" />
+
+    <!-- Modern Bottom Navigation Card -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/bottom_navigation_card"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="12dp">
+
+        <LinearLayout
+            android:id="@+id/bottom_nav"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:orientation="horizontal"
+            android:background="@drawable/bottom_nav_gradient"
+            android:paddingHorizontal="8dp">
+
+            <!-- Emergency -->
+            <LinearLayout
+                android:id="@+id/nav_emergency"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
                 android:clickable="true"
                 android:focusable="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                app:cardBackgroundColor="#3B82F6">
+                android:background="?android:attr/selectableItemBackgroundBorderless">
 
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_emergency"
+                    app:tint="#DC3545" />
 
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:padding="16dp">
+                    android:text="SOS"
+                    android:textColor="#DC3545"
+                    android:textSize="15sp"
+                    android:layout_marginTop="4dp" />
+            </LinearLayout>
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_download"
-                        android:layout_marginEnd="8dp"
-                        app:tint="@android:color/white" />
+            <!-- Home -->
+            <LinearLayout
+                android:id="@+id/nav_home"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?android:attr/selectableItemBackgroundBorderless">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Save for Offline Viewing"
-                        android:textColor="@android:color/white"
-                        android:textSize="14sp"
-                        android:fontFamily="sans-serif-medium" />
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_home"
+                    app:tint="#6366F1" />
 
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <!-- Introduction Card -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp"
-                android:alpha="0.95">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp">
+                    android:text="Home"
+                    android:textColor="#6366F1"
+                    android:textSize="15sp"
+                    android:layout_marginTop="4dp" />
+            </LinearLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="💰 Tipping Etiquette"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="12dp" />
+            <!-- Saved -->
+            <LinearLayout
+                android:id="@+id/nav_saved"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?android:attr/selectableItemBackgroundBorderless">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Tipping is a well-established custom in South Africa, especially in the hospitality and service industries. While not always mandatory, it is expected in many situations as a gesture of appreciation for good service. The amounts vary depending on the service type and setting."
-                        android:textColor="#374151"
-                        android:textSize="14sp"
-                        android:lineSpacingExtra="4dp" />
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_bookmark"
+                    app:tint="#45818e" />
 
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <!-- Restaurants Section Card -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp"
-                android:alpha="0.95">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp">
+                    android:text="Saved"
+                    android:textColor="#45818e"
+                    android:textSize="15sp"
+                    android:layout_marginTop="4dp" />
+            </LinearLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Restaurants Section:"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="16dp" />
+            <!-- Profile -->
+            <LinearLayout
+                android:id="@+id/nav_profile"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?android:attr/selectableItemBackgroundBorderless">
 
-                    <!-- Sit-down restaurants tip -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginBottom="12dp">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_shield"
+                    app:tint="#9CA3AF" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="🍽️"
-                            android:textSize="20sp"
-                            android:layout_marginEnd="12dp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="It is customary to leave a tip of 10% - 15% of the bill in sit-down restaurants."
-                            android:textColor="#374151"
-                            android:textSize="14sp"
-                            android:lineSpacingExtra="2dp" />
-
-                    </LinearLayout>
-
-                    <!-- Takeaway tip -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="🥡"
-                            android:textSize="20sp"
-                            android:layout_marginEnd="12dp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="For takeaway orders, a small cash tip of R10 - R20 is common, depending on distance and service quality."
-                            android:textColor="#374151"
-                            android:textSize="14sp"
-                            android:lineSpacingExtra="2dp" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <!-- Hotels Section Card -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp"
-                android:alpha="0.95">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Hotels Section:"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="16dp" />
-
-                    <!-- Porters tip -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginBottom="12dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="🛎️"
-                            android:textSize="20sp"
-                            android:layout_marginEnd="12dp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Tip porters R10 - R20 per bag for carrying luggage."
-                            android:textColor="#374151"
-                            android:textSize="14sp"
-                            android:lineSpacingExtra="2dp" />
-
-                    </LinearLayout>
-
-                    <!-- Housekeeping tip -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginBottom="12dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="🧹"
-                            android:textSize="20sp"
-                            android:layout_marginEnd="12dp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="For housekeeping, leave R20 - R50 for longer stays or at the end of your visit."
-                            android:textColor="#374151"
-                            android:textSize="14sp"
-                            android:lineSpacingExtra="2dp" />
-
-                    </LinearLayout>
-
-                    <!-- Taxi/Transport section -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginBottom="12dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="🚗"
-                            android:textSize="20sp"
-                            android:layout_marginEnd="12dp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="In metered taxis or ride-hailing services, rounding up the fare by approximately 10% is standard."
-                            android:textColor="#374151"
-                            android:textSize="14sp"
-                            android:lineSpacingExtra="2dp" />
-
-                    </LinearLayout>
-
-                    <!-- Minibus taxis -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="ℹ️"
-                            android:textSize="20sp"
-                            android:layout_marginEnd="12dp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="In informal minibus taxis, tipping is not expected unless extra assistance is provided with luggage."
-                            android:textColor="#374151"
-                            android:textSize="14sp"
-                            android:lineSpacingExtra="2dp" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <!-- Other Services Section Card -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp"
-                android:alpha="0.95">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Other Services Section:"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="16dp" />
-
-                    <!-- Hairdressers/barbers tip -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginBottom="12dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="💇"
-                            android:textSize="20sp"
-                            android:layout_marginEnd="12dp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Tip hairdressers or barbers about 10% of the service cost."
-                            android:textColor="#374151"
-                            android:textSize="14sp"
-                            android:lineSpacingExtra="2dp" />
-
-                    </LinearLayout>
-
-                    <!-- Tradespeople tip -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="🔧"
-                            android:textSize="20sp"
-                            android:layout_marginEnd="12dp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="For tradesperson or home repair services, a small cash tip is appreciated but not always expected."
-                            android:textColor="#374151"
-                            android:textSize="14sp"
-                            android:lineSpacingExtra="2dp" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
+                    android:text="Profile"
+                    android:textColor="#9CA3AF"
+                    android:textSize="11sp"
+                    android:layout_marginTop="4dp" />
+            </LinearLayout>
 
         </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
-    </ScrollView>
-
-    <!-- Bottom Navigation Bar -->
-    <LinearLayout
-        android:id="@+id/bottom_nav"
+    <!-- Back to Home Button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/back_to_home_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/bottom_nav_background"
-        android:orientation="horizontal"
-        android:paddingVertical="12dp"
-        android:elevation="8dp">
+        android:layout_gravity="bottom"
+        android:layout_marginTop="10dp"
+        android:layout_margin="16dp"
+        android:text="Back to Home"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        android:textColor="@android:color/white"
+        app:cornerRadius="28dp"
+        app:icon="@drawable/ic_home"
+        app:iconTint="@android:color/white"
+        app:iconPadding="12dp"
+        app:backgroundTint="#b45f06"
+        app:rippleColor="#6366F1" />
 
-        <!-- Emergency -->
-        <LinearLayout
-            android:id="@+id/nav_emergency"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:padding="8dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="?android:attr/selectableItemBackground">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_emergency"
-                app:tint="#6B7280"
-                android:layout_marginBottom="4dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Emergency"
-                android:textColor="#6B7280"
-                android:textSize="12sp" />
-
-        </LinearLayout>
-
-        <!-- Home -->
-        <LinearLayout
-            android:id="@+id/nav_home"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:padding="8dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="?android:attr/selectableItemBackground">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_home"
-                app:tint="#3B82F6"
-                android:layout_marginBottom="4dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Home"
-                android:textColor="#3B82F6"
-                android:textSize="12sp"
-                android:fontFamily="sans-serif-medium" />
-
-        </LinearLayout>
-
-        <!-- Saved -->
-        <LinearLayout
-            android:id="@+id/nav_saved"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:padding="8dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="?android:attr/selectableItemBackground">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_bookmark"
-                app:tint="#6B7280"
-                android:layout_marginBottom="4dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Saved"
-                android:textColor="#6B7280"
-                android:textSize="12sp" />
-
-        </LinearLayout>
-
-        <!-- Notifications -->
-        <LinearLayout
-            android:id="@+id/nav_notifications"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:padding="8dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="?android:attr/selectableItemBackground">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_notifications"
-                app:tint="#6B7280"
-                android:layout_marginBottom="4dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Notifications"
-                android:textColor="#6B7280"
-                android:textSize="12sp" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-</RelativeLayout>
+</LinearLayout>

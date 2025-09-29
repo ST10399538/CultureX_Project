@@ -68,4 +68,8 @@ dependencies {
     // Fragment KTX
     implementation("androidx.fragment:fragment-ktx:1.6.2")
 
+
+    // ADD THIS: Biometric authentication
+    implementation("androidx.biometric:biometric:1.1.0")
 }
+

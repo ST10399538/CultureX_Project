@@ -3,7 +3,6 @@ package com.example.culturex.data.models
 import com.google.gson.annotations.SerializedName
 
 class AuthModels {
-
     data class LoginDTO(
         val email: String,
         val password: String
@@ -13,7 +12,7 @@ class AuthModels {
         val email: String,
         val password: String,
         val displayName: String,
-        val preferredLanguage: String? = null
+        val preferredLanguage: String? = "en"
     )
 
     data class AuthResponseDTO(

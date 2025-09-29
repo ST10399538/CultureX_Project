@@ -12,7 +12,7 @@ class CountryModels {
         val description: String?,
         val timezone: String?,
         val currency: String?,
-        val emergencyContacts: Any? = null
+        val emergencyContacts: Any?
     )
 
     data class CulturalCategoryDTO(

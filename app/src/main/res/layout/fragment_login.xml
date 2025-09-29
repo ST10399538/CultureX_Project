@@ -30,7 +30,6 @@
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:fontFamily="sans-serif-medium" />
-
     </LinearLayout>
 
     <!-- Discover text overlay on image -->
@@ -115,9 +114,7 @@
                     android:hint="E-mail"
                     android:inputType="textEmailAddress"
                     android:padding="17dp"
-                    android:text="admin"
                     android:textSize="17sp" />
-
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Password input -->
@@ -141,9 +138,7 @@
                     android:hint="Password"
                     android:inputType="textPassword"
                     android:padding="16dp"
-                    android:text="admin"
                     android:textSize="16sp" />
-
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Forgot password link -->
@@ -198,10 +193,9 @@
                     android:layout_height="1dp"
                     android:layout_weight="1"
                     android:background="#E5E7EB" />
-
             </LinearLayout>
 
-            <!-- Social login buttons -->
+            <!-- Social login buttons and fingerprint -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -241,10 +235,42 @@
                     android:src="@drawable/ic_facebook"
                     android:background="@drawable/social_button_background"
                     android:padding="12dp"
+                    android:layout_marginEnd="16dp"
                     android:clickable="true"
                     android:focusable="true" />
 
+                <!-- Fingerprint container -->
+                <FrameLayout
+                    android:id="@+id/fingerprint_container"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:background="@drawable/social_button_background"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <ImageView
+                        android:id="@+id/fingerprint_icon"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center"
+                        android:src="@android:drawable/ic_secure"
+                        android:contentDescription="Fingerprint Login"
+                        android:scaleType="fitCenter"
+                        app:tint="#4CAF50" />
+                </FrameLayout>
             </LinearLayout>
+
+            <!-- Fingerprint login text -->
+            <TextView
+                android:id="@+id/fingerprint_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Use fingerprint to login"
+                android:textColor="#6B7280"
+                android:textSize="12sp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="16dp"
+                android:visibility="gone" />
 
             <!-- Sign up text -->
             <LinearLayout
@@ -269,11 +295,7 @@
                     android:textSize="14sp"
                     android:fontFamily="sans-serif-medium"
                     android:padding="4dp" />
-
             </LinearLayout>
-
         </LinearLayout>
-
     </androidx.cardview.widget.CardView>
-
 </RelativeLayout>

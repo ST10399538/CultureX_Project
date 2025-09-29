@@ -1,0 +1,182 @@
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="4dp"
+    android:clickable="true"
+    android:focusable="true"
+    app:rippleColor="#6366F1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <!-- Language Title -->
+        <TextView
+            android:id="@+id/language_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1. Language Name"
+            android:textColor="#1F2937"
+            android:textSize="18sp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Greeting Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="32dp"
+                android:layout_height="wrap_content"
+                android:text="👋"
+                android:textSize="20sp"
+                android:layout_marginEnd="12dp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Greeting (Hello):"
+                    android:textColor="#6B7280"
+                    android:textSize="12sp"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:id="@+id/greeting_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sawubona"
+                    android:textColor="#111827"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="2dp" />
+
+                <TextView
+                    android:id="@+id/greeting_translation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="(I see you)"
+                    android:textColor="#6B7280"
+                    android:textSize="13sp"
+                     />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/play_greeting_audio"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/ic_dark_mode"
+                android:padding="4dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:tint="#6366F1" />
+
+        </LinearLayout>
+
+        <!-- Goodbye Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="12dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="32dp"
+                android:layout_height="wrap_content"
+                android:text="👋"
+                android:textSize="20sp"
+                android:layout_marginEnd="12dp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Goodbye:"
+                    android:textColor="#6B7280"
+                    android:textSize="12sp"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:id="@+id/goodbye_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hamba kahle"
+                    android:textColor="#111827"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="2dp" />
+
+                <TextView
+                    android:id="@+id/goodbye_translation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="(Go well)"
+                    android:textColor="#6B7280"
+                    android:textSize="13sp"
+                    />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/play_goodbye_audio"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/ic_fire"
+                android:padding="4dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:tint="#6366F1" />
+
+        </LinearLayout>
+
+        <!-- Pronunciation Hint -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/bottom_nav_background"
+            android:backgroundTint="#F3F4F6"
+            android:padding="12dp"
+            android:visibility="visible">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/ic_globe"
+                app:tint="#6366F1"
+                android:layout_marginEnd="8dp"
+                android:layout_gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/pronunciation_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pronunciation: sah-woo-BOH-nah"
+                android:textColor="#4B5563"
+                android:textSize="12sp"
+                 />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
