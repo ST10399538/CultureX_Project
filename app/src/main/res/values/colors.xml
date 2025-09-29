@@ -64,4 +64,8 @@
         <color name="button_normal">#DC3545</color>
         <color name="button_border">#C82333</color>
 
+    <color name="onboard_orange">#E06E4A</color>
+    <color name="button_background">#5EB7FB</color>
+
+
 </resources>

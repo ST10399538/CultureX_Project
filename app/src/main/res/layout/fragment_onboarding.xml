@@ -1,39 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="32dp"
-    android:background="@android:color/white">
+    android:background="#F5E6D3"
+    android:fillViewport="true">
 
-    <TextView
-        android:id="@+id/onboarding_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Welcome to the App!"
-        android:textSize="24sp"
-        android:textColor="@android:color/black"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="120dp" />
-
-    <TextView
-        android:id="@+id/onboarding_subtitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Swipe through to learn more or click Next to continue"
-        android:textSize="16sp"
-        android:textColor="#6B7280"
-        android:layout_below="@id/onboarding_title"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp" />
-
-    <Button
-        android:id="@+id/continue_button"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:text="Next"
-        android:textColor="@android:color/white"
-        android:background="@color/red"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="32dp"/>
+        android:layout_height="wrap_content"
+        android:padding="16dp">
 
-</RelativeLayout>
+        <!-- Orange header banner -->
+        <TextView
+            android:id="@+id/header_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Onboarding"
+            android:textSize="42sp"
+            android:textColor="@android:color/black"
+            android:background="#FFB366"
+            android:padding="20dp"
+            android:gravity="center"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="sans-serif-medium"/>
+
+        <!-- Top image (Japanese temple scene) - larger portion -->
+        <ImageView
+            android:id="@+id/top_image"
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
+            android:layout_below="@id/header_title"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/c2" />
+
+        <!-- Description text overlay - positioned over bottom part of top image -->
+        <TextView
+            android:id="@+id/onboarding_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/top_image"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="-140dp"
+            android:layout_marginEnd="8dp"
+            android:background="#E6D4C0B0"
+            android:lineSpacingExtra="3dp"
+            android:padding="24dp"
+            android:text="Welcome to CultureX:\nYour personal safety and wellness companion. SafeSpaces helps you stay secure and grounded wherever you are — with biometric-protected journaling, nearby safe zone maps, emergency contact access, daily wellness tips, and multilingual support. Whether you're navigating new environments or managing your day-to-day well-being, SafeSpaces is here to support you"
+            android:textColor="@android:color/black"
+            android:textSize="14sp" />
+
+        <!-- Bottom image (cultural portraits) - smaller portion -->
+        <ImageView
+            android:id="@+id/bottom_image"
+            android:layout_width="match_parent"
+            android:layout_height="290dp"
+            android:layout_below="@id/onboarding_description"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/c1" />
+
+        <!-- Continue button -->
+        <Button
+            android:id="@+id/continue_button"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_below="@id/bottom_image"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
+            android:text="Continue"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textAllCaps="false"
+            android:background="@drawable/button_background"
+            android:elevation="4dp"/>
+
+    </RelativeLayout>
+</ScrollView>
