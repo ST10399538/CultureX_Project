@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.util.Log
 
 class SharedPreferencesManager(context: Context) {
+
     companion object {
         private const val PREF_NAME = "culturex_prefs"
         private const val KEY_ACCESS_TOKEN = "access_token"
@@ -16,6 +17,7 @@ class SharedPreferencesManager(context: Context) {
         private const val KEY_PROFILE_PICTURE_URL = "profile_picture_url"
         private const val KEY_PREFERRED_LANGUAGE = "preferred_language"
         private const val KEY_BIOMETRIC_ENABLED = "biometric_enabled"
+        private const val KEY_PHONE_NUMBER = "phone_number" // NEW
     }
 
     private val sharedPreferences: SharedPreferences =
@@ -29,10 +31,10 @@ class SharedPreferencesManager(context: Context) {
         displayName: String?,
         profilePictureUrl: String? = null,
         preferredLanguage: String? = null,
-        biometricEnabled: Boolean = false
+        biometricEnabled: Boolean = false,
+        phoneNumber: String? = null // NEW
     ) {
         Log.d("SharedPreferencesManager", "Saving auth data for user: $email")
-
         with(sharedPreferences.edit()) {
             putString(KEY_ACCESS_TOKEN, accessToken)
             putString(KEY_REFRESH_TOKEN, refreshToken)
@@ -42,10 +44,10 @@ class SharedPreferencesManager(context: Context) {
             putString(KEY_PROFILE_PICTURE_URL, profilePictureUrl)
             putString(KEY_PREFERRED_LANGUAGE, preferredLanguage)
             putBoolean(KEY_BIOMETRIC_ENABLED, biometricEnabled)
+            putString(KEY_PHONE_NUMBER, phoneNumber) // NEW
             putBoolean(KEY_IS_LOGGED_IN, true)
             apply()
         }
-
         Log.d("SharedPreferencesManager", "Auth data saved successfully")
     }
 
@@ -81,25 +83,29 @@ class SharedPreferencesManager(context: Context) {
         return sharedPreferences.getBoolean(KEY_BIOMETRIC_ENABLED, false)
     }
 
+    fun getPhoneNumber(): String? { // NEW
+        return sharedPreferences.getString(KEY_PHONE_NUMBER, null)
+    }
+
     fun isLoggedIn(): Boolean {
         val isLoggedIn = sharedPreferences.getBoolean(KEY_IS_LOGGED_IN, false)
         val hasAccessToken = getAccessToken() != null
         val result = isLoggedIn && hasAccessToken
-
         Log.d("SharedPreferencesManager", "Checking login status: isLoggedIn=$isLoggedIn, hasToken=$hasAccessToken, result=$result")
-
         return result
     }
 
     fun updateUserProfile(
         displayName: String?,
         profilePictureUrl: String? = null,
-        preferredLanguage: String? = null
+        preferredLanguage: String? = null,
+        phoneNumber: String? = null // NEW
     ) {
         with(sharedPreferences.edit()) {
             displayName?.let { putString(KEY_DISPLAY_NAME, it) }
             profilePictureUrl?.let { putString(KEY_PROFILE_PICTURE_URL, it) }
             preferredLanguage?.let { putString(KEY_PREFERRED_LANGUAGE, it) }
+            phoneNumber?.let { putString(KEY_PHONE_NUMBER, it) } // NEW
             apply()
         }
     }
@@ -113,7 +119,6 @@ class SharedPreferencesManager(context: Context) {
 
     fun clearAuthData() {
         Log.d("SharedPreferencesManager", "Clearing auth data")
-
         with(sharedPreferences.edit()) {
             remove(KEY_ACCESS_TOKEN)
             remove(KEY_REFRESH_TOKEN)
@@ -123,10 +128,10 @@ class SharedPreferencesManager(context: Context) {
             remove(KEY_PROFILE_PICTURE_URL)
             remove(KEY_PREFERRED_LANGUAGE)
             remove(KEY_BIOMETRIC_ENABLED)
+            remove(KEY_PHONE_NUMBER) // NEW
             putBoolean(KEY_IS_LOGGED_IN, false)
             apply()
         }
-
         Log.d("SharedPreferencesManager", "Auth data cleared")
     }
 
@@ -134,14 +139,12 @@ class SharedPreferencesManager(context: Context) {
         clearAuthData()
     }
 
-    // Helper method to check if user data is complete
     fun hasCompleteUserData(): Boolean {
         return !getEmail().isNullOrEmpty() &&
                 !getDisplayName().isNullOrEmpty() &&
                 !getUserId().isNullOrEmpty()
     }
 
-    // Debug method to log current state
     fun logCurrentState() {
         Log.d("SharedPreferencesManager", """
             Current auth state:
@@ -150,6 +153,7 @@ class SharedPreferencesManager(context: Context) {
             - User ID: ${getUserId()}
             - Email: ${getEmail()}
             - Display name: ${getDisplayName()}
+            - Phone number: ${getPhoneNumber()}
             - Preferred language: ${getPreferredLanguage()}
             - Biometric enabled: ${isBiometricEnabled()}
         """.trimIndent())

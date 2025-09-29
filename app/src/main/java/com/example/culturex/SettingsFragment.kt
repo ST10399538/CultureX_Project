@@ -2,6 +2,7 @@ package com.example.culturex
 
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import android.widget.Switch
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -21,18 +22,29 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         sharedPrefsManager = SharedPreferencesManager(requireContext())
         biometricHelper = BiometricHelper(this)
 
-        setupBiometricToggle()
-        setupLanguageOptions()
-        setupOtherSettings()
+        setupBackButton(view)
+        setupBiometricToggle(view)
+        setupLanguageOptions(view)
+        setupOtherSettings(view)
     }
 
-    private fun setupBiometricToggle() {
-        val biometricSwitch = view?.findViewById<Switch>(R.id.biometric_switch)
+    private fun setupBackButton(view: View) {
+        val backArrow = view.findViewById<ImageView>(R.id.back_arrow)
+        backArrow.setOnClickListener {
+            try {
+                findNavController().navigateUp()
+            } catch (e: Exception) {
+                Log.e("SettingsFragment", "Back navigation failed", e)
+                activity?.onBackPressed()
+            }
+        }
+    }
 
-        // Set initial state
+    private fun setupBiometricToggle(view: View) {
+        val biometricSwitch = view.findViewById<Switch>(R.id.biometric_switch)
+
         biometricSwitch?.isChecked = sharedPrefsManager.isBiometricEnabled()
 
-        // Enable/disable based on device capability
         if (!biometricHelper.isBiometricAvailable()) {
             biometricSwitch?.isEnabled = false
             Log.d("SettingsFragment", "Biometric not available: ${biometricHelper.getBiometricStatusMessage()}")
@@ -43,17 +55,14 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
         biometricSwitch?.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked && biometricHelper.isBiometricAvailable()) {
-                // Enable biometric login
                 sharedPrefsManager.setBiometricEnabled(true)
                 Toast.makeText(requireContext(), "Biometric login enabled", Toast.LENGTH_SHORT).show()
                 Log.d("SettingsFragment", "Biometric login enabled")
             } else if (isChecked && !biometricHelper.isBiometricAvailable()) {
-                // Device doesn't support biometric
                 biometricSwitch.isChecked = false
                 Toast.makeText(requireContext(), biometricHelper.getBiometricStatusMessage(), Toast.LENGTH_LONG).show()
                 Log.w("SettingsFragment", "Attempted to enable biometric but not available")
             } else {
-                // Disable biometric login
                 sharedPrefsManager.setBiometricEnabled(false)
                 Toast.makeText(requireContext(), "Biometric login disabled", Toast.LENGTH_SHORT).show()
                 Log.d("SettingsFragment", "Biometric login disabled")
@@ -61,12 +70,11 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         }
     }
 
-    private fun setupLanguageOptions() {
-        val languageCard = view?.findViewById<View>(R.id.language_card)
-        val languageOptions = view?.findViewById<View>(R.id.language_options)
+    private fun setupLanguageOptions(view: View) {
+        val languageCard = view.findViewById<View>(R.id.language_card)
+        val languageOptions = view.findViewById<View>(R.id.language_options)
 
         languageCard?.setOnClickListener {
-            // Toggle language options visibility
             if (languageOptions?.visibility == View.VISIBLE) {
                 languageOptions.visibility = View.GONE
             } else {
@@ -74,20 +82,15 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
             }
         }
 
-        // Set up language selection
         languageOptions?.visibility = View.GONE
     }
 
-    private fun setupOtherSettings() {
-        // Notifications toggle
-        val notificationsSwitch = view?.findViewById<Switch>(R.id.notifications_switch)
+    private fun setupOtherSettings(view: View) {
+        val notificationsSwitch = view.findViewById<Switch>(R.id.notifications_switch)
         notificationsSwitch?.setOnCheckedChangeListener { _, isChecked ->
             Toast.makeText(requireContext(),
                 if (isChecked) "Notifications enabled" else "Notifications disabled",
                 Toast.LENGTH_SHORT).show()
         }
-
-        // Only set up click listeners for views that exist in your layout
-        // Remove references to export_data_card and theme_card since they don't exist
     }
 }

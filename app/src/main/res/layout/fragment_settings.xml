@@ -6,23 +6,41 @@
     android:orientation="vertical"
     android:background="@drawable/gradient_peach_background">
 
-    <!-- Header Section -->
+    <!-- Header Section with Back Button -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
         android:paddingTop="40dp"
-        android:paddingBottom="24dp">
+        android:paddingHorizontal="16dp"
+        android:paddingBottom="16dp">
+
+        <ImageView
+            android:id="@+id/back_arrow"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_arrow_back"
+            app:tint="@android:color/black"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:padding="4dp" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="Settings"
             android:textColor="@android:color/black"
             android:textSize="18sp"
-            android:fontFamily="sans-serif-medium" />
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center" />
 
+        <!-- Empty space for symmetry -->
+        <View
+            android:layout_width="24dp"
+            android:layout_height="24dp" />
     </LinearLayout>
 
     <!-- Settings Options -->
@@ -68,9 +86,7 @@
                         android:checked="true"
                         android:thumbTint="@android:color/white"
                         android:trackTint="#4CAF50" />
-
                 </LinearLayout>
-
             </androidx.cardview.widget.CardView>
 
             <!-- Language Dropdown -->
@@ -106,9 +122,7 @@
                         android:layout_height="24dp"
                         android:src="@drawable/ic_arrow_drop_down"
                         app:tint="#6B7280" />
-
                 </LinearLayout>
-
             </androidx.cardview.widget.CardView>
 
             <!-- Language Options (initially hidden) -->
@@ -149,9 +163,7 @@
                             android:text="English"
                             android:textColor="@android:color/black"
                             android:textSize="14sp" />
-
                     </LinearLayout>
-
                 </androidx.cardview.widget.CardView>
 
                 <!-- Afrikaans Option -->
@@ -183,9 +195,7 @@
                             android:text="Afrikaans"
                             android:textColor="@android:color/black"
                             android:textSize="14sp" />
-
                     </LinearLayout>
-
                 </androidx.cardview.widget.CardView>
 
                 <!-- Zulu Option -->
@@ -217,9 +227,7 @@
                             android:text="Zulu"
                             android:textColor="@android:color/black"
                             android:textSize="14sp" />
-
                     </LinearLayout>
-
                 </androidx.cardview.widget.CardView>
 
                 <!-- French Option -->
@@ -251,11 +259,8 @@
                             android:text="French"
                             android:textColor="@android:color/black"
                             android:textSize="14sp" />
-
                     </LinearLayout>
-
                 </androidx.cardview.widget.CardView>
-
             </LinearLayout>
 
             <!-- Theme (Light/Dark Mode) -->
@@ -300,11 +305,8 @@
                             android:layout_height="24dp"
                             android:src="@drawable/ic_dark_mode"
                             app:tint="#6B7280" />
-
                     </LinearLayout>
-
                 </LinearLayout>
-
             </androidx.cardview.widget.CardView>
 
             <!-- Notifications -->
@@ -338,50 +340,9 @@
                         android:checked="true"
                         android:thumbTint="@android:color/white"
                         android:trackTint="#4CAF50" />
-
                 </LinearLayout>
-
             </androidx.cardview.widget.CardView>
-
-            <!-- Export Saved Data -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp"
-                app:cardBackgroundColor="@android:color/white"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?android:attr/selectableItemBackground">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Export Saved Data"
-                        android:textColor="@android:color/black"
-                        android:textSize="16sp" />
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_export"
-                        app:tint="#6B7280" />
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
         </LinearLayout>
-
     </ScrollView>
 
     <!-- Bottom Section with Flags -->
@@ -392,9 +353,5 @@
         android:scaleType="centerCrop"
         android:gravity="center"
         android:orientation="vertical">
-
-        <!-- This will be an image background showing the crowd with flags -->
-
     </LinearLayout>
-
 </LinearLayout>

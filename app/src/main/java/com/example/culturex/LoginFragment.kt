@@ -16,6 +16,7 @@ import com.google.android.material.textfield.TextInputEditText
 import android.util.Log
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
+
     private lateinit var emailInput: TextInputEditText
     private lateinit var passwordInput: TextInputEditText
     private lateinit var loginButton: Button
@@ -24,6 +25,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private lateinit var fingerprintContainer: View
     private lateinit var fingerprintIcon: ImageView
     private lateinit var fingerprintText: TextView
+
     private lateinit var sharedPrefsManager: SharedPreferencesManager
     private lateinit var biometricHelper: BiometricHelper
     private val authViewModel: AuthViewModel by viewModels()
@@ -55,16 +57,14 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         biometricHelper.setAuthListener(object : BiometricHelper.BiometricAuthListener {
             override fun onAuthenticationSucceeded() {
                 Log.d("LoginFragment", "Biometric authentication succeeded")
-
-                // Get saved credentials for automatic login
                 val savedEmail = sharedPrefsManager.getEmail()
                 val savedUserId = sharedPrefsManager.getUserId()
 
                 if (!savedEmail.isNullOrEmpty() && !savedUserId.isNullOrEmpty()) {
-                    // User has previous login data, proceed with biometric login
                     handleBiometricLogin()
                 } else {
-                    Toast.makeText(requireContext(), "No saved credentials found. Please login with email and password first.", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), "No saved credentials found. Please login with email and password first.",
+                        Toast.LENGTH_LONG).show()
                 }
             }
 
@@ -74,10 +74,9 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
             override fun onAuthenticationError(errorCode: Int, errorMessage: String) {
                 Log.e("LoginFragment", "Biometric error: $errorCode - $errorMessage")
-
                 when (errorCode) {
                     androidx.biometric.BiometricPrompt.ERROR_USER_CANCELED -> {
-                        // User canceled, don't show error message
+                        // User canceled, just show a message
                     }
                     androidx.biometric.BiometricPrompt.ERROR_NEGATIVE_BUTTON -> {
                         Toast.makeText(requireContext(), "Please login with email and password", Toast.LENGTH_SHORT).show()
@@ -89,7 +88,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             }
         })
 
-        // Show/hide fingerprint option based on availability and saved credentials
         updateFingerprintVisibility()
     }
 
@@ -102,12 +100,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             fingerprintContainer.visibility = View.VISIBLE
             fingerprintText.visibility = View.VISIBLE
             fingerprintText.text = "Tap fingerprint to login as ${sharedPrefsManager.getEmail()}"
-        } else if (isBiometricAvailable && !hasSavedCredentials) {
-            fingerprintContainer.visibility = View.GONE
-            fingerprintText.visibility = View.GONE
-        } else if (!isBiometricAvailable) {
-            fingerprintContainer.visibility = View.GONE
-            fingerprintText.visibility = View.GONE
         } else {
             fingerprintContainer.visibility = View.GONE
             fingerprintText.visibility = View.GONE
@@ -115,7 +107,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun handleBiometricLogin() {
-        // Simulate successful biometric login by restoring saved auth data
         val savedEmail = sharedPrefsManager.getEmail()
         val savedUserId = sharedPrefsManager.getUserId()
         val savedDisplayName = sharedPrefsManager.getDisplayName()
@@ -123,7 +114,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         if (!savedEmail.isNullOrEmpty() && !savedUserId.isNullOrEmpty()) {
             Toast.makeText(requireContext(), "Welcome back, ${savedDisplayName ?: savedEmail}!", Toast.LENGTH_SHORT).show()
 
-            // Navigate to main fragment
             try {
                 findNavController().navigate(R.id.mainFragment)
             } catch (e: Exception) {
@@ -142,29 +132,31 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                     onSuccess = { authResponse ->
                         Log.d("LoginFragment", "Login successful, saving auth data")
 
+                        // Preserve existing phone number if it exists
+                        val existingPhone = sharedPrefsManager.getPhoneNumber()
+
                         // Save auth data
                         sharedPrefsManager.saveAuthData(
                             accessToken = authResponse.accessToken,
                             refreshToken = authResponse.refreshToken,
                             userId = authResponse.user?.id,
                             email = authResponse.user?.email,
-                            displayName = authResponse.user?.displayName
+                            displayName = authResponse.user?.displayName,
+                            phoneNumber = existingPhone // Preserve phone number
                         )
 
-                        // Enable biometric login if available
                         if (biometricHelper.isBiometricAvailable()) {
                             sharedPrefsManager.setBiometricEnabled(true)
-                            Toast.makeText(requireContext(), "Login successful! Biometric login enabled for next time.", Toast.LENGTH_LONG).show()
+                            Toast.makeText(requireContext(), "Login successful! Biometric login enabled for next time.",
+                                Toast.LENGTH_LONG).show()
                         } else {
                             Toast.makeText(requireContext(), "Login successful!", Toast.LENGTH_SHORT).show()
                         }
 
-                        // Navigate to onboarding page first, then user clicks "Next" to go to main
                         try {
                             findNavController().navigate(R.id.action_login_to_onboarding)
                         } catch (e: Exception) {
                             Log.e("LoginFragment", "Navigation to onboarding failed", e)
-                            // Fallback: go directly to main if onboarding navigation fails
                             try {
                                 findNavController().navigate(R.id.mainFragment)
                             } catch (e2: Exception) {
@@ -178,7 +170,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                         Toast.makeText(requireContext(), error.message ?: "Login failed", Toast.LENGTH_LONG).show()
                     }
                 )
-                // Clear the result to prevent re-triggering
                 authViewModel.clearResults()
             }
         }
@@ -186,7 +177,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         authViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             loginButton.isEnabled = !isLoading
             loginButton.text = if (isLoading) "Logging in..." else "Log In"
-
             if (isLoading) {
                 loginButton.alpha = 0.6f
                 fingerprintContainer.isEnabled = false
@@ -202,7 +192,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             val email = emailInput.text.toString().trim()
             val password = passwordInput.text.toString().trim()
 
-            // Handle admin test login
             if (email == "admin" && password == "admin") {
                 Log.d("LoginFragment", "Admin test login")
                 handleAdminLogin()
@@ -215,7 +204,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             }
         }
 
-        // Fingerprint login
         fingerprintContainer.setOnClickListener {
             if (biometricHelper.isBiometricAvailable()) {
                 biometricHelper.authenticate()
@@ -246,7 +234,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             }
         }
 
-        // Social login buttons
         view?.findViewById<View>(R.id.google_login)?.setOnClickListener {
             Toast.makeText(requireContext(), "Google login coming soon", Toast.LENGTH_SHORT).show()
         }
@@ -261,22 +248,20 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun handleAdminLogin() {
-        // Save mock auth data for testing
         sharedPrefsManager.saveAuthData(
             accessToken = "mock_access_token",
             refreshToken = "mock_refresh_token",
             userId = "admin_id",
             email = "admin@culturex.com",
-            displayName = "Administrator"
+            displayName = "Administrator",
+            phoneNumber = "+27123456789" // Add mock phone for admin
         )
 
-        // Enable biometric for admin too
         if (biometricHelper.isBiometricAvailable()) {
             sharedPrefsManager.setBiometricEnabled(true)
         }
 
         Toast.makeText(requireContext(), "Admin login successful!", Toast.LENGTH_SHORT).show()
-
         try {
             findNavController().navigate(R.id.mainFragment)
         } catch (e: Exception) {
@@ -313,7 +298,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     override fun onResume() {
         super.onResume()
-        // Update fingerprint visibility when returning to the fragment
         updateFingerprintVisibility()
     }
 
