@@ -269,7 +269,7 @@
                         android:textColor="#4B5563"
                         android:textSize="15sp"
                         android:lineSpacingExtra="8dp"
-                         />
+                        />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -297,6 +297,23 @@
                     android:layout_marginStart="12dp" />
             </LinearLayout>
 
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="24dp"
+            app:cardElevation="4dp"
+            app:cardCornerRadius="20dp"
+            app:cardBackgroundColor="#DCFCE7"
+            app:strokeWidth="1dp"
+            app:strokeColor="#86EFAC">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp">
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/dos_recycler_view"
                 android:layout_width="match_parent"
@@ -304,6 +321,9 @@
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginBottom="24dp"
                 android:nestedScrollingEnabled="false" />
+
+        </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
             <!-- Don'ts Section -->
             <LinearLayout
@@ -328,6 +348,23 @@
                     android:layout_marginStart="12dp" />
             </LinearLayout>
 
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="24dp"
+            app:cardElevation="4dp"
+            app:cardCornerRadius="20dp"
+            app:cardBackgroundColor="#FEE2E2"
+            app:strokeWidth="1dp"
+            app:strokeColor="#FCA5A5">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp">
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/donts_recycler_view"
                 android:layout_width="match_parent"
@@ -335,6 +372,9 @@
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginBottom="24dp"
                 android:nestedScrollingEnabled="false" />
+
+        </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
             <!-- Examples Section -->
             <LinearLayout
@@ -359,6 +399,23 @@
                     android:layout_marginStart="12dp" />
             </LinearLayout>
 
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="24dp"
+            app:cardElevation="4dp"
+            app:cardCornerRadius="20dp"
+            app:cardBackgroundColor="#cfe2f3"
+            app:strokeWidth="1dp"
+            app:strokeColor="#3d85c6">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp">
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/examples_recycler_view"
                 android:layout_width="match_parent"
@@ -366,6 +423,8 @@
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginBottom="80dp"
                 android:nestedScrollingEnabled="false" />
+        </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
@@ -401,126 +460,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="16dp"
         app:cardCornerRadius="24dp"
-        app:cardElevation="12dp">
-
-        <LinearLayout
-            android:id="@+id/bottom_nav"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:orientation="horizontal"
-            android:background="@drawable/bottom_nav_gradient"
-            android:paddingHorizontal="8dp">
-
-            <!-- Emergency -->
-            <LinearLayout
-                android:id="@+id/nav_emergency"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?android:attr/selectableItemBackgroundBorderless">
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_emergency"
-                    app:tint="#DC3545" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="SOS"
-                    android:textColor="#DC3545"
-                    android:textSize="15sp"
-                    android:layout_marginTop="4dp" />
-            </LinearLayout>
-
-            <!-- Home -->
-            <LinearLayout
-                android:id="@+id/nav_home"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?android:attr/selectableItemBackgroundBorderless">
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_home"
-                    app:tint="#6366F1" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Home"
-                    android:textColor="#6366F1"
-                    android:textSize="15sp"
-                    android:layout_marginTop="4dp" />
-            </LinearLayout>
-
-            <!-- Saved -->
-            <LinearLayout
-                android:id="@+id/nav_saved"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?android:attr/selectableItemBackgroundBorderless">
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_bookmark"
-                    app:tint="#45818e" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Saved"
-                    android:textColor="#45818e"
-                    android:textSize="15sp"
-                    android:layout_marginTop="4dp" />
-            </LinearLayout>
-
-            <!-- Profile -->
-            <LinearLayout
-                android:id="@+id/nav_profile"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?android:attr/selectableItemBackgroundBorderless">
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_shield"
-                    app:tint="#9CA3AF" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Profile"
-                    android:textColor="#9CA3AF"
-                    android:textSize="11sp"
-                    android:layout_marginTop="4dp" />
-            </LinearLayout>
-
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+        app:cardElevation="12dp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

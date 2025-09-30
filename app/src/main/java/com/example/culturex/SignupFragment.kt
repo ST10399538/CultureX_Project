@@ -3,19 +3,18 @@ package com.example.culturex
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.culturex.databinding.FragmentSignupBinding
-import com.example.culturex.data.viewmodels.AuthViewModel
+import com.example.culturex.data.viewmodels.RegisterViewModel
 import com.example.culturex.utils.SharedPreferencesManager
 import android.util.Log
 
 class SignupFragment : Fragment(R.layout.fragment_signup) {
     private var _binding: FragmentSignupBinding? = null
     private val binding get() = _binding!!
-    private val authViewModel: AuthViewModel by viewModels()
+    private val registerViewModel: RegisterViewModel by viewModels()
     private lateinit var sharedPrefsManager: SharedPreferencesManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -28,28 +27,26 @@ class SignupFragment : Fragment(R.layout.fragment_signup) {
     }
 
     private fun setupObservers() {
-        authViewModel.registerResult.observe(viewLifecycleOwner) { result ->
+        registerViewModel.registerResult.observe(viewLifecycleOwner) { result ->
             result?.let {
                 result.fold(
-                    onSuccess = { authResponse ->
-                        Log.d("SignupFragment", "Registration successful for user: ${authResponse.user?.email}")
+                    onSuccess = { successMessage ->
+                        Log.d("SignupFragment", "Registration successful")
 
-                        // Show success message
-                        Toast.makeText(requireContext(), "Registration successful! Please login to continue.", Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(), successMessage, Toast.LENGTH_SHORT).show()
 
-                        // Navigate to login page instead of saving auth data and going to dashboard
+                        // Navigate to biometric setup instead of login
                         try {
                             if (findNavController().currentDestination?.id == R.id.signupFragment) {
-                                // Go to login page after successful signup
-                                findNavController().navigate(R.id.action_signup_to_login)
+                                findNavController().navigate(R.id.action_signup_to_biometric_setup)
                             }
                         } catch (e: Exception) {
-                            Log.e("SignupFragment", "Navigation to login failed", e)
-                            // Fallback: try to navigate up (back to previous screen)
+                            Log.e("SignupFragment", "Navigation to biometric setup failed", e)
+                            // Fallback to login if biometric setup navigation fails
                             try {
-                                findNavController().navigateUp()
+                                findNavController().navigate(R.id.action_signup_to_login)
                             } catch (e2: Exception) {
-                                Log.e("SignupFragment", "Navigate up also failed", e2)
+                                Log.e("SignupFragment", "Login navigation also failed", e2)
                                 Toast.makeText(requireContext(), "Registration successful! Please restart the app and login.", Toast.LENGTH_LONG).show()
                             }
                         }
@@ -60,11 +57,11 @@ class SignupFragment : Fragment(R.layout.fragment_signup) {
                     }
                 )
                 // Clear the result to prevent re-triggering
-                authViewModel.clearResults()
+                registerViewModel.clearResults()
             }
         }
 
-        authViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+        registerViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             binding.registerButton.isEnabled = !isLoading
             binding.registerButton.text = if (isLoading) "Creating Account..." else "Register"
 
@@ -95,15 +92,13 @@ class SignupFragment : Fragment(R.layout.fragment_signup) {
 
             if (validateInput(name, email, password)) {
                 Log.d("SignupFragment", "Attempting registration for: $email")
-                // Note: We're not saving auth data here - just registering the user
-                authViewModel.register(email, password, name, "en") // Default to English
+                registerViewModel.register(email, password, name, "en")
             }
         }
 
         // Login link → go back to login
         binding.signInLink.setOnClickListener {
             try {
-                // Check if the login action exists
                 if (findNavController().currentDestination?.id == R.id.signupFragment) {
                     try {
                         findNavController().navigate(R.id.action_signup_to_login)
@@ -166,7 +161,6 @@ class SignupFragment : Fragment(R.layout.fragment_signup) {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        // Clear any pending results to prevent memory leaks
-        authViewModel.clearResults()
+        registerViewModel.clearResults()
     }
 }

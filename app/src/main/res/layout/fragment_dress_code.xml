@@ -217,7 +217,7 @@
                             android:text="Share"
                             android:textColor="#10B981"
                             android:textSize="18sp"
-                             />
+                            />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
@@ -258,7 +258,7 @@
                             android:text="Overview"
                             android:textColor="#1F2937"
                             android:textSize="16sp"
-                             />
+                            />
                     </LinearLayout>
 
                     <TextView
@@ -269,7 +269,7 @@
                         android:textColor="#6B7280"
                         android:textSize="14sp"
                         android:lineSpacingExtra="6dp"
-                         />
+                        />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -615,23 +615,6 @@
     </com.google.android.material.card.MaterialCardView>
 
     <!-- Back to Home Button -->
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/back_to_home_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginTop="10dp"
-        android:layout_margin="16dp"
-        android:text="Back to Home"
-        android:textAllCaps="false"
-        android:textSize="16sp"
-        android:textColor="@android:color/white"
-        app:cornerRadius="28dp"
-        app:icon="@drawable/ic_home"
-        app:iconTint="@android:color/white"
-        app:iconPadding="12dp"
-        app:backgroundTint="#b45f06"
-        app:rippleColor="#6366F1" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

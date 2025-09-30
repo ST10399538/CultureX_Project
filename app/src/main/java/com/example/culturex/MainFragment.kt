@@ -11,14 +11,14 @@ import android.widget.AdapterView
 import androidx.fragment.app.viewModels
 import com.example.culturex.data.models.CountryModels
 import com.example.culturex.data.viewmodels.MainViewModel
-
+import com.example.culturex.utils.SharedPreferencesManager
+import android.util.Log
 
 class MainFragment : Fragment(R.layout.fragment_main) {
-
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
-
     private val mainViewModel: MainViewModel by viewModels()
+    private lateinit var sharedPrefsManager: SharedPreferencesManager
 
     private var countriesList = emptyList<CountryModels.CountryDTO>()
     private var categoriesList = emptyList<CountryModels.CulturalCategoryDTO>()
@@ -27,11 +27,44 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentMainBinding.bind(view)
 
+        sharedPrefsManager = SharedPreferencesManager(requireContext())
+
         setupObservers()
         setupClickListeners()
+        setupTopNavigation()
 
         // Load initial data
         mainViewModel.loadCountries()
+    }
+
+    private fun setupTopNavigation() {
+        // Profile icon click - navigate to edit profile
+        binding.profileIcon.setOnClickListener {
+            Log.d("MainFragment", "Profile icon clicked")
+            try {
+                findNavController().navigate(R.id.action_main_to_editProfile)
+            } catch (e: Exception) {
+                Log.e("MainFragment", "Navigation to edit profile failed", e)
+                Toast.makeText(requireContext(), "Profile feature coming soon", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        // Search icon click - navigate to maps/tourist attractions
+        binding.searchIcon.setOnClickListener {
+            Log.d("MainFragment", "Search icon clicked")
+            try {
+                // Pass selected country data to maps fragment
+                val selectedCountry = mainViewModel.selectedCountry.value
+                val bundle = Bundle().apply {
+                    putString("countryId", selectedCountry?.id)
+                    putString("countryName", selectedCountry?.name)
+                }
+                findNavController().navigate(R.id.action_main_to_touristAttractions, bundle)
+            } catch (e: Exception) {
+                Log.e("MainFragment", "Navigation to tourist attractions failed", e)
+                Toast.makeText(requireContext(), "Maps feature coming soon", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun setupObservers() {
@@ -91,8 +124,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             countryNames
         )
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.countrySpinner.adapter = adapter
 
+        binding.countrySpinner.adapter = adapter
         binding.countrySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 if (position < countries.size) {
@@ -193,7 +226,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         binding.navNotifications.setOnClickListener {
             navigateToNotifications()
         }
-
     }
 
     private fun navigateToCategory(categoryName: String) {
@@ -283,11 +315,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         }
     }
 
-
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 }
-

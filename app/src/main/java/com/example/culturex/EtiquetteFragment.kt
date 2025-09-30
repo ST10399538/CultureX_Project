@@ -178,5 +178,5 @@ class EtiquetteFragment : Fragment(R.layout.fragment_etiquette) {
         }
         findNavController().navigate(R.id.emergencyFragment, bundle)
     }
-    }
+}
 

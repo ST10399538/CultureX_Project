@@ -226,7 +226,7 @@
                             android:text="Share"
                             android:textColor="@android:color/white"
                             android:textSize="17sp"
-                             />
+                            />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -323,7 +323,7 @@
                         android:textColor="#4B5563"
                         android:textSize="15sp"
                         android:lineSpacingExtra="8dp"
-                         />
+                        />
 
                     <!-- Tags Section -->
                     <LinearLayout
@@ -397,7 +397,7 @@
                         android:textColor="#374151"
                         android:textSize="14sp"
                         android:lineSpacingExtra="6dp"
-                         />
+                        />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 

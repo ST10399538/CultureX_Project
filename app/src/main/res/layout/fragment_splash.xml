@@ -87,12 +87,6 @@
                 android:src="@drawable/culturex" />
 
             <!-- Globe icon centered -->
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_globe"
-                app:tint="#4CAF50" />
 
             <!-- Pin 1 -->
             <ImageView
@@ -135,4 +129,5 @@
         android:layout_below="@id/logo_card"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp" />
+
 </RelativeLayout>

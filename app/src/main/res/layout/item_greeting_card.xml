@@ -1,6 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/greeting_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="16dp"
@@ -34,18 +36,26 @@
             android:layout_marginBottom="16dp"
             android:gravity="center_vertical">
 
-            <TextView
-                android:layout_width="32dp"
-                android:layout_height="wrap_content"
-                android:text="👋"
-                android:textSize="20sp"
-                android:layout_marginEnd="12dp" />
+            <LinearLayout
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/ic_globe"
+                android:backgroundTint="#DCFCE7"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="👋"
+                    android:textSize="20sp" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginHorizontal="12dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -71,16 +81,16 @@
                     android:text="(I see you)"
                     android:textColor="#6B7280"
                     android:textSize="13sp"
-                    />
+                     />
 
             </LinearLayout>
 
             <ImageView
                 android:id="@+id/play_greeting_audio"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:background="@drawable/ic_dark_mode"
-                android:padding="4dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@drawable/ic_shield"
+                android:padding="6dp"
                 android:clickable="true"
                 android:focusable="true"
                 app:tint="#6366F1" />
@@ -89,24 +99,33 @@
 
         <!-- Goodbye Section -->
         <LinearLayout
+            android:id="@+id/goodbye_section"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginBottom="12dp"
             android:gravity="center_vertical">
 
-            <TextView
-                android:layout_width="32dp"
-                android:layout_height="wrap_content"
-                android:text="👋"
-                android:textSize="20sp"
-                android:layout_marginEnd="12dp" />
+            <LinearLayout
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/ic_globe"
+                android:backgroundTint="#FEE2E2"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="👋"
+                    android:textSize="20sp" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginHorizontal="12dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -138,10 +157,10 @@
 
             <ImageView
                 android:id="@+id/play_goodbye_audio"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:background="@drawable/ic_fire"
-                android:padding="4dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@drawable/ic_shield"
+                android:padding="6dp"
                 android:clickable="true"
                 android:focusable="true"
                 app:tint="#6366F1" />
@@ -150,6 +169,7 @@
 
         <!-- Pronunciation Hint -->
         <LinearLayout
+            android:id="@+id/pronunciation_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -161,7 +181,7 @@
             <ImageView
                 android:layout_width="16dp"
                 android:layout_height="16dp"
-                android:src="@drawable/ic_globe"
+                android:src="@drawable/ic_bookmark"
                 app:tint="#6366F1"
                 android:layout_marginEnd="8dp"
                 android:layout_gravity="center_vertical" />
@@ -172,8 +192,8 @@
                 android:layout_height="wrap_content"
                 android:text="Pronunciation: sah-woo-BOH-nah"
                 android:textColor="#4B5563"
-                android:textSize="12sp"
-                />
+                android:textSize="16sp"
+                 />
 
         </LinearLayout>
 

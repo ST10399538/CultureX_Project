@@ -159,12 +159,18 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                             Toast.makeText(requireContext(), "Login successful!", Toast.LENGTH_SHORT).show()
                         }
 
-                        // Navigate to main fragment
+                        // Navigate to onboarding page first, then user clicks "Next" to go to main
                         try {
-                            findNavController().navigate(R.id.mainFragment)
+                            findNavController().navigate(R.id.action_login_to_onboarding)
                         } catch (e: Exception) {
-                            Log.e("LoginFragment", "Navigation failed", e)
-                            Toast.makeText(requireContext(), "Navigation error: ${e.message}", Toast.LENGTH_SHORT).show()
+                            Log.e("LoginFragment", "Navigation to onboarding failed", e)
+                            // Fallback: go directly to main if onboarding navigation fails
+                            try {
+                                findNavController().navigate(R.id.mainFragment)
+                            } catch (e2: Exception) {
+                                Log.e("LoginFragment", "Navigation to main also failed", e2)
+                                Toast.makeText(requireContext(), "Navigation error: ${e2.message}", Toast.LENGTH_SHORT).show()
+                            }
                         }
                     },
                     onFailure = { error ->
