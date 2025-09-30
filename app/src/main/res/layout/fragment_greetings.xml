@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -18,6 +17,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:layout_marginTop="16dp"
             app:contentInsetStart="0dp">
 
             <LinearLayout
@@ -75,7 +75,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:padding="10dp"
-                        android:src="@drawable/ic_menu"
+                        android:src="@drawable/ic_dark_mode"
                         app:tint="#6366F1" />
                 </com.google.android.material.card.MaterialCardView>
 
@@ -109,7 +109,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:background="@drawable/bottom_nav_background">
+                    android:background="@drawable/bottom_nav_background"
+                    android:backgroundTint="#741b47">
 
                     <!-- Country Header with Flag -->
                     <LinearLayout
@@ -125,10 +126,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Loading..."
-                            android:textColor="@android:color/black"
+                            android:textColor="@android:color/white"
                             android:textSize="22sp"
                             />
-
 
                     </LinearLayout>
 
@@ -145,7 +145,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Learn Local Greetings"
-                        android:textColor="@android:color/darker_gray"
+                        android:textColor="@android:color/white"
                         android:textSize="18sp"
                         android:layout_gravity="center"
                         android:layout_marginTop="8dp"
@@ -193,7 +193,7 @@
                             android:layout_height="wrap_content"
                             android:text="Save Offline"
                             android:textColor="#6366F1"
-                            android:textSize="13sp"
+                            android:textSize="18sp"
                             />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -229,7 +229,7 @@
                             android:layout_height="wrap_content"
                             android:text="Practice"
                             android:textColor="#10B981"
-                            android:textSize="13sp"
+                            android:textSize="18sp"
                             />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -263,7 +263,7 @@
                         <View
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:background="@drawable/ic_globe"
+                            android:background="@drawable/bottom_nav_background"
                             android:backgroundTint="#FEF3C7" />
 
                         <TextView
@@ -278,7 +278,7 @@
                             android:layout_height="wrap_content"
                             android:text="Language Diversity"
                             android:textColor="#1F2937"
-                            android:textSize="18sp"
+                            android:textSize="21sp"
                             android:layout_marginStart="20dp" />
                     </LinearLayout>
 
@@ -288,22 +288,34 @@
                         android:layout_height="wrap_content"
                         android:text="Loading greeting information..."
                         android:textColor="#4B5563"
-                        android:textSize="14sp"
+                        android:textSize="19sp"
                         android:lineSpacingExtra="6dp"
                         />
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Dynamic Language Cards Container -->
+            <!-- Greetings RecyclerView Container -->
             <LinearLayout
-                android:id="@+id/languages_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingHorizontal="16dp">
 
-                <!-- Language cards will be added dynamically here -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Common Greetings"
+                    android:textColor="#1F2937"
+                    android:textSize="18sp"
+                    android:layout_marginBottom="12dp" />
+
+                <!-- Main Greetings RecyclerView -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/greetings_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false" />
 
             </LinearLayout>
 
@@ -354,8 +366,6 @@
         app:trackColor="@android:color/transparent"
         android:visibility="gone" />
 
-
-
     <!-- Floating Action Button for Quick Translation -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_translate"
@@ -364,10 +374,9 @@
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="90dp"
+        android:src="@drawable/ic_bookmark"
         app:backgroundTint="#6366F1"
         app:tint="@android:color/white"
         app:fabSize="normal" />
-
-    <!-- Back to Home Button -->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
