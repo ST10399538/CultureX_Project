@@ -1,21 +1,19 @@
-package com.example.culturex
+package com.example.culturex.data.models
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import java.util.UUID
 
-class HomeFragment : Fragment() {
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main, container, false)
-    }
-}
+// Data class representing an event in an itinerary
+data class ItineraryEvent(
+    val id: String = UUID.randomUUID().toString(),
+    val date: String,
+    val time: String,
+    val description: String,
+    val timestamp: Long = System.currentTimeMillis(),
+    val category: String = "General",
+    val location: String = "",
+    val isSynced: Boolean = false,
+    val reminderSet: Boolean = false
+)
 
 //Reference List:
 // UiLover, 2025. Build a Coffee Shop app with Kotlin & Firebase in Android Studio Project. [video online]. Available at: https://www.youtube.com/watch?v=Pnw_9tZ2z4wn [Accessed on 16 September 2025]
@@ -25,3 +23,4 @@ class HomeFragment : Fragment() {
 // UiLover, 2023. Travel App Android Studio Tutorial Project - Android Material Design. [video online]. Available at: https://www.youtube.com/watch?v=PPhuxay3OV0 [Accessed on 12 September 2025]
 // CodeWithTS, 2024. View Binding and Data Binding in Android Studio using Kotlin. [video online]. Available at: https://www.youtube.com/watch?v=tIXSuoJbX-8  [Accessed on 20 September 2025]
 // Android Developers, 2025. Develop a UI with Views. [online]. Available at: https://developer.android.com/studio/write/layout-editor [Accessed on 15 September 2025]
+

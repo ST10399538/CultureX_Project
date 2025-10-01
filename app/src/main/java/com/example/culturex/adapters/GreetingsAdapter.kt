@@ -16,16 +16,21 @@ import com.google.android.material.card.MaterialCardView
 class GreetingsAdapter(private val onPlayAudio: (GreetingItem) -> Unit
 ) : ListAdapter<GreetingItem, GreetingsAdapter.GreetingViewHolder>(GreetingDiffCallback()) {
 
+    // Called when RecyclerView needs a new ViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GreetingViewHolder {
+        // Inflate the layout for each greeting card
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_greeting_card, parent, false)
         return GreetingViewHolder(view)
     }
 
+    // Called to display data at a specific position
     override fun onBindViewHolder(holder: GreetingViewHolder, position: Int) {
         holder.bind(getItem(position), position + 1)
+        // Bind the data to the ViewHolder, adding 1 to position for display numbering
     }
 
+    // Inner class representing a single item in the RecyclerView
     inner class GreetingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val cardView: MaterialCardView = itemView.findViewById(R.id.greeting_card)
         private val languageTitle: TextView = itemView.findViewById(R.id.language_title)
@@ -83,11 +88,14 @@ class GreetingsAdapter(private val onPlayAudio: (GreetingItem) -> Unit
         }
     }
 
+    // DiffUtil callback for efficiently updating the RecyclerView
     class GreetingDiffCallback : DiffUtil.ItemCallback<GreetingItem>() {
+        // Check if items represent the same language
         override fun areItemsTheSame(oldItem: GreetingItem, newItem: GreetingItem): Boolean {
             return oldItem.language == newItem.language
         }
 
+        // Check if the contents of the items are exactly the same
         override fun areContentsTheSame(oldItem: GreetingItem, newItem: GreetingItem): Boolean {
             return oldItem == newItem
         }
@@ -106,3 +114,12 @@ data class GreetingItem(
     val goodbyeTranslation: String,
     val pronunciation: String? = null
 )
+
+//Reference List:
+// UiLover, 2025. Build a Coffee Shop app with Kotlin & Firebase in Android Studio Project. [video online]. Available at: https://www.youtube.com/watch?v=Pnw_9tZ2z4wn [Accessed on 16 September 2025]
+// Guedmioui, A. 2023. Retrofit Android Tutorial - Make API Calls. [video online]. Available at: https://www.youtube.com/watch?v=8IhNq0ng-wk [Accessed on 14 September 2025]
+// Code Heroes, 2024.Integrate Google Maps API in Android Studio 2025 | Step-by-Step Tutorial for Beginners. [video online]. Available at: https://www.youtube.com/watch?v=QVCNTPNy-vs&t=137s [Accessed on 17 September 2025]
+// CodeSchmell, 2022. How to implement API in Android Studio tutorial. [video online]. Available at: https://www.youtube.com/watch?v=Kjeh47epMqI [Accessed on 17 September 2025]
+// UiLover, 2023. Travel App Android Studio Tutorial Project - Android Material Design. [video online]. Available at: https://www.youtube.com/watch?v=PPhuxay3OV0 [Accessed on 12 September 2025]
+// CodeWithTS, 2024. View Binding and Data Binding in Android Studio using Kotlin. [video online]. Available at: https://www.youtube.com/watch?v=tIXSuoJbX-8  [Accessed on 20 September 2025]
+// Android Developers, 2025. Develop a UI with Views. [online]. Available at: https://developer.android.com/studio/write/layout-editor [Accessed on 15 September 2025]

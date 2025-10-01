@@ -108,11 +108,30 @@
             app:destination="@id/emergencyFragment" />
         <!-- Top Navigation Actions -->
         <action
-            android:id="@+id/action_main_to_editProfile"
-            app:destination="@id/editProfileFragment" />
+            android:id="@+id/action_main_to_profile"
+            app:destination="@id/profileFragment" />
         <action
             android:id="@+id/action_main_to_touristAttractions"
             app:destination="@id/touristAttractionsFragment" />
+    </fragment>
+
+    <!-- Profile Fragment -->
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.culturex.ProfileFragment"
+        android:label="Profile">
+        <action
+            android:id="@+id/action_profile_to_editProfile"
+            app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_profile_to_settings"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_profile_to_itinerary"
+            app:destination="@id/itineraryFragment" />
+        <action
+            android:id="@+id/action_profile_to_emergency"
+            app:destination="@id/emergencyFragment" />
     </fragment>
 
     <!-- Edit Profile Fragment -->
@@ -121,17 +140,23 @@
         android:name="com.example.culturex.EditProfileFragment"
         android:label="Edit Profile" />
 
-    <!-- Tourist Attractions Fragment -->
-    <fragment
-        android:id="@+id/touristAttractionsFragment"
-        android:name="com.example.culturex.TouristAttractionsFragment"
-        android:label="Tourist Attractions" />
-
     <!-- Settings Fragment -->
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.culturex.SettingsFragment"
         android:label="Settings" />
+
+    <!-- Itinerary Fragment -->
+    <fragment
+        android:id="@+id/itineraryFragment"
+        android:name="com.example.culturex.ItineraryFragment"
+        android:label="Itinerary" />
+
+    <!-- Tourist Attractions Fragment -->
+    <fragment
+        android:id="@+id/touristAttractionsFragment"
+        android:name="com.example.culturex.TouristAttractionsFragment"
+        android:label="Tourist Attractions" />
 
     <!-- Cultural Content Fragments -->
     <fragment
@@ -174,5 +199,13 @@
         android:id="@+id/emergencyFragment"
         android:name="com.example.culturex.EmergencyFragment"
         android:label="Emergency" />
-
 </navigation>
+
+    <!-- Reference List
+       Iarn Tech, 2022. Android Studio User Interface - Layout and XML. [video online]. Available at: https://www.youtube.com/watch?v=kn_7H8v4Emo [Accessed on 15 September 2025]
+       UiLover, 2023. Android UI Design Mobile dashboard UI Tutorial | android projects. [video online]. Available at: https://www.youtube.com/watch?v=5dDHplq9rss  [Accessed on 18 September 2025]
+       WsCube Tech, 2021. Layouts in Android Studio (XML) | Android UI Design Explained. [video online]. Available at: https://www.youtube.com/watch?v=PeCOKgAua7A  [Accessed on 16 September 2025]
+       CodeWithTS, 2024. View Binding and Data Binding in Android Studio using Kotlin. [video online]. Available at: https://www.youtube.com/watch?v=tIXSuoJbX-8  [Accessed on 20 September 2025]
+       Android Developers, 2025. Develop a UI with Views. [online]. Available at: https://developer.android.com/studio/write/layout-editor [Accessed on 15 September 2025]
+
+       -->

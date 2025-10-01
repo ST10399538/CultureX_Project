@@ -18,7 +18,8 @@
             android:id="@+id/top_nav"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="16dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -172,7 +173,7 @@
                             android:text="Quick Tip Calculator"
                             android:textColor="@android:color/white"
                             android:textSize="20sp"
-                             />
+                            />
 
                         <TextView
                             android:id="@+id/recommended_tip_text"
@@ -266,7 +267,7 @@
                                 android:text="Split between"
                                 android:textColor="#E0E0E0"
                                 android:textSize="14sp"
-                                 />
+                                />
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/split_input"
@@ -423,7 +424,7 @@
                                     android:text="Tip Amount"
                                     android:textColor="#6B7280"
                                     android:textSize="14sp"
-                                     />
+                                    />
 
                                 <TextView
                                     android:id="@+id/tip_amount_display"
@@ -470,7 +471,7 @@
                                     android:text="Total Amount"
                                     android:textColor="#374151"
                                     android:textSize="16sp"
-                                     />
+                                    />
 
                                 <TextView
                                     android:id="@+id/total_amount_display"
@@ -479,7 +480,7 @@
                                     android:text="$0.00"
                                     android:textColor="#1F2937"
                                     android:textSize="24sp"
-                                     />
+                                    />
                             </LinearLayout>
 
                             <!-- Per Person Amount (shown when split) -->
@@ -589,7 +590,7 @@
                             android:text="Tipping Guidelines"
                             android:textColor="#1F2937"
                             android:textSize="16sp"
-                             />
+                            />
                     </LinearLayout>
 
                     <TextView
@@ -600,7 +601,7 @@
                         android:textColor="#4B5563"
                         android:textSize="14sp"
                         android:lineSpacingExtra="6dp"
-                         />
+                        />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -740,3 +741,12 @@
         android:visibility="gone" />
 
 </LinearLayout>
+
+    <!-- Reference List
+    Iarn Tech, 2022. Android Studio User Interface - Layout and XML. [video online]. Available at: https://www.youtube.com/watch?v=kn_7H8v4Emo [Accessed on 15 September 2025]
+    UiLover, 2023. Android UI Design Mobile dashboard UI Tutorial | android projects. [video online]. Available at: https://www.youtube.com/watch?v=5dDHplq9rss  [Accessed on 18 September 2025]
+    WsCube Tech, 2021. Layouts in Android Studio (XML) | Android UI Design Explained. [video online]. Available at: https://www.youtube.com/watch?v=PeCOKgAua7A  [Accessed on 16 September 2025]
+    CodeWithTS, 2024. View Binding and Data Binding in Android Studio using Kotlin. [video online]. Available at: https://www.youtube.com/watch?v=tIXSuoJbX-8  [Accessed on 20 September 2025]
+    Android Developers, 2025. Develop a UI with Views. [online]. Available at: https://developer.android.com/studio/write/layout-editor [Accessed on 15 September 2025]
+
+    -->

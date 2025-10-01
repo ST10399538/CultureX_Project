@@ -25,20 +25,28 @@ import com.google.android.material.progressindicator.LinearProgressIndicator
 
 class GreetingsFragment : Fragment(R.layout.fragment_greetings) {
 
+    // ViewModel that fetches cultural content from an API
     private val contentViewModel: ContentViewModel by viewModels()
+
+    // RecyclerView and Adapter to display a list of greetings
     private lateinit var greetingsRecyclerView: RecyclerView
     private lateinit var greetingsAdapter: GreetingsAdapter
+
+    // Stores the name of the current country (for display and loading greetings)
     private var currentCountryName: String = ""
 
+    // Called when the Fragment’s view is created
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+// Get arguments passed into this fragment (country and category IDs, and country name)
         val countryId = arguments?.getString("countryId")
         val categoryId = arguments?.getString("categoryId")
         val countryName = arguments?.getString("countryName") ?: "Country"
 
+        // Save the current country name (used later in UI and greetings)
         currentCountryName = countryName
 
+        // Setup UI components and event listeners
         setupViews(view)
         setupRecyclerView(view)
         setupObservers(view)
@@ -151,6 +159,7 @@ class GreetingsFragment : Fragment(R.layout.fragment_greetings) {
         return greetings
     }
 
+    // Load greetings for specific countries (or fallback to default)
     private fun loadPredeterminedGreetings() {
         val greetings = when {
             currentCountryName.contains("South Africa", ignoreCase = true) -> {
@@ -176,6 +185,7 @@ class GreetingsFragment : Fragment(R.layout.fragment_greetings) {
         greetingsAdapter.submitList(greetings)
     }
 
+    // Predetermined greetings by country (used as fallback)
     private fun getPredeterminedSouthAfricanGreetings(): List<GreetingItem> {
         return listOf(
             GreetingItem(
@@ -310,6 +320,7 @@ class GreetingsFragment : Fragment(R.layout.fragment_greetings) {
         )
     }
 
+    // Setup button click listeners
     private fun setupClickListeners(view: View) {
         // Back button
         view.findViewById<MaterialCardView>(R.id.back_button_card)?.setOnClickListener {
@@ -348,6 +359,7 @@ class GreetingsFragment : Fragment(R.layout.fragment_greetings) {
         heroCard?.startAnimation(slideIn)
     }
 
+    // Stub functions (currently show Toasts, but could play audio or save data)
     private fun playAudioPronunciation() {
         Toast.makeText(context, "Playing pronunciation guide...", Toast.LENGTH_SHORT).show()
     }
@@ -364,10 +376,12 @@ class GreetingsFragment : Fragment(R.layout.fragment_greetings) {
         Toast.makeText(context, "Starting practice mode...", Toast.LENGTH_SHORT).show()
     }
 
+    // Stub functions (currently show Toasts, but could play audio or save data)
     private fun showTranslationOptions() {
         Toast.makeText(context, "Translation options", Toast.LENGTH_SHORT).show()
     }
 
+    // Default description for greetings section
     private fun getDefaultGreetingDescription(): String {
         return """
             Learning local greetings shows respect for the culture and helps you connect with people. 
@@ -375,3 +389,12 @@ class GreetingsFragment : Fragment(R.layout.fragment_greetings) {
         """.trimIndent()
     }
 }
+
+//Reference List:
+// UiLover, 2025. Build a Coffee Shop app with Kotlin & Firebase in Android Studio Project. [video online]. Available at: https://www.youtube.com/watch?v=Pnw_9tZ2z4wn [Accessed on 16 September 2025]
+// Guedmioui, A. 2023. Retrofit Android Tutorial - Make API Calls. [video online]. Available at: https://www.youtube.com/watch?v=8IhNq0ng-wk [Accessed on 14 September 2025]
+// Code Heroes, 2024.Integrate Google Maps API in Android Studio 2025 | Step-by-Step Tutorial for Beginners. [video online]. Available at: https://www.youtube.com/watch?v=QVCNTPNy-vs&t=137s [Accessed on 17 September 2025]
+// CodeSchmell, 2022. How to implement API in Android Studio tutorial. [video online]. Available at: https://www.youtube.com/watch?v=Kjeh47epMqI [Accessed on 17 September 2025]
+// UiLover, 2023. Travel App Android Studio Tutorial Project - Android Material Design. [video online]. Available at: https://www.youtube.com/watch?v=PPhuxay3OV0 [Accessed on 12 September 2025]
+// CodeWithTS, 2024. View Binding and Data Binding in Android Studio using Kotlin. [video online]. Available at: https://www.youtube.com/watch?v=tIXSuoJbX-8  [Accessed on 20 September 2025]
+// Android Developers, 2025. Develop a UI with Views. [online]. Available at: https://developer.android.com/studio/write/layout-editor [Accessed on 15 September 2025]
