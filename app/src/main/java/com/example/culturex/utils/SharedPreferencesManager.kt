@@ -8,7 +8,6 @@ class SharedPreferencesManager(context: Context) {
 
     // Name of the SharedPreferences file
     companion object {
-
         // Keys for storing different types of data
         private const val PREF_NAME = "culturex_prefs"
         private const val KEY_ACCESS_TOKEN = "access_token"
@@ -20,7 +19,15 @@ class SharedPreferencesManager(context: Context) {
         private const val KEY_PROFILE_PICTURE_URL = "profile_picture_url"
         private const val KEY_PREFERRED_LANGUAGE = "preferred_language"
         private const val KEY_BIOMETRIC_ENABLED = "biometric_enabled"
-        private const val KEY_PHONE_NUMBER = "phone_number" // NEW
+        private const val KEY_PHONE_NUMBER = "phone_number"
+
+        // Additional settings keys
+        private const val KEY_NOTIFICATIONS_ENABLED = "notifications_enabled"
+        private const val KEY_DARK_MODE_ENABLED = "dark_mode_enabled"
+        private const val KEY_FIRST_NAME = "first_name"
+        private const val KEY_LAST_NAME = "last_name"
+        private const val KEY_LAST_LOGIN_TIME = "last_login_time"
+        private const val KEY_APP_VERSION = "app_version"
     }
 
     // Obtain SharedPreferences instance for reading and writing
@@ -37,7 +44,9 @@ class SharedPreferencesManager(context: Context) {
         profilePictureUrl: String? = null,
         preferredLanguage: String? = null,
         biometricEnabled: Boolean = false,
-        phoneNumber: String? = null // NEW
+        phoneNumber: String? = null,
+        firstName: String? = null,
+        lastName: String? = null
     ) {
         Log.d("SharedPreferencesManager", "Saving auth data for user: $email")
         with(sharedPreferences.edit()) {
@@ -47,10 +56,13 @@ class SharedPreferencesManager(context: Context) {
             putString(KEY_EMAIL, email)
             putString(KEY_DISPLAY_NAME, displayName)
             putString(KEY_PROFILE_PICTURE_URL, profilePictureUrl)
-            putString(KEY_PREFERRED_LANGUAGE, preferredLanguage)
+            putString(KEY_PREFERRED_LANGUAGE, preferredLanguage ?: "en")
             putBoolean(KEY_BIOMETRIC_ENABLED, biometricEnabled)
-            putString(KEY_PHONE_NUMBER, phoneNumber) // NEW
+            putString(KEY_PHONE_NUMBER, phoneNumber)
+            putString(KEY_FIRST_NAME, firstName)
+            putString(KEY_LAST_NAME, lastName)
             putBoolean(KEY_IS_LOGGED_IN, true)
+            putLong(KEY_LAST_LOGIN_TIME, System.currentTimeMillis())
             apply()
         }
         Log.d("SharedPreferencesManager", "Auth data saved successfully")
@@ -90,8 +102,58 @@ class SharedPreferencesManager(context: Context) {
         return sharedPreferences.getBoolean(KEY_BIOMETRIC_ENABLED, false)
     }
 
-    fun getPhoneNumber(): String? { // NEW
+    fun getPhoneNumber(): String? {
         return sharedPreferences.getString(KEY_PHONE_NUMBER, null)
+    }
+
+    fun getFirstName(): String? {
+        return sharedPreferences.getString(KEY_FIRST_NAME, null)
+    }
+
+    fun getLastName(): String? {
+        return sharedPreferences.getString(KEY_LAST_NAME, null)
+    }
+
+    fun getLastLoginTime(): Long {
+        return sharedPreferences.getLong(KEY_LAST_LOGIN_TIME, 0L)
+    }
+
+    // NEW: Notifications settings
+    fun isNotificationsEnabled(): Boolean {
+        return sharedPreferences.getBoolean(KEY_NOTIFICATIONS_ENABLED, true)
+    }
+
+    fun setNotificationsEnabled(enabled: Boolean) {
+        with(sharedPreferences.edit()) {
+            putBoolean(KEY_NOTIFICATIONS_ENABLED, enabled)
+            apply()
+        }
+        Log.d("SharedPreferencesManager", "Notifications enabled: $enabled")
+    }
+
+    // Dark mode settings
+    fun isDarkModeEnabled(): Boolean {
+        return sharedPreferences.getBoolean(KEY_DARK_MODE_ENABLED, false)
+    }
+
+    fun setDarkModeEnabled(enabled: Boolean) {
+        with(sharedPreferences.edit()) {
+            putBoolean(KEY_DARK_MODE_ENABLED, enabled)
+            apply()
+        }
+        Log.d("SharedPreferencesManager", "Dark mode enabled: $enabled")
+    }
+
+    // App version tracking
+    fun getAppVersion(): String? {
+        return sharedPreferences.getString(KEY_APP_VERSION, null)
+    }
+
+    fun setAppVersion(version: String) {
+        with(sharedPreferences.edit()) {
+            putString(KEY_APP_VERSION, version)
+            apply()
+        }
     }
 
     // Check if the user is logged in by verifying flag and token
@@ -105,18 +167,23 @@ class SharedPreferencesManager(context: Context) {
 
     // Update only user profile-related information
     fun updateUserProfile(
-        displayName: String?,
+        displayName: String? = null,
         profilePictureUrl: String? = null,
         preferredLanguage: String? = null,
-        phoneNumber: String? = null // NEW
+        phoneNumber: String? = null,
+        firstName: String? = null,
+        lastName: String? = null
     ) {
         with(sharedPreferences.edit()) {
             displayName?.let { putString(KEY_DISPLAY_NAME, it) }
             profilePictureUrl?.let { putString(KEY_PROFILE_PICTURE_URL, it) }
             preferredLanguage?.let { putString(KEY_PREFERRED_LANGUAGE, it) }
-            phoneNumber?.let { putString(KEY_PHONE_NUMBER, it) } // NEW
+            phoneNumber?.let { putString(KEY_PHONE_NUMBER, it) }
+            firstName?.let { putString(KEY_FIRST_NAME, it) }
+            lastName?.let { putString(KEY_LAST_NAME, it) }
             apply()
         }
+        Log.d("SharedPreferencesManager", "User profile updated")
     }
 
     // Enable or disable biometric login
@@ -125,6 +192,7 @@ class SharedPreferencesManager(context: Context) {
             putBoolean(KEY_BIOMETRIC_ENABLED, enabled)
             apply()
         }
+        Log.d("SharedPreferencesManager", "Biometric enabled: $enabled")
     }
 
     // Clear all authentication-related data from SharedPreferences
@@ -139,11 +207,21 @@ class SharedPreferencesManager(context: Context) {
             remove(KEY_PROFILE_PICTURE_URL)
             remove(KEY_PREFERRED_LANGUAGE)
             remove(KEY_BIOMETRIC_ENABLED)
-            remove(KEY_PHONE_NUMBER) // NEW
+            remove(KEY_PHONE_NUMBER)
+            remove(KEY_FIRST_NAME)
+            remove(KEY_LAST_NAME)
+            remove(KEY_LAST_LOGIN_TIME)
             putBoolean(KEY_IS_LOGGED_IN, false)
             apply()
         }
         Log.d("SharedPreferencesManager", "Auth data cleared")
+    }
+
+    // Clear all settings (including theme and notifications)
+    fun clearAllSettings() {
+        Log.d("SharedPreferencesManager", "Clearing all settings")
+        sharedPreferences.edit().clear().apply()
+        Log.d("SharedPreferencesManager", "All settings cleared")
     }
 
     // Convenience method to logout user
@@ -158,6 +236,22 @@ class SharedPreferencesManager(context: Context) {
                 !getUserId().isNullOrEmpty()
     }
 
+    // Get formatted last login time
+    fun getFormattedLastLoginTime(): String {
+        val lastLogin = getLastLoginTime()
+        if (lastLogin == 0L) return "Never"
+
+        val currentTime = System.currentTimeMillis()
+        val diff = currentTime - lastLogin
+
+        return when {
+            diff < 60000 -> "Just now"
+            diff < 3600000 -> "${diff / 60000} minutes ago"
+            diff < 86400000 -> "${diff / 3600000} hours ago"
+            else -> "${diff / 86400000} days ago"
+        }
+    }
+
     // Debugging helper to log current stored state
     fun logCurrentState() {
         Log.d("SharedPreferencesManager", """
@@ -167,9 +261,15 @@ class SharedPreferencesManager(context: Context) {
             - User ID: ${getUserId()}
             - Email: ${getEmail()}
             - Display name: ${getDisplayName()}
+            - First name: ${getFirstName()}
+            - Last name: ${getLastName()}
             - Phone number: ${getPhoneNumber()}
             - Preferred language: ${getPreferredLanguage()}
             - Biometric enabled: ${isBiometricEnabled()}
+            - Notifications enabled: ${isNotificationsEnabled()}
+            - Dark mode enabled: ${isDarkModeEnabled()}
+            - Last login: ${getFormattedLastLoginTime()}
+            - App version: ${getAppVersion()}
         """.trimIndent())
     }
 }

@@ -10,6 +10,12 @@ import androidx.navigation.fragment.findNavController
 import com.example.culturex.utils.BiometricHelper
 import com.example.culturex.utils.SharedPreferencesManager
 import android.util.Log
+import android.view.animation.Animation
+import android.view.animation.RotateAnimation
+import android.widget.RadioGroup
+import android.widget.TextView
+import com.google.android.material.card.MaterialCardView
+import com.google.android.material.switchmaterial.SwitchMaterial
 
 class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
@@ -17,6 +23,10 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
     private lateinit var sharedPrefsManager: SharedPreferencesManager
     // Helper class to handle biometric authentication
     private lateinit var biometricHelper: BiometricHelper
+
+    // UI components
+    private var isDarkMode = false
+    private var isLanguageExpanded = false
 
     // Called when the fragment's view has been created
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -30,12 +40,18 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         setupBackButton(view)
         setupBiometricToggle(view)
         setupLanguageOptions(view)
-        setupOtherSettings(view)
+        setupThemeToggle(view)
+        setupNotificationsToggle(view)
+        setupAboutSection(view)
+
+        // Load saved preferences
+        loadSavedSettings(view)
     }
+
     // Setup back navigation button
     private fun setupBackButton(view: View) {
         val backArrow = view.findViewById<ImageView>(R.id.back_arrow)
-        backArrow.setOnClickListener {
+        backArrow?.setOnClickListener {
             try {
                 findNavController().navigateUp()
             } catch (e: Exception) {
@@ -47,7 +63,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
     // Setup the biometric login toggle switch
     private fun setupBiometricToggle(view: View) {
-        val biometricSwitch = view.findViewById<Switch>(R.id.biometric_switch)
+        val biometricSwitch = view.findViewById<SwitchMaterial>(R.id.biometric_switch)
 
         // Set the switch state based on saved preference
         biometricSwitch?.isChecked = sharedPrefsManager.isBiometricEnabled()
@@ -63,10 +79,10 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
         // Handle toggle changes
         biometricSwitch?.setOnCheckedChangeListener { _, isChecked ->
-            // Enable biometric login and save preference
             if (isChecked && biometricHelper.isBiometricAvailable()) {
+                // Enable biometric login and save preference
                 sharedPrefsManager.setBiometricEnabled(true)
-                Toast.makeText(requireContext(), "Biometric login enabled", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "✓ Biometric login enabled", Toast.LENGTH_SHORT).show()
                 Log.d("SettingsFragment", "Biometric login enabled")
 
             } else if (isChecked && !biometricHelper.isBiometricAvailable()) {
@@ -83,32 +99,185 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         }
     }
 
-    // Setup language selection card and expandable options
+    // Setup language selection with expandable card and radio buttons
     private fun setupLanguageOptions(view: View) {
-        val languageCard = view.findViewById<View>(R.id.language_card)
-        val languageOptions = view.findViewById<View>(R.id.language_options)
+        val languageCard = view.findViewById<MaterialCardView>(R.id.language_card)
+        val languageOptions = view.findViewById<MaterialCardView>(R.id.language_options)
+        val languageArrow = view.findViewById<ImageView>(R.id.language_arrow)
+        val selectedLanguageText = view.findViewById<TextView>(R.id.selected_language_text)
+        val radioGroup = view.findViewById<RadioGroup>(R.id.language_radio_group)
 
+        // Toggle language options visibility
         languageCard?.setOnClickListener {
-            // Toggle visibility of language options
-            if (languageOptions?.visibility == View.VISIBLE) {
-                languageOptions.visibility = View.GONE
-            } else {
+            isLanguageExpanded = !isLanguageExpanded
+
+            if (isLanguageExpanded) {
                 languageOptions?.visibility = View.VISIBLE
+                rotateArrow(languageArrow, 0f, 180f)
+            } else {
+                languageOptions?.visibility = View.GONE
+                rotateArrow(languageArrow, 180f, 0f)
             }
+        }
+
+        // Handle language selection
+        radioGroup?.setOnCheckedChangeListener { _, checkedId ->
+            val selectedLanguage = when (checkedId) {
+                R.id.radio_english -> "English"
+                R.id.radio_afrikaans -> "Afrikaans"
+                R.id.radio_zulu -> "Zulu"
+                R.id.radio_french -> "French"
+                R.id.radio_spanish -> "Spanish"
+                else -> "English"
+            }
+
+            // Update UI
+            selectedLanguageText?.text = selectedLanguage
+
+            // Save to SharedPreferences
+            val languageCode = when (selectedLanguage) {
+                "English" -> "en"
+                "Afrikaans" -> "af"
+                "Zulu" -> "zu"
+                "French" -> "fr"
+                "Spanish" -> "es"
+                else -> "en"
+            }
+            sharedPrefsManager.updateUserProfile(
+                displayName = null,
+                preferredLanguage = languageCode
+            )
+
+            Toast.makeText(requireContext(), "Language changed to $selectedLanguage", Toast.LENGTH_SHORT).show()
+            Log.d("SettingsFragment", "Language changed to: $selectedLanguage ($languageCode)")
+
+            // Collapse the options after selection
+            languageOptions?.visibility = View.GONE
+            isLanguageExpanded = false
+            rotateArrow(languageArrow, 180f, 0f)
         }
 
         // Initially hide the language options
         languageOptions?.visibility = View.GONE
     }
 
-    // Setup other settings like notifications
-    private fun setupOtherSettings(view: View) {
-        val notificationsSwitch = view.findViewById<Switch>(R.id.notifications_switch)
-        notificationsSwitch?.setOnCheckedChangeListener { _, isChecked ->
-            Toast.makeText(requireContext(),
-                if (isChecked) "Notifications enabled" else "Notifications disabled",
-                Toast.LENGTH_SHORT).show()
+    // Setup theme toggle functionality
+    private fun setupThemeToggle(view: View) {
+        val themeCard = view.findViewById<MaterialCardView>(R.id.theme_card)
+        val themeIcon = view.findViewById<ImageView>(R.id.theme_icon)
+        val themeStatusText = view.findViewById<TextView>(R.id.theme_status_text)
+
+        themeCard?.setOnClickListener {
+            isDarkMode = !isDarkMode
+
+            if (isDarkMode) {
+                // Switch to dark mode
+                themeIcon?.setImageResource(R.drawable.ic_dark_mode)
+                themeStatusText?.text = "Dark Mode"
+                Toast.makeText(requireContext(), "Switched to Dark Mode", Toast.LENGTH_SHORT).show()
+                Log.d("SettingsFragment", "Theme changed to Dark Mode")
+            } else {
+                // Switch to light mode
+                themeIcon?.setImageResource(R.drawable.ic_light_mode)
+                themeStatusText?.text = "Light Mode"
+                Toast.makeText(requireContext(), "Switched to Light Mode", Toast.LENGTH_SHORT).show()
+                Log.d("SettingsFragment", "Theme changed to Light Mode")
+            }
+
+            // TODO: Implement actual theme switching using AppCompatDelegate.setDefaultNightMode()
         }
+    }
+
+    // Setup notifications toggle
+    private fun setupNotificationsToggle(view: View) {
+        val notificationsSwitch = view.findViewById<SwitchMaterial>(R.id.notifications_switch)
+
+        notificationsSwitch?.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                Toast.makeText(requireContext(), "✓ Notifications enabled", Toast.LENGTH_SHORT).show()
+                Log.d("SettingsFragment", "Notifications enabled")
+            } else {
+                Toast.makeText(requireContext(), "Notifications disabled", Toast.LENGTH_SHORT).show()
+                Log.d("SettingsFragment", "Notifications disabled")
+            }
+
+            // TODO: Implement actual notification management
+        }
+    }
+
+    // Setup about section clicks
+    private fun setupAboutSection(view: View) {
+        val privacyCard = view.findViewById<MaterialCardView>(R.id.privacy_card)
+
+        privacyCard?.setOnClickListener {
+            try {
+                findNavController().navigate(R.id.privacyPolicyFragment)
+                Log.d("SettingsFragment", "Navigating to Privacy Policy")
+            } catch (e: Exception) {
+                Log.e("SettingsFragment", "Navigation to Privacy Policy failed", e)
+                Toast.makeText(requireContext(), "Unable to open Privacy Policy", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    // Load saved settings from SharedPreferences
+    private fun loadSavedSettings(view: View) {
+        // Load saved language
+        val savedLanguage = sharedPrefsManager.getPreferredLanguage() ?: "en"
+        val selectedLanguageText = view.findViewById<TextView>(R.id.selected_language_text)
+        val radioGroup = view.findViewById<RadioGroup>(R.id.language_radio_group)
+
+        val languageName = when (savedLanguage) {
+            "en" -> {
+                radioGroup?.check(R.id.radio_english)
+                "English"
+            }
+            "af" -> {
+                radioGroup?.check(R.id.radio_afrikaans)
+                "Afrikaans"
+            }
+            "zu" -> {
+                radioGroup?.check(R.id.radio_zulu)
+                "Zulu"
+            }
+            "fr" -> {
+                radioGroup?.check(R.id.radio_french)
+                "French"
+            }
+            "es" -> {
+                radioGroup?.check(R.id.radio_spanish)
+                "Spanish"
+            }
+            else -> "English"
+        }
+
+        selectedLanguageText?.text = languageName
+        Log.d("SettingsFragment", "Loaded saved language: $languageName ($savedLanguage)")
+
+        // Log current settings state
+        sharedPrefsManager.logCurrentState()
+    }
+
+    // Helper function to animate arrow rotation
+    private fun rotateArrow(arrow: ImageView?, fromDegrees: Float, toDegrees: Float) {
+        val rotate = RotateAnimation(
+            fromDegrees, toDegrees,
+            Animation.RELATIVE_TO_SELF, 0.5f,
+            Animation.RELATIVE_TO_SELF, 0.5f
+        )
+        rotate.duration = 300
+        rotate.fillAfter = true
+        arrow?.startAnimation(rotate)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("SettingsFragment", "Settings screen resumed")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("SettingsFragment", "Settings screen paused")
     }
 }
 

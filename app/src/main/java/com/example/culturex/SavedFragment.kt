@@ -1,7 +1,9 @@
 package com.example.culturex
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.culturex.databinding.FragmentSavedBinding
@@ -21,13 +23,16 @@ class SavedFragment : Fragment(R.layout.fragment_saved) {
         setupBottomNavigation()
     }
 
+
     // Function to handle bottom navigation item clicks
     private fun setupBottomNavigation() {
         val bottomNavMap = mapOf(
-            binding.navEmergency.id to R.id.action_main_to_emergencyFragment,
+            binding.navEmergency.id to R.id.emergencyFragment,
             binding.navSaved.id to null, // Already here
-            binding.navNotifications.id to R.id.action_main_to_notificationsFragment,
-            binding.navHome.id to R.id.mainFragment
+            binding.navNotifications.id to R.id.notificationsFragment,
+            binding.navHome.id to R.id.mainFragment,
+            binding.profileIcon.id to R.id.profileFragment,
+            binding.searchIcon.id to R.id.touristAttractionsFragment
         )
 
         bottomNavMap.forEach { (viewId, actionId) ->

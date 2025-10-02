@@ -199,6 +199,12 @@
         android:id="@+id/emergencyFragment"
         android:name="com.example.culturex.EmergencyFragment"
         android:label="Emergency" />
+
+    <fragment
+        android:id="@+id/privacyPolicyFragment"
+        android:name="com.example.culturex.PrivacyPolicyFragment"
+        android:label="Privacy Policy"
+        tools:layout="@layout/fragment_privacy_policy" />
 </navigation>
 
     <!-- Reference List

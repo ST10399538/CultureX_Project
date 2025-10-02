@@ -205,7 +205,7 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:src="@drawable/ic_emergency_large"
-                        app:tint="#059669" />
+                        app:tint="#3d85c6" />
 
                 </LinearLayout>
 
@@ -276,7 +276,7 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:src="@drawable/ic_emergency_large"
-                        app:tint="#059669" />
+                        app:tint="#cc0000" />
 
                 </LinearLayout>
 
@@ -347,7 +347,7 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:src="@drawable/ic_emergency_large"
-                        app:tint="#059669" />
+                        app:tint="#e69138" />
 
                 </LinearLayout>
 
@@ -418,7 +418,7 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:src="@drawable/ic_emergency_large"
-                        app:tint="#059669" />
+                        app:tint="#674ea7" />
 
                 </LinearLayout>
 
@@ -490,7 +490,7 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:src="@drawable/ic_emergency_large"
-                        app:tint="#059669" />
+                        app:tint="#a64d79" />
 
                 </LinearLayout>
 
