@@ -1,400 +1,584 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/gradient_peach_background">
+    android:background="#F9FAFB">
 
-    <!-- Header Section -->
-    <LinearLayout
+    <!-- Scrollable Content -->
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:paddingTop="40dp"
-        android:paddingBottom="24dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Settings"
-            android:textColor="@android:color/black"
-            android:textSize="18sp"
-            android:fontFamily="sans-serif-medium" />
-
-    </LinearLayout>
-
-    <!-- Settings Options -->
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="16dp">
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:clipToPadding="false">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Biometric Login -->
-            <androidx.cardview.widget.CardView
+            <!-- Header Section with Gradient -->
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp"
-                app:cardBackgroundColor="@android:color/white">
+                android:layout_height="200dp"
+                android:background="@drawable/gradient_peach_background"
+                android:paddingBottom="40dp">
 
+                <!-- Top Bar -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:padding="16dp">
+                    android:paddingHorizontal="16dp"
+                    android:paddingTop="24dp">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="2dp"
+                        app:cardBackgroundColor="#80FFFFFF">
+
+                        <ImageView
+                            android:id="@+id/back_arrow"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="8dp"
+                            android:src="@drawable/ic_arrow_back"
+                            app:tint="#1F2937"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:background="?android:attr/selectableItemBackgroundBorderless" />
+                    </com.google.android.material.card.MaterialCardView>
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Biometric Login"
-                        android:textColor="@android:color/black"
-                        android:textSize="16sp" />
+                        android:text="Settings"
+                        android:textColor="#1F2937"
+                        android:textSize="20sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center" />
 
-                    <Switch
-                        android:id="@+id/biometric_switch"
+                    <View
+                        android:layout_width="40dp"
+                        android:layout_height="40dp" />
+                </LinearLayout>
+
+                <!-- Settings Icon -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        app:cardCornerRadius="40dp"
+                        android:layout_marginTop="22dp"
+                        app:cardElevation="8dp"
+                        app:cardBackgroundColor="@android:color/white">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_settings"
+                            app:tint="#6366F1" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:checked="true"
-                        android:thumbTint="@android:color/white"
-                        android:trackTint="#4CAF50" />
-
+                        android:layout_marginTop="12dp"
+                        android:text="Customize Your Experience"
+                        android:textColor="#374151"
+                        android:textSize="14sp" />
                 </LinearLayout>
+            </RelativeLayout>
 
-            </androidx.cardview.widget.CardView>
-
-            <!-- Language Dropdown -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/language_card"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp"
-                app:cardBackgroundColor="@android:color/white"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?android:attr/selectableItemBackground">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Language Dropdown"
-                        android:textColor="@android:color/black"
-                        android:textSize="16sp" />
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_arrow_drop_down"
-                        app:tint="#6B7280" />
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <!-- Language Options (initially hidden) -->
+            <!-- Settings Cards Container -->
             <LinearLayout
-                android:id="@+id/language_options"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="gone"
-                android:layout_marginBottom="12dp">
+                android:paddingHorizontal="20dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="24dp"
+                android:layout_marginTop="-20dp">
 
-                <!-- English Option -->
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
+                <!-- Account Settings Section -->
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="2dp"
-                    app:cardBackgroundColor="#FFE0B2">
+                    android:text="Account"
+                    android:textColor="#6B7280"
+                    android:textSize="12sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="0.05"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginStart="4dp" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:padding="12dp">
-
-                        <RadioButton
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:checked="true"
-                            android:buttonTint="#FF9800"
-                            android:layout_marginEnd="12dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="English"
-                            android:textColor="@android:color/black"
-                            android:textSize="14sp" />
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <!-- Afrikaans Option -->
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="2dp"
-                    app:cardBackgroundColor="#FFE0B2">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:padding="12dp">
-
-                        <RadioButton
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:checked="false"
-                            android:buttonTint="#FF9800"
-                            android:layout_marginEnd="12dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Afrikaans"
-                            android:textColor="@android:color/black"
-                            android:textSize="14sp" />
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <!-- Zulu Option -->
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="2dp"
-                    app:cardBackgroundColor="#FFE0B2">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:padding="12dp">
-
-                        <RadioButton
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:checked="false"
-                            android:buttonTint="#FF9800"
-                            android:layout_marginEnd="12dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Zulu"
-                            android:textColor="@android:color/black"
-                            android:textSize="14sp" />
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <!-- French Option -->
-                <androidx.cardview.widget.CardView
+                <!-- Biometric Login Card -->
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="12dp"
-                    app:cardCornerRadius="8dp"
+                    app:cardCornerRadius="16dp"
                     app:cardElevation="2dp"
-                    app:cardBackgroundColor="#FFE0B2">
+                    app:cardBackgroundColor="@android:color/white">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
-                        android:padding="12dp">
+                        android:padding="20dp">
 
-                        <RadioButton
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            app:cardCornerRadius="12dp"
+                            app:cardElevation="0dp"
+                            app:cardBackgroundColor="#DBEAFE">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_menu"
+                                app:tint="#3B82F6" />
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="16dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Biometric Login"
+                                android:textColor="#1F2937"
+                                android:textSize="16sp"
+                                android:fontFamily="sans-serif-medium" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Use fingerprint or face ID"
+                                android:textColor="#9CA3AF"
+                                android:textSize="12sp"
+                                android:layout_marginTop="2dp" />
+                        </LinearLayout>
+
+                        <com.google.android.material.switchmaterial.SwitchMaterial
+                            android:id="@+id/biometric_switch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            app:thumbTint="@android:color/white"
+                            app:trackTint="@color/black" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Preferences Section -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Preferences"
+                    android:textColor="#6B7280"
+                    android:textSize="12sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="0.05"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginStart="4dp" />
+
+                <!-- Language Card -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/language_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="@android:color/white"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="20dp">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            app:cardCornerRadius="12dp"
+                            app:cardElevation="0dp"
+                            app:cardBackgroundColor="#FEF3C7">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_profile_placeholder"
+                                app:tint="#F59E0B" />
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="16dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Language"
+                                android:textColor="#1F2937"
+                                android:textSize="16sp"
+                                android:fontFamily="sans-serif-medium" />
+
+                            <TextView
+                                android:id="@+id/selected_language_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="English"
+                                android:textColor="#9CA3AF"
+                                android:textSize="12sp"
+                                android:layout_marginTop="2dp" />
+                        </LinearLayout>
+
+                        <ImageView
+                            android:id="@+id/language_arrow"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:checked="false"
-                            android:buttonTint="#FF9800"
-                            android:layout_marginEnd="12dp" />
+                            android:src="@drawable/ic_arrow_drop_down"
+                            app:tint="#9CA3AF" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Language Options (Expandable) -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/language_options"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:visibility="gone"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="@android:color/white">
+
+                    <RadioGroup
+                        android:id="@+id/language_radio_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp">
+
+                        <RadioButton
+                            android:id="@+id/radio_english"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="English"
+                            android:textColor="#1F2937"
+                            android:textSize="15sp"
+                            android:padding="12dp"
+                            android:checked="true"
+                            android:buttonTint="#6366F1" />
+
+                        <RadioButton
+                            android:id="@+id/radio_afrikaans"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Afrikaans"
+                            android:textColor="#1F2937"
+                            android:textSize="15sp"
+                            android:padding="12dp"
+                            android:buttonTint="#6366F1" />
+
+                        <RadioButton
+                            android:id="@+id/radio_zulu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Zulu"
+                            android:textColor="#1F2937"
+                            android:textSize="15sp"
+                            android:padding="12dp"
+                            android:buttonTint="#6366F1" />
+
+                        <RadioButton
+                            android:id="@+id/radio_french"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="French"
+                            android:textColor="#1F2937"
+                            android:textSize="15sp"
+                            android:padding="12dp"
+                            android:buttonTint="#6366F1" />
+
+                        <RadioButton
+                            android:id="@+id/radio_spanish"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Spanish"
+                            android:textColor="#1F2937"
+                            android:textSize="15sp"
+                            android:padding="12dp"
+                            android:buttonTint="#6366F1" />
+                    </RadioGroup>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Theme Card -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/theme_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="@android:color/white"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="20dp">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            app:cardCornerRadius="12dp"
+                            app:cardElevation="0dp"
+                            app:cardBackgroundColor="#F3E8FF">
+
+                            <ImageView
+                                android:id="@+id/theme_icon"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_light_mode"
+                                app:tint="#A855F7" />
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="16dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Theme"
+                                android:textColor="#1F2937"
+                                android:textSize="16sp"
+                                android:fontFamily="sans-serif-medium" />
+
+                            <TextView
+                                android:id="@+id/theme_status_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Light Mode"
+                                android:textColor="#9CA3AF"
+                                android:textSize="12sp"
+                                android:layout_marginTop="2dp" />
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_arrow_back"
+                            app:tint="#9CA3AF" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Notifications Card -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="@android:color/white">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="20dp">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            app:cardCornerRadius="12dp"
+                            app:cardElevation="0dp"
+                            app:cardBackgroundColor="#DCFCE7">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_notifications"
+                                app:tint="#22C55E" />
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="16dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Notifications"
+                                android:textColor="#1F2937"
+                                android:textSize="16sp"
+                                android:fontFamily="sans-serif-medium" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Stay updated with alerts"
+                                android:textColor="#9CA3AF"
+                                android:textSize="12sp"
+                                android:layout_marginTop="2dp" />
+                        </LinearLayout>
+
+                        <com.google.android.material.switchmaterial.SwitchMaterial
+                            android:id="@+id/notifications_switch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            app:thumbTint="@android:color/white"
+                            app:trackTint="@color/black" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- About Section -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="About"
+                    android:textColor="#6B7280"
+                    android:textSize="12sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="0.05"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginStart="4dp" />
+
+                <!-- Privacy Policy Card -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/privacy_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="@android:color/white"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="20dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_police"
+                            app:tint="#6B7280"
+                            android:layout_marginEnd="16dp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Privacy Policy"
+                            android:textColor="#1F2937"
+                            android:textSize="15sp" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_arrow_back"
+                            app:tint="#9CA3AF" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- App Version Card -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="@android:color/white">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="20dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_fire"
+                            app:tint="#6B7280"
+                            android:layout_marginEnd="16dp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="App Version"
+                            android:textColor="#1F2937"
+                            android:textSize="15sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="French"
-                            android:textColor="@android:color/black"
+                            android:text="1.0.0"
+                            android:textColor="#9CA3AF"
                             android:textSize="14sp" />
-
                     </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
+                </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
-
-            <!-- Theme (Light/Dark Mode) -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp"
-                app:cardBackgroundColor="@android:color/white">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Theme(Light/Dark Mode)"
-                        android:textColor="@android:color/black"
-                        android:textSize="16sp" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center">
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@drawable/ic_light_mode"
-                            app:tint="#FFB74D"
-                            android:layout_marginEnd="8dp" />
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@drawable/ic_dark_mode"
-                            app:tint="#6B7280" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <!-- Notifications -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp"
-                app:cardBackgroundColor="@android:color/white">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Notifications"
-                        android:textColor="@android:color/black"
-                        android:textSize="16sp" />
-
-                    <Switch
-                        android:id="@+id/notifications_switch"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="true"
-                        android:thumbTint="@android:color/white"
-                        android:trackTint="#4CAF50" />
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <!-- Export Saved Data -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp"
-                app:cardBackgroundColor="@android:color/white"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?android:attr/selectableItemBackground">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Export Saved Data"
-                        android:textColor="@android:color/black"
-                        android:textSize="16sp" />
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_export"
-                        app:tint="#6B7280" />
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
         </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-    </ScrollView>
 
-    <!-- Bottom Section with Flags -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:background="@drawable/flags_crowd_background"
-        android:scaleType="centerCrop"
-        android:gravity="center"
-        android:orientation="vertical">
+    <!-- Reference List
+    Iarn Tech, 2022. Android Studio User Interface - Layout and XML. [video online]. Available at: https://www.youtube.com/watch?v=kn_7H8v4Emo [Accessed on 15 September 2025]
+    UiLover, 2023. Android UI Design Mobile dashboard UI Tutorial | android projects. [video online]. Available at: https://www.youtube.com/watch?v=5dDHplq9rss  [Accessed on 18 September 2025]
+    WsCube Tech, 2021. Layouts in Android Studio (XML) | Android UI Design Explained. [video online]. Available at: https://www.youtube.com/watch?v=PeCOKgAua7A  [Accessed on 16 September 2025]
+    CodeWithTS, 2024. View Binding and Data Binding in Android Studio using Kotlin. [video online]. Available at: https://www.youtube.com/watch?v=tIXSuoJbX-8  [Accessed on 20 September 2025]
+    Android Developers, 2025. Develop a UI with Views. [online]. Available at: https://developer.android.com/studio/write/layout-editor [Accessed on 15 September 2025]
 
-        <!-- This will be an image background showing the crowd with flags -->
-
-    </LinearLayout>
-
-</LinearLayout>
+    -->

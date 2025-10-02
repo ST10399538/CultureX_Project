@@ -1,44 +1,13 @@
 package com.example.culturex.data.models
 
-import com.google.gson.annotations.SerializedName
-
-class CountryModels {
-
-    // Data Transfer Object (DTO) representing a country
-    data class CountryDTO(
-        val id: String,
-        val name: String?,
-        val countryCode: String?,
-        val flagImageUrl: String?,
-        val description: String?,
-        val timezone: String?,
-        val currency: String?,
-        val emergencyContacts: Any? = null
-    )
-
-    // Data Transfer Object (DTO) representing a cultural category within a country
-    data class CulturalCategoryDTO(
-        val id: String,
-        val name: String?,
-        val description: String?,
-        val iconUrl: String?,
-        val sortOrder: Int = 0
-    )
-
-    // Data Transfer Object (DTO) representing specific cultural content
-    data class CulturalContentDTO(
-        val id: String,
-        val countryId: String,
-        val categoryId: String,
-        val title: String?,
-        val content: String?,
-        val dos: List<String>?,
-        val donts: List<String>?,
-        val examples: List<String>?,
-        val countryName: String?,
-        val categoryName: String?
-    )
-}
+// Data class representing an event in an itinerary
+data class ItineraryEvent(
+    val id: String = System.currentTimeMillis().toString(),
+    val date: String,
+    val time: String,
+    val description: String,
+    val timestamp: Long = System.currentTimeMillis()
+)
 
 //Reference List:
 // UiLover, 2025. Build a Coffee Shop app with Kotlin & Firebase in Android Studio Project. [video online]. Available at: https://www.youtube.com/watch?v=Pnw_9tZ2z4wn [Accessed on 16 September 2025]

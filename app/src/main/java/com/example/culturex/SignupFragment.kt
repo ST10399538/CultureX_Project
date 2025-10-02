@@ -12,14 +12,17 @@ import com.example.culturex.utils.SharedPreferencesManager
 import android.util.Log
 
 class SignupFragment : Fragment(R.layout.fragment_signup) {
+
     private var _binding: FragmentSignupBinding? = null
     private val binding get() = _binding!!
+
     private val registerViewModel: RegisterViewModel by viewModels()
     private lateinit var sharedPrefsManager: SharedPreferencesManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentSignupBinding.bind(view)
+
         sharedPrefsManager = SharedPreferencesManager(requireContext())
 
         setupObservers()
@@ -33,30 +36,40 @@ class SignupFragment : Fragment(R.layout.fragment_signup) {
                     onSuccess = { successMessage ->
                         Log.d("SignupFragment", "Registration successful")
 
+                        // Save phone number locally
+                        val phone = binding.phoneInput.text.toString().trim()
+                        if (phone.isNotEmpty()) {
+                            val fullPhone = "+27$phone" // Combine country code with number
+                            sharedPrefsManager.updateUserProfile(
+                                displayName = null,
+                                phoneNumber = fullPhone
+                            )
+                        }
+
                         Toast.makeText(requireContext(), successMessage, Toast.LENGTH_SHORT).show()
 
-                        // Navigate to biometric setup instead of login
                         try {
                             if (findNavController().currentDestination?.id == R.id.signupFragment) {
                                 findNavController().navigate(R.id.action_signup_to_biometric_setup)
                             }
                         } catch (e: Exception) {
                             Log.e("SignupFragment", "Navigation to biometric setup failed", e)
-                            // Fallback to login if biometric setup navigation fails
                             try {
                                 findNavController().navigate(R.id.action_signup_to_login)
                             } catch (e2: Exception) {
                                 Log.e("SignupFragment", "Login navigation also failed", e2)
-                                Toast.makeText(requireContext(), "Registration successful! Please restart the app and login.", Toast.LENGTH_LONG).show()
+                                Toast.makeText(requireContext(),
+                                    "Registration successful! Please restart the app and login.",
+                                    Toast.LENGTH_LONG).show()
                             }
                         }
                     },
                     onFailure = { error ->
                         Log.e("SignupFragment", "Registration failed: ${error.message}")
-                        Toast.makeText(requireContext(), error.message ?: "Registration failed", Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(), error.message ?: "Registration failed",
+                            Toast.LENGTH_LONG).show()
                     }
                 )
-                // Clear the result to prevent re-triggering
                 registerViewModel.clearResults()
             }
         }
@@ -64,7 +77,6 @@ class SignupFragment : Fragment(R.layout.fragment_signup) {
         registerViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             binding.registerButton.isEnabled = !isLoading
             binding.registerButton.text = if (isLoading) "Creating Account..." else "Register"
-
             if (isLoading) {
                 binding.registerButton.alpha = 0.6f
             } else {
@@ -74,7 +86,6 @@ class SignupFragment : Fragment(R.layout.fragment_signup) {
     }
 
     private fun setupClickListeners() {
-        // Back arrow → go back
         binding.backArrow.setOnClickListener {
             try {
                 findNavController().navigateUp()
@@ -84,19 +95,21 @@ class SignupFragment : Fragment(R.layout.fragment_signup) {
             }
         }
 
-        // Register button → call API
         binding.registerButton.setOnClickListener {
             val name = binding.nameInput.text.toString().trim()
+            val surname = binding.surnameInput.text.toString().trim()
             val email = binding.emailInput.text.toString().trim()
+            val phone = binding.phoneInput.text.toString().trim()
             val password = binding.passwordInput.text.toString().trim()
 
-            if (validateInput(name, email, password)) {
+            if (validateInput(name, surname, email, phone, password)) {
+                val displayName = "$name $surname"
+
                 Log.d("SignupFragment", "Attempting registration for: $email")
-                registerViewModel.register(email, password, name, "en")
+                registerViewModel.register(email, password, displayName, "en")
             }
         }
 
-        // Login link → go back to login
         binding.signInLink.setOnClickListener {
             try {
                 if (findNavController().currentDestination?.id == R.id.signupFragment) {
@@ -109,17 +122,18 @@ class SignupFragment : Fragment(R.layout.fragment_signup) {
                 }
             } catch (e: Exception) {
                 Log.e("SignupFragment", "Navigation to login failed", e)
-                Toast.makeText(requireContext(), "Navigation error: ${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Navigation error: ${e.message}",
+                    Toast.LENGTH_SHORT).show()
             }
         }
 
-        // Terms link
         binding.termsLink?.setOnClickListener {
-            Toast.makeText(requireContext(), "Terms and conditions coming soon", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Terms and conditions coming soon",
+                Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun validateInput(name: String, email: String, password: String): Boolean {
+    private fun validateInput(name: String, surname: String, email: String, phone: String, password: String): Boolean {
         var isValid = true
 
         if (name.isEmpty()) {
@@ -132,6 +146,16 @@ class SignupFragment : Fragment(R.layout.fragment_signup) {
             binding.nameInput.error = null
         }
 
+        if (surname.isEmpty()) {
+            binding.surnameInput.error = "Surname is required"
+            isValid = false
+        } else if (surname.length < 2) {
+            binding.surnameInput.error = "Surname must be at least 2 characters"
+            isValid = false
+        } else {
+            binding.surnameInput.error = null
+        }
+
         if (email.isEmpty()) {
             binding.emailInput.error = "Email is required"
             isValid = false
@@ -140,6 +164,16 @@ class SignupFragment : Fragment(R.layout.fragment_signup) {
             isValid = false
         } else {
             binding.emailInput.error = null
+        }
+
+        if (phone.isEmpty()) {
+            binding.phoneInput.error = "Phone number is required"
+            isValid = false
+        } else if (phone.length < 9) {
+            binding.phoneInput.error = "Please enter a valid phone number"
+            isValid = false
+        } else {
+            binding.phoneInput.error = null
         }
 
         if (password.isEmpty()) {

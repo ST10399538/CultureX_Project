@@ -1,48 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background">
+    android:background="@android:color/white">
 
-    <!-- Header Section -->
+    <!-- Header -->
     <LinearLayout
-        android:id="@+id/header_section"
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp"
-        android:paddingTop="48dp"
-        android:background="@drawable/gradient_background">
+        android:background="@drawable/gradient_purple_background"
+        android:paddingTop="40dp"
+        android:paddingBottom="16dp">
 
-        <!-- Top Navigation -->
+        <!-- Title Bar -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginBottom="16dp">
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="16dp">
 
             <ImageView
                 android:id="@+id/back_arrow"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:src="@drawable/ic_arrow_back"
-                android:background="@drawable/nav_icon_background"
-                android:padding="6dp"
-                android:clickable="true"
-                android:focusable="true"
-                app:tint="@android:color/black" />
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:padding="4dp"
+                app:tint="@android:color/white" />
 
             <TextView
-                android:id="@+id/title_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Tourist Attractions"
-                android:textColor="@android:color/black"
+                android:textColor="@android:color/white"
                 android:textSize="18sp"
-                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium"
                 android:gravity="center" />
 
             <View
@@ -51,126 +50,157 @@
         </LinearLayout>
 
         <!-- Search Bar -->
-        <androidx.cardview.widget.CardView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="25dp"
-            app:cardElevation="4dp"
-            android:alpha="0.95">
+            android:orientation="horizontal"
+            android:background="@drawable/search_background"
+            android:layout_marginHorizontal="16dp"
+            android:padding="8dp"
+            android:gravity="center_vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:paddingStart="20dp"
-                android:paddingEnd="8dp">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_search"
+                app:tint="#6B7280"
+                android:layout_marginEnd="8dp" />
 
-                <EditText
-                    android:id="@+id/search_input"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="Search Places"
-                    android:textSize="16sp"
-                    android:textColor="@android:color/black"
-                    android:textColorHint="#6B7280"
-                    android:background="@android:color/transparent"
-                    android:imeOptions="actionSearch"
-                    android:inputType="text" />
+            <EditText
+                android:id="@+id/search_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Search attractions..."
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:textColorHint="#9CA3AF"
+                android:background="@android:color/transparent"
+                android:maxLines="1"
+                android:imeOptions="actionSearch" />
 
-                <ImageView
-                    android:id="@+id/search_button"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/ic_search"
-                    android:background="?android:attr/selectableItemBackgroundBorderless"
-                    android:padding="8dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    app:tint="@android:color/black" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/clear_search"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_close"
+                app:tint="#6B7280"
+                android:visibility="gone"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?android:attr/selectableItemBackgroundBorderless" />
+        </LinearLayout>
 
-    <!-- Map Container -->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/map_container"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_below="@id/header_section"
-        android:layout_above="@id/location_info_container"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="8dp">
-
-        <fragment
-            android:id="@+id/map_fragment"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </androidx.cardview.widget.CardView>
-
-    <!-- Location Info Container -->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/location_info_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="24dp"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="6dp"
-        app:cardBackgroundColor="#3B82F6">
-
+        <!-- Location Status -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:padding="16dp">
+            android:layout_marginTop="12dp"
+            android:paddingHorizontal="16dp">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_location_pin"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/ic_location"
                 app:tint="@android:color/white"
-                android:layout_marginEnd="12dp" />
+                android:layout_marginEnd="8dp" />
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/location_status_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Getting your location..."
+                android:textColor="@android:color/white"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Map View - UPDATED -->
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/map_view"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_below="@id/header" />
+
+    <!-- Attractions List -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/map_view"
+        android:orientation="vertical">
+
+        <!-- List Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:gravity="center_vertical">
+
+            <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical">
+                android:text="Nearby Attractions"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:fontFamily="sans-serif-medium" />
 
-                <TextView
-                    android:id="@+id/current_location_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Current location"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp"
-                    android:fontFamily="sans-serif-medium" />
+            <Button
+                android:id="@+id/sort_button"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:text="Sort by Distance"
+                android:textSize="12sp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/button_primary_background"
+                android:paddingHorizontal="12dp" />
+        </LinearLayout>
 
-                <TextView
-                    android:id="@+id/distance_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Getting location..."
-                    android:textColor="#E0E7FF"
-                    android:textSize="14sp" />
-            </LinearLayout>
+        <!-- Loading Indicator -->
+        <ProgressBar
+            android:id="@+id/loading_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="32dp"
+            android:visibility="gone" />
+
+        <!-- Empty State -->
+        <LinearLayout
+            android:id="@+id/empty_state"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="32dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/ic_search"
+                app:tint="#D1D5DB"
+                android:layout_marginBottom="16dp" />
 
             <TextView
+                android:id="@+id/empty_state_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="47 min [8.04 km]"
-                android:textColor="@android:color/white"
-                android:textSize="14sp"
-                android:fontFamily="sans-serif-medium" />
+                android:text="No attractions found"
+                android:textColor="#6B7280"
+                android:textSize="16sp"
+                android:gravity="center" />
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
+
+        <!-- Attractions RecyclerView -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/attractions_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingBottom="16dp" />
+    </LinearLayout>
 </RelativeLayout>

@@ -9,22 +9,29 @@ import androidx.fragment.app.Fragment
 
 class BiometricHelper(private val fragment: Fragment) {
 
+    // Interface to communicate authentication results back to the caller
     interface BiometricAuthListener {
         fun onAuthenticationSucceeded()
         fun onAuthenticationFailed()
         fun onAuthenticationError(errorCode: Int, errorMessage: String)
     }
 
+    // BiometricPrompt instance for handling biometric authentication
     private var biometricPrompt: BiometricPrompt? = null
+    // Prompt info that configures the biometric dialog
     private var promptInfo: BiometricPrompt.PromptInfo? = null
 
+    // Initialize the helper by setting up the biometric prompt
     init {
         setupBiometricPrompt()
     }
 
+    // Private method to configure the BiometricPrompt and its callback
     private fun setupBiometricPrompt() {
+        // Executor for handling callback events on the main thread
         val executor = ContextCompat.getMainExecutor(fragment.requireContext())
 
+        // Initialize BiometricPrompt with callback methods for success, failure, and error
         biometricPrompt = BiometricPrompt(fragment, executor, object : BiometricPrompt.AuthenticationCallback() {
             override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
                 super.onAuthenticationError(errorCode, errString)
@@ -36,15 +43,18 @@ class BiometricHelper(private val fragment: Fragment) {
                 super.onAuthenticationSucceeded(result)
                 Log.d("BiometricHelper", "Authentication succeeded")
                 listener?.onAuthenticationSucceeded()
+                // Notify listener of success
             }
 
             override fun onAuthenticationFailed() {
                 super.onAuthenticationFailed()
                 Log.w("BiometricHelper", "Authentication failed")
                 listener?.onAuthenticationFailed()
+                // Notify listener of failed authentication
             }
         })
 
+        // Configure the appearance and behavior of the biometric prompt dialog
         promptInfo = BiometricPrompt.PromptInfo.Builder()
             .setTitle("Biometric Authentication")
             .setSubtitle("Log in using your biometric credential")
@@ -54,12 +64,15 @@ class BiometricHelper(private val fragment: Fragment) {
             .build()
     }
 
+    // Listener to receive authentication callbacks
     private var listener: BiometricAuthListener? = null
 
+    // Setter to attach a listener from outside the class
     fun setAuthListener(listener: BiometricAuthListener) {
         this.listener = listener
     }
 
+    // Checks if the device supports biometric authentication and if the user has enrolled credentials
     fun isBiometricAvailable(): Boolean {
         val biometricManager = BiometricManager.from(fragment.requireContext())
         return when (biometricManager.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_WEAK)) {
@@ -86,6 +99,7 @@ class BiometricHelper(private val fragment: Fragment) {
         }
     }
 
+    // Returns a human-readable message describing the device's biometric capability/status
     fun getBiometricStatusMessage(): String {
         val biometricManager = BiometricManager.from(fragment.requireContext())
         return when (biometricManager.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_WEAK)) {
@@ -97,6 +111,7 @@ class BiometricHelper(private val fragment: Fragment) {
         }
     }
 
+    // Trigger biometric authentication if available; otherwise, return error via listener
     fun authenticate() {
         if (isBiometricAvailable()) {
             biometricPrompt?.authenticate(promptInfo!!)
@@ -105,6 +120,7 @@ class BiometricHelper(private val fragment: Fragment) {
         }
     }
 
+    // Static method to check if biometric authentication is supported on a given context/device
     companion object {
         fun isBiometricSupported(context: Context): Boolean {
             val biometricManager = BiometricManager.from(context)
@@ -112,3 +128,12 @@ class BiometricHelper(private val fragment: Fragment) {
         }
     }
 }
+
+//Reference List:
+// UiLover, 2025. Build a Coffee Shop app with Kotlin & Firebase in Android Studio Project. [video online]. Available at: https://www.youtube.com/watch?v=Pnw_9tZ2z4wn [Accessed on 16 September 2025]
+// Guedmioui, A. 2023. Retrofit Android Tutorial - Make API Calls. [video online]. Available at: https://www.youtube.com/watch?v=8IhNq0ng-wk [Accessed on 14 September 2025]
+// Code Heroes, 2024.Integrate Google Maps API in Android Studio 2025 | Step-by-Step Tutorial for Beginners. [video online]. Available at: https://www.youtube.com/watch?v=QVCNTPNy-vs&t=137s [Accessed on 17 September 2025]
+// CodeSchmell, 2022. How to implement API in Android Studio tutorial. [video online]. Available at: https://www.youtube.com/watch?v=Kjeh47epMqI [Accessed on 17 September 2025]
+// UiLover, 2023. Travel App Android Studio Tutorial Project - Android Material Design. [video online]. Available at: https://www.youtube.com/watch?v=PPhuxay3OV0 [Accessed on 12 September 2025]
+// CodeWithTS, 2024. View Binding and Data Binding in Android Studio using Kotlin. [video online]. Available at: https://www.youtube.com/watch?v=tIXSuoJbX-8  [Accessed on 20 September 2025]
+// Android Developers, 2025. Develop a UI with Views. [online]. Available at: https://developer.android.com/studio/write/layout-editor [Accessed on 15 September 2025]

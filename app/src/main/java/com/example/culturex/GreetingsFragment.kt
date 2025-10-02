@@ -12,6 +12,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.culturex.adapters.GreetingItem
+import com.example.culturex.adapters.GreetingsAdapter
 import com.example.culturex.data.viewmodels.ContentViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.button.MaterialButton
@@ -22,19 +26,9 @@ import com.google.android.material.progressindicator.LinearProgressIndicator
 class GreetingsFragment : Fragment(R.layout.fragment_greetings) {
 
     private val contentViewModel: ContentViewModel by viewModels()
-    private lateinit var languagesContainer: LinearLayout
+    private lateinit var greetingsRecyclerView: RecyclerView
+    private lateinit var greetingsAdapter: GreetingsAdapter
     private var currentCountryName: String = ""
-    private var greetingsData: MutableList<GreetingLanguage> = mutableListOf()
-
-    data class GreetingLanguage(
-        val name: String,
-        val nativeName: String,
-        val greeting: String,
-        val greetingTranslation: String,
-        val goodbye: String,
-        val goodbyeTranslation: String,
-        val pronunciation: String? = null
-    )
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -44,18 +38,19 @@ class GreetingsFragment : Fragment(R.layout.fragment_greetings) {
         val countryName = arguments?.getString("countryName") ?: "Country"
 
         currentCountryName = countryName
-        languagesContainer = view.findViewById(R.id.languages_container)
+
+        setupViews(view)
+        setupRecyclerView(view)
+        setupObservers(view)
+        setupClickListeners(view)
 
         if (countryId != null && categoryId != null) {
-            setupViews(view)
-            setupObservers(view)
-            setupClickListeners(view)
-
             // Load content from API
             contentViewModel.loadContent(countryId, categoryId)
-
-            // Show loading state
             showLoadingState(view, true)
+        } else {
+            // Load default data if no IDs provided
+            loadPredeterminedGreetings()
         }
 
         // Animate hero card on load
@@ -65,9 +60,20 @@ class GreetingsFragment : Fragment(R.layout.fragment_greetings) {
     private fun setupViews(view: View) {
         // Set country name
         view.findViewById<TextView>(R.id.country_name)?.text = currentCountryName
+    }
 
-        // Load country flag if available
-        // This would typically load from the API's flagImageUrl
+    private fun setupRecyclerView(view: View) {
+        greetingsRecyclerView = view.findViewById(R.id.greetings_recycler_view)
+        greetingsAdapter = GreetingsAdapter { greeting ->
+            // Handle click on greeting item
+            playGreetingAudio(greeting.greeting)
+        }
+
+        greetingsRecyclerView.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = greetingsAdapter
+            isNestedScrollingEnabled = false
+        }
     }
 
     private fun setupObservers(view: View) {
@@ -78,16 +84,18 @@ class GreetingsFragment : Fragment(R.layout.fragment_greetings) {
                 // Update title
                 view.findViewById<TextView>(R.id.content_title)?.text = it.title ?: "Greetings"
 
-                // Parse and display content
+                // Update description
                 val description = it.content ?: getDefaultGreetingDescription()
                 view.findViewById<TextView>(R.id.content_description)?.text = description
 
-                // Parse language greetings from content
-                parseAndDisplayGreetings(it.content ?: "")
+                // Try to parse greetings from API content
+                val greetings = parseGreetingsFromContent(it)
 
-                // If we have examples in the API response, use them for greetings
-                it.examples?.let { examples ->
-                    displayGreetingsFromExamples(examples)
+                if (greetings.isNotEmpty()) {
+                    greetingsAdapter.submitList(greetings)
+                } else {
+                    // Fallback to predetermined data
+                    loadPredeterminedGreetings()
                 }
             }
         }
@@ -99,23 +107,213 @@ class GreetingsFragment : Fragment(R.layout.fragment_greetings) {
         contentViewModel.error.observe(viewLifecycleOwner) { error ->
             error?.let {
                 showLoadingState(view, false)
-                Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), "Loading default greetings...", Toast.LENGTH_SHORT).show()
                 contentViewModel.clearError()
 
-                // Show default content on error
-                displayDefaultGreetings()
+                // Load predetermined data on error
+                loadPredeterminedGreetings()
             }
         }
+    }
+
+    private fun parseGreetingsFromContent(content: com.example.culturex.data.models.CountryModels.CulturalContentDTO): List<GreetingItem> {
+        val greetings = mutableListOf<GreetingItem>()
+
+        // Try to parse from examples if they contain greeting patterns
+        content.examples?.forEach { example ->
+            if (example.contains("Hello", ignoreCase = true) ||
+                example.contains("Goodbye", ignoreCase = true)) {
+                // Simple parsing - this would be more sophisticated in production
+                val parts = example.split(":")
+                if (parts.size >= 2) {
+                    greetings.add(
+                        GreetingItem(
+                            language = "Local Language",
+                            greeting = parts[0].trim(),
+                            greetingTranslation = parts.getOrNull(1)?.trim() ?: "",
+                            goodbye = "",
+                            goodbyeTranslation = "",
+                            pronunciation = null
+                        )
+                    )
+                }
+            }
+        }
+
+        // If no greetings found in examples, check content text
+        if (greetings.isEmpty() && !content.content.isNullOrEmpty()) {
+            // Check if content contains country-specific greetings
+            if (currentCountryName.contains("South Africa", ignoreCase = true)) {
+                return getPredeterminedSouthAfricanGreetings()
+            }
+        }
+
+        return greetings
+    }
+
+    private fun loadPredeterminedGreetings() {
+        val greetings = when {
+            currentCountryName.contains("South Africa", ignoreCase = true) -> {
+                getPredeterminedSouthAfricanGreetings()
+            }
+            currentCountryName.contains("France", ignoreCase = true) -> {
+                getPredeterminedFrenchGreetings()
+            }
+            currentCountryName.contains("Japan", ignoreCase = true) -> {
+                getPredeterminedJapaneseGreetings()
+            }
+            currentCountryName.contains("India", ignoreCase = true) -> {
+                getPredeterminedIndianGreetings()
+            }
+            currentCountryName.contains("United States", ignoreCase = true) -> {
+                getPredeterminedAmericanGreetings()
+            }
+            else -> {
+                getPredeterminedDefaultGreetings()
+            }
+        }
+
+        greetingsAdapter.submitList(greetings)
+    }
+
+    private fun getPredeterminedSouthAfricanGreetings(): List<GreetingItem> {
+        return listOf(
+            GreetingItem(
+                language = "Zulu (isiZulu)",
+                greeting = "Sawubona / Sanibonani",
+                greetingTranslation = "(to one person) / (to many) - 'I see you'",
+                goodbye = "Hamba kahle / Sala kahle",
+                goodbyeTranslation = "(go well) / (stay well)",
+                pronunciation = "sah-woo-BOH-nah"
+            ),
+            GreetingItem(
+                language = "Xhosa (isiXhosa)",
+                greeting = "Molo / Molweni",
+                greetingTranslation = "(to one person) / (to many)",
+                goodbye = "Hamba kakuhle / Sala kakuhle",
+                goodbyeTranslation = "(go well) / (stay well)",
+                pronunciation = "MOH-loh"
+            ),
+            GreetingItem(
+                language = "Afrikaans",
+                greeting = "Hallo / Goeie môre",
+                greetingTranslation = "Hello / Good morning",
+                goodbye = "Totsiens",
+                goodbyeTranslation = "Until we meet again",
+                pronunciation = "HAH-loh / HOO-yuh MORE-uh"
+            ),
+            GreetingItem(
+                language = "English",
+                greeting = "Hello / Hi",
+                greetingTranslation = "Standard greeting",
+                goodbye = "Goodbye / Cheers",
+                goodbyeTranslation = "Standard farewell",
+                pronunciation = null
+            )
+        )
+    }
+
+    private fun getPredeterminedFrenchGreetings(): List<GreetingItem> {
+        return listOf(
+            GreetingItem(
+                language = "French (Français)",
+                greeting = "Bonjour",
+                greetingTranslation = "Good day (formal)",
+                goodbye = "Au revoir",
+                goodbyeTranslation = "Goodbye",
+                pronunciation = "bon-ZHOOR / oh reh-VWAHR"
+            ),
+            GreetingItem(
+                language = "French (Informal)",
+                greeting = "Salut",
+                greetingTranslation = "Hi/Bye (informal)",
+                goodbye = "À bientôt",
+                goodbyeTranslation = "See you soon",
+                pronunciation = "sah-LOO / ah bee-an-TOH"
+            )
+        )
+    }
+
+    private fun getPredeterminedJapaneseGreetings(): List<GreetingItem> {
+        return listOf(
+            GreetingItem(
+                language = "Japanese (日本語)",
+                greeting = "こんにちは (Konnichiwa)",
+                greetingTranslation = "Hello (daytime)",
+                goodbye = "さようなら (Sayōnara)",
+                goodbyeTranslation = "Goodbye",
+                pronunciation = "kon-nee-chee-wah"
+            ),
+            GreetingItem(
+                language = "Japanese (Morning)",
+                greeting = "おはよう (Ohayō)",
+                greetingTranslation = "Good morning",
+                goodbye = "また明日 (Mata ashita)",
+                goodbyeTranslation = "See you tomorrow",
+                pronunciation = "oh-hah-yoh"
+            )
+        )
+    }
+
+    private fun getPredeterminedIndianGreetings(): List<GreetingItem> {
+        return listOf(
+            GreetingItem(
+                language = "Hindi (हिन्दी)",
+                greeting = "नमस्ते (Namaste)",
+                greetingTranslation = "Hello/Goodbye (respectful)",
+                goodbye = "अलविदा (Alvida)",
+                goodbyeTranslation = "Goodbye",
+                pronunciation = "nah-mah-STAY"
+            ),
+            GreetingItem(
+                language = "Tamil (தமிழ்)",
+                greeting = "வணக்கம் (Vanakkam)",
+                greetingTranslation = "Hello (respectful)",
+                goodbye = "போய் வருகிறேன் (Poi varugiren)",
+                goodbyeTranslation = "I'll go and come back",
+                pronunciation = "vah-nahk-kahm"
+            )
+        )
+    }
+
+    private fun getPredeterminedAmericanGreetings(): List<GreetingItem> {
+        return listOf(
+            GreetingItem(
+                language = "American English",
+                greeting = "Hey / What's up?",
+                greetingTranslation = "Casual greeting",
+                goodbye = "See ya / Take care",
+                goodbyeTranslation = "Casual farewell",
+                pronunciation = null
+            ),
+            GreetingItem(
+                language = "Spanish (Español)",
+                greeting = "Hola",
+                greetingTranslation = "Hello",
+                goodbye = "Adiós / Hasta luego",
+                goodbyeTranslation = "Goodbye / See you later",
+                pronunciation = "OH-lah"
+            )
+        )
+    }
+
+    private fun getPredeterminedDefaultGreetings(): List<GreetingItem> {
+        return listOf(
+            GreetingItem(
+                language = "International",
+                greeting = "Hello",
+                greetingTranslation = "Universal greeting",
+                goodbye = "Goodbye",
+                goodbyeTranslation = "Universal farewell",
+                pronunciation = null
+            )
+        )
     }
 
     private fun setupClickListeners(view: View) {
         // Back button
         view.findViewById<MaterialCardView>(R.id.back_button_card)?.setOnClickListener {
             findNavController().navigateUp()
-        }
-
-        view.findViewById<MaterialButton>(R.id.back_to_home_button)?.setOnClickListener {
-            findNavController().navigate(R.id.mainFragment)
         }
 
         // Audio button
@@ -137,185 +335,11 @@ class GreetingsFragment : Fragment(R.layout.fragment_greetings) {
         view.findViewById<FloatingActionButton>(R.id.fab_translate)?.setOnClickListener {
             showTranslationOptions()
         }
-
-        // Bottom navigation
-        setupBottomNavigation(view)
-    }
-
-    private fun setupBottomNavigation(view: View) {
-        val bottomNav = view.findViewById<BottomNavigationView>(R.id.bottom_nav)
-        bottomNav?.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_home -> {
-                    findNavController().navigate(R.id.mainFragment)
-                    true
-                }
-                R.id.nav_emergency -> {
-                    navigateToEmergency()
-                    true
-                }
-                R.id.nav_saved -> {
-                    findNavController().navigate(R.id.savedFragment)
-                    true
-                }
-
-                else -> false
-            }
-        }
-    }
-
-    private fun parseAndDisplayGreetings(content: String) {
-        // Try to parse structured greeting data from content
-        // This would ideally come from a structured API response
-
-        if (content.contains("Zulu") || content.contains("Xhosa") || content.contains("Afrikaans")) {
-            // For South Africa, display the default languages
-            displayDefaultGreetings()
-        } else {
-            // Try to extract greeting information from the content
-            extractGreetingsFromContent(content)
-        }
-    }
-
-    private fun displayGreetingsFromExamples(examples: List<String>) {
-        // Parse examples list to extract greeting information
-        languagesContainer.removeAllViews()
-
-        examples.forEach { example ->
-            // Create a simple greeting card for each example
-            if (example.contains("Hello") || example.contains("Goodbye") ||
-                example.contains("greeting", ignoreCase = true)) {
-                addSimpleGreetingCard(example)
-            }
-        }
-    }
-
-    private fun displayDefaultGreetings() {
-        // Display default South African greetings as shown in the original XML
-        val languages = listOf(
-            GreetingLanguage(
-                "Zulu", "isiZulu",
-                "Sawubona / Sanibonani",
-                "(to one person) / (to many) - 'I see you'",
-                "Hamba kahle / Sala kahle",
-                "(go well) / (stay well)",
-                "sah-woo-BOH-nah"
-            ),
-            GreetingLanguage(
-                "Xhosa", "isiXhosa",
-                "Molo / Molweni",
-                "(to one person) / (to many)",
-                "Hamba kakuhle / Sala kakuhle",
-                "(go well) / (stay well)",
-                "MOH-loh"
-            ),
-            GreetingLanguage(
-                "Afrikaans", "Afrikaans",
-                "Hallo / Goeie môre",
-                "Hello / Good morning",
-                "Totsiens",
-                "Until we meet again",
-                "HAH-loh / HOO-yuh MORE-uh"
-            )
-        )
-
-        greetingsData.clear()
-        greetingsData.addAll(languages)
-
-        languagesContainer.removeAllViews()
-        languages.forEachIndexed { index, language ->
-            addLanguageCard(language, index + 1)
-        }
-    }
-
-    private fun addLanguageCard(language: GreetingLanguage, position: Int) {
-        val cardView = LayoutInflater.from(context).inflate(
-            R.layout.item_language_greeting_card,
-            languagesContainer,
-            false
-        ) as MaterialCardView
-
-        // Set up the card content
-        cardView.apply {
-            findViewById<TextView>(R.id.language_title)?.text = "$position. ${language.name} (${language.nativeName})"
-
-            // Greeting section
-            findViewById<TextView>(R.id.greeting_text)?.text = language.greeting
-            findViewById<TextView>(R.id.greeting_translation)?.text = language.greetingTranslation
-
-            // Goodbye section
-            findViewById<TextView>(R.id.goodbye_text)?.text = language.goodbye
-            findViewById<TextView>(R.id.goodbye_translation)?.text = language.goodbyeTranslation
-
-            // Pronunciation hint
-            language.pronunciation?.let {
-                findViewById<TextView>(R.id.pronunciation_hint)?.apply {
-                    text = "Pronunciation: $it"
-                    isVisible = true
-                }
-            }
-
-            // Play audio button for each phrase
-            findViewById<ImageView>(R.id.play_greeting_audio)?.setOnClickListener {
-                playGreetingAudio(language.greeting)
-            }
-
-            findViewById<ImageView>(R.id.play_goodbye_audio)?.setOnClickListener {
-                playGreetingAudio(language.goodbye)
-            }
-
-            // Add animation
-            val fadeIn = AnimationUtils.loadAnimation(context, android.R.anim.fade_in)
-            fadeIn.startOffset = (position * 100).toLong()
-            startAnimation(fadeIn)
-        }
-
-        languagesContainer.addView(cardView)
-    }
-
-    private fun addSimpleGreetingCard(greeting: String) {
-        val cardView = MaterialCardView(requireContext()).apply {
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            ).apply {
-                setMargins(0, 0, 0, 16.dpToPx())
-            }
-            radius = 20f.dpToPx().toFloat()
-            cardElevation = 4f.dpToPx().toFloat()
-            setCardBackgroundColor(requireContext().getColor(android.R.color.white))
-        }
-
-        val textView = TextView(requireContext()).apply {
-            text = greeting
-            setPadding(20.dpToPx(), 20.dpToPx(), 20.dpToPx(), 20.dpToPx())
-            textSize = 14f
-            setTextColor(requireContext().getColor(android.R.color.black))
-        }
-
-        cardView.addView(textView)
-        languagesContainer.addView(cardView)
-    }
-
-    private fun extractGreetingsFromContent(content: String) {
-        // Parse content to extract greetings
-        // This is a fallback when structured data isn't available
-        val lines = content.split("\n")
-        var currentLanguage: String? = null
-
-        lines.forEach { line ->
-            when {
-                line.contains("Hello", ignoreCase = true) ||
-                        line.contains("Greeting", ignoreCase = true) -> {
-                    addSimpleGreetingCard(line.trim())
-                }
-            }
-        }
     }
 
     private fun showLoadingState(view: View, isLoading: Boolean) {
         view.findViewById<MaterialCardView>(R.id.loading_card)?.isVisible = isLoading
-        languagesContainer.isVisible = !isLoading
+        greetingsRecyclerView.isVisible = !isLoading
     }
 
     private fun animateHeroCard(view: View) {
@@ -326,52 +350,28 @@ class GreetingsFragment : Fragment(R.layout.fragment_greetings) {
 
     private fun playAudioPronunciation() {
         Toast.makeText(context, "Playing pronunciation guide...", Toast.LENGTH_SHORT).show()
-        // Implement text-to-speech or audio playback
     }
 
     private fun playGreetingAudio(text: String) {
         Toast.makeText(context, "Playing: $text", Toast.LENGTH_SHORT).show()
-        // Implement text-to-speech for specific greeting
     }
 
     private fun saveContentOffline() {
-        // Save greetings data for offline use
         Toast.makeText(context, "Greetings saved for offline use", Toast.LENGTH_SHORT).show()
     }
 
     private fun startPracticeMode() {
-        // Navigate to practice screen or show practice dialog
         Toast.makeText(context, "Starting practice mode...", Toast.LENGTH_SHORT).show()
     }
 
     private fun showTranslationOptions() {
-        // Show language translation options
         Toast.makeText(context, "Translation options", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun navigateToEmergency() {
-        val bundle = Bundle().apply {
-            putString("countryId", arguments?.getString("countryId"))
-            putString("countryName", currentCountryName)
-        }
-        findNavController().navigate(R.id.emergencyFragment, bundle)
     }
 
     private fun getDefaultGreetingDescription(): String {
         return """
-            Because $currentCountryName has diverse cultures and languages, there are many different ways to greet people. 
-            Learning these greetings shows respect for local culture and helps you connect with people in their native language. 
-            
-            Below are the most common greetings you'll encounter, along with their proper pronunciation and usage contexts.
+            Learning local greetings shows respect for the culture and helps you connect with people. 
+            Below are common greetings in $currentCountryName with their pronunciation guides.
         """.trimIndent()
-    }
-
-    // Extension function to convert dp to pixels
-    private fun Int.dpToPx(): Int {
-        return (this * resources.displayMetrics.density).toInt()
-    }
-
-    private fun Float.dpToPx(): Float {
-        return this * resources.displayMetrics.density
     }
 }
