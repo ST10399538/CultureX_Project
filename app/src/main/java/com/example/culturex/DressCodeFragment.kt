@@ -105,9 +105,6 @@ class DressCodeFragment : Fragment(R.layout.fragment_dress_code) {
             findNavController().navigate(R.id.mainFragment)
         }
 
-        view.findViewById<MaterialButton>(R.id.back_to_home_button)?.setOnClickListener {
-            findNavController().navigate(R.id.mainFragment)
-        }
 
         // Bookmark button
         view.findViewById<MaterialCardView>(R.id.bookmark_card)?.setOnClickListener {

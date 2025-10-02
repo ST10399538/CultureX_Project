@@ -109,9 +109,7 @@ class CommunicationFragment : Fragment(R.layout.fragment_communication) {
             findNavController().navigateUp()
         }
 
-        view.findViewById<MaterialButton>(R.id.back_to_home_button)?.setOnClickListener {
-            findNavController().navigate(R.id.mainFragment)
-        }
+
 
         // Options menu
         view.findViewById<MaterialButton>(R.id.options_menu)?.setOnClickListener {
