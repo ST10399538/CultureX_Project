@@ -18,12 +18,11 @@ class GreetingsAdapter(private val onPlayAudio: (GreetingItem) -> Unit
 
     // Called when RecyclerView needs a new ViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GreetingViewHolder {
-        // Inflate the layout for each greeting card
         val view = LayoutInflater.from(parent.context)
+            // Inflate the layout for each greeting card
             .inflate(R.layout.item_greeting_card, parent, false)
         return GreetingViewHolder(view)
     }
-
     // Called to display data at a specific position
     override fun onBindViewHolder(holder: GreetingViewHolder, position: Int) {
         holder.bind(getItem(position), position + 1)

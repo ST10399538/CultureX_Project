@@ -1,12 +1,15 @@
 package com.example.culturex.data.models
 
-// Data class representing an event in an itinerary
-data class ItineraryEvent(
-    val id: String = System.currentTimeMillis().toString(),
-    val date: String,
-    val time: String,
+// A data class representing a tourist attraction
+data class TouristAttraction(
+    val id: String,
+    val name: String,
+    val category: String,
     val description: String,
-    val timestamp: Long = System.currentTimeMillis()
+    val latitude: Double,
+    val longitude: Double,
+    var distanceFromUser: Double = 0.0,
+    val imageUrl: String? = null
 )
 
 //Reference List:

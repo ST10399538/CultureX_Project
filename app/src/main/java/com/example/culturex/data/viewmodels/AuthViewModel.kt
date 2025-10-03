@@ -10,7 +10,6 @@ import com.example.culturex.data.models.AuthModels
 import android.util.Log
 
 class AuthViewModel : ViewModel() {
-
     // Repository instance to handle API calls
     private val repository = CultureXRepository()
 
@@ -42,7 +41,6 @@ class AuthViewModel : ViewModel() {
                 Log.d("AuthViewModel", "Login response code: ${response.code()}")
                 Log.d("AuthViewModel", "Login response message: ${response.message()}")
 
-                // If response is successful, update loginResult LiveData
                 if (response.isSuccessful && response.body() != null) {
                     val authResponse = response.body()!!
                     Log.d("AuthViewModel", "Login successful for user: ${authResponse.user?.email}")
@@ -74,7 +72,9 @@ class AuthViewModel : ViewModel() {
         }
     }
 
+
     // Function to perform user registration
+
     fun register(email: String, password: String, displayName: String, preferredLanguage: String? = null) {
         viewModelScope.launch {
             _isLoading.value = true

@@ -2,12 +2,9 @@ package com.example.culturex
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.culturex.databinding.FragmentEmergencyBinding
 import com.example.culturex.databinding.FragmentNotificationsBinding
-import com.example.culturex.databinding.FragmentSavedBinding
 
 class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
 
@@ -47,8 +44,6 @@ class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
     }
 
 }
-
-
 
 //Reference List:
 // UiLover, 2025. Build a Coffee Shop app with Kotlin & Firebase in Android Studio Project. [video online]. Available at: https://www.youtube.com/watch?v=Pnw_9tZ2z4wn [Accessed on 16 September 2025]

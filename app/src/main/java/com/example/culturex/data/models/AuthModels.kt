@@ -2,10 +2,9 @@ package com.example.culturex.data.models
 
 import com.google.gson.annotations.SerializedName
 
+// DTO for login request
+// Contains the email and password needed to authenticate a user
 class AuthModels {
-
-    // DTO for login request
-    // Contains the email and password needed to authenticate a user
     data class LoginDTO(
         val email: String,
         val password: String

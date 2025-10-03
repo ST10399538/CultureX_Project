@@ -7,10 +7,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object NetworkConfig {
-
     // Use localhost for development/testing, switch to Azure URL for production
     private const val BASE_URL = "https://culturex-api-a8f5g9avfjb3fyfy.southafricanorth-01.azurewebsites.net/"
-
     // For local testing, uncomment the line below and comment the line above
     // private const val BASE_URL = "http://10.0.2.2:7070/" // For Android emulator
     // private const val BASE_URL = "http://192.168.1.XXX:7070/" // Replace XXX with your local IP for physical device

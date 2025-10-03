@@ -150,7 +150,7 @@ class SignupFragment : Fragment(R.layout.fragment_signup) {
         }
     }
 
-// Validates all the required fields to be entered by the user
+    // Validates all the required fields to be entered by the user
     private fun validateInput(name: String, surname: String, email: String, phone: String, password: String): Boolean {
         var isValid = true
 

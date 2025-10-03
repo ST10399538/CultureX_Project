@@ -8,7 +8,8 @@ import com.example.culturex.data.models.CountryModels
 import com.example.culturex.data.repository.CultureXRepository
 import kotlinx.coroutines.launch
 
-class MainViewModel : ViewModel(){
+class MainViewModel : ViewModel() {
+
 
     // Repository instance to handle API calls
     private val repository = CultureXRepository()
@@ -132,3 +133,4 @@ class MainViewModel : ViewModel(){
 // UiLover, 2023. Travel App Android Studio Tutorial Project - Android Material Design. [video online]. Available at: https://www.youtube.com/watch?v=PPhuxay3OV0 [Accessed on 12 September 2025]
 // CodeWithTS, 2024. View Binding and Data Binding in Android Studio using Kotlin. [video online]. Available at: https://www.youtube.com/watch?v=tIXSuoJbX-8  [Accessed on 20 September 2025]
 // Android Developers, 2025. Develop a UI with Views. [online]. Available at: https://developer.android.com/studio/write/layout-editor [Accessed on 15 September 2025]
+

@@ -6,6 +6,7 @@ import retrofit2.Response
 import android.util.Log
 
 class CultureXRepository {
+
     // Instance of the API service configured via NetworkConfig
     private val apiService = NetworkConfig.apiService
 
@@ -84,7 +85,7 @@ class CultureXRepository {
             throw e
         }
     }
-// Function to get all available cultural categories across countries
+    // Function to get all available cultural categories across countries
     suspend fun getAllCategories(): Response<List<CountryModels.CulturalCategoryDTO>> {
         return try {
             apiService.getAllCategories()
