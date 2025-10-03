@@ -24,9 +24,12 @@ import android.util.Log
 
 class EditProfileFragment : Fragment(R.layout.fragment_editprofile) {
 
+    // SharedPreferences manager for storing and retrieving user data locally
     private lateinit var sharedPrefsManager: SharedPreferencesManager
+    // ViewModel for handling user profile API calls and state
     private val userViewModel: UserViewModel by viewModels()
 
+    // UI elements
     private lateinit var backArrow: ImageView
     private lateinit var profileImage: ImageView
     private lateinit var changePictureButton: Button
@@ -36,6 +39,7 @@ class EditProfileFragment : Fragment(R.layout.fragment_editprofile) {
     private lateinit var phoneInput: TextInputEditText
     private lateinit var updateButton: Button
 
+    // Holds the selected image URI for the profile picture
     private var selectedImageUri: Uri? = null
 
     // Permission launcher
@@ -59,7 +63,7 @@ class EditProfileFragment : Fragment(R.layout.fragment_editprofile) {
             result.data?.data?.let { uri ->
                 selectedImageUri = uri
 
-                // Take persistable URI permission
+                // Request persistable URI permission so the app can access the image later
                 try {
                     requireContext().contentResolver.takePersistableUriPermission(
                         uri,
@@ -84,6 +88,7 @@ class EditProfileFragment : Fragment(R.layout.fragment_editprofile) {
         }
     }
 
+    // Called when the fragment's view is created
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -95,6 +100,7 @@ class EditProfileFragment : Fragment(R.layout.fragment_editprofile) {
         loadUserData()
     }
 
+    // Find all UI views from the layout
     private fun initializeViews(view: View) {
         backArrow = view.findViewById(R.id.back_arrow)
         profileImage = view.findViewById(R.id.profile_image)
@@ -106,23 +112,29 @@ class EditProfileFragment : Fragment(R.layout.fragment_editprofile) {
         updateButton = view.findViewById(R.id.update_button)
     }
 
+    // Observes ViewModel data changes (profile, loading state, errors)
     private fun setupObservers() {
+        // Observe user profile
         userViewModel.userProfile.observe(viewLifecycleOwner) { profile ->
             profile?.let {
                 val displayName = it.displayName ?: ""
                 val nameParts = displayName.split(" ", limit = 2)
 
+                // Set first name
                 if (nameParts.isNotEmpty()) {
                     nameInput.setText(nameParts[0])
                 }
+                // Set surname
                 if (nameParts.size > 1) {
                     surnameInput.setText(nameParts[1])
                 }
 
+                // Set email
                 emailInput.setText(it.email ?: "")
             }
         }
 
+        // Split full name into first name and surname
         userViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             updateButton.isEnabled = !isLoading
             updateButton.text = if (isLoading) "Updating..." else "Update"
@@ -133,6 +145,7 @@ class EditProfileFragment : Fragment(R.layout.fragment_editprofile) {
             }
         }
 
+        // Format phone number
         userViewModel.error.observe(viewLifecycleOwner) { error ->
             error?.let {
                 Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
@@ -141,6 +154,7 @@ class EditProfileFragment : Fragment(R.layout.fragment_editprofile) {
         }
     }
 
+    // Load profile picture from saved URI
     private fun setupClickListeners() {
         backArrow.setOnClickListener {
             try {
@@ -160,6 +174,7 @@ class EditProfileFragment : Fragment(R.layout.fragment_editprofile) {
         }
     }
 
+    // Check storage permission before opening image picker
     private fun checkPermissionAndOpenPicker() {
         val permission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             Manifest.permission.READ_MEDIA_IMAGES
@@ -168,12 +183,14 @@ class EditProfileFragment : Fragment(R.layout.fragment_editprofile) {
         }
 
         when {
+            // Permission already granted
             ContextCompat.checkSelfPermission(
                 requireContext(),
                 permission
             ) == PackageManager.PERMISSION_GRANTED -> {
                 openImagePicker()
             }
+            // Show rationale if needed
             shouldShowRequestPermissionRationale(permission) -> {
                 Toast.makeText(
                     requireContext(),
@@ -183,11 +200,13 @@ class EditProfileFragment : Fragment(R.layout.fragment_editprofile) {
                 permissionLauncher.launch(permission)
             }
             else -> {
+                // Request permission
                 permissionLauncher.launch(permission)
             }
         }
     }
 
+    // Opens the gallery/document picker to select an image
     private fun openImagePicker() {
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
             addCategory(Intent.CATEGORY_OPENABLE)
@@ -198,6 +217,7 @@ class EditProfileFragment : Fragment(R.layout.fragment_editprofile) {
         imagePickerLauncher.launch(intent)
     }
 
+    // Loads user data from SharedPreferences and ViewModel
     private fun loadUserData() {
         val displayName = sharedPrefsManager.getDisplayName()
         val email = sharedPrefsManager.getEmail()
@@ -236,22 +256,26 @@ class EditProfileFragment : Fragment(R.layout.fragment_editprofile) {
             }
         }
 
+        // If token exists, fetch latest profile from API
         val token = sharedPrefsManager.getAccessToken()
         if (token != null) {
             userViewModel.loadUserProfile(token)
         }
     }
 
+    // Updates the profile with new values
     private fun updateProfile() {
         val name = nameInput.text.toString().trim()
         val surname = surnameInput.text.toString().trim()
         val email = emailInput.text.toString().trim()
         val phone = phoneInput.text.toString().trim()
 
+        // Validate input before saving
         if (validateInput(name, surname, email, phone)) {
             val fullDisplayName = if (surname.isNotEmpty()) "$name $surname" else name
             val fullPhone = if (phone.isNotEmpty()) "+27$phone" else null
 
+            // Save updated profile details in SharedPreferences
             sharedPrefsManager.updateUserProfile(
                 displayName = fullDisplayName,
                 profilePictureUrl = selectedImageUri?.toString(),
@@ -270,9 +294,11 @@ class EditProfileFragment : Fragment(R.layout.fragment_editprofile) {
         }
     }
 
+    // Validates form input before updating profile
     private fun validateInput(name: String, surname: String, email: String, phone: String): Boolean {
         var isValid = true
 
+        // Name validation
         if (name.isEmpty()) {
             nameInput.error = "Name is required"
             isValid = false
@@ -283,6 +309,7 @@ class EditProfileFragment : Fragment(R.layout.fragment_editprofile) {
             nameInput.error = null
         }
 
+        // Surname validation
         if (surname.isEmpty()) {
             surnameInput.error = "Surname is required"
             isValid = false
@@ -293,6 +320,7 @@ class EditProfileFragment : Fragment(R.layout.fragment_editprofile) {
             surnameInput.error = null
         }
 
+        // Email validation
         if (email.isEmpty()) {
             emailInput.error = "Email is required"
             isValid = false
@@ -303,6 +331,7 @@ class EditProfileFragment : Fragment(R.layout.fragment_editprofile) {
             emailInput.error = null
         }
 
+        // Phone Number validation
         if (phone.isNotEmpty() && phone.length < 9) {
             phoneInput.error = "Please enter a valid phone number"
             isValid = false
