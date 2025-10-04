@@ -245,7 +245,10 @@ Unit Testing:
 <img width="940" height="472" alt="image" src="https://github.com/user-attachments/assets/af4a9ccb-dc6e-4e84-83cd-ed3754e56717" />
 
 
- 
+GitHub Workflow:
+<img width="1918" height="928" alt="image" src="https://github.com/user-attachments/assets/5391cb78-c391-4384-8585-a5ff941fd3e2" />
+
+
 
 Conclusion: 
 CultureX represents a comprehensive solution to cultural education for international travelers, combining authentic local expertise with modern mobile technology. The project's success relies on three fundamental pillars:
