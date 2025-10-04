@@ -10,17 +10,21 @@ class CultureXRepository {
     // Instance of the API service configured via NetworkConfig
     private val apiService = NetworkConfig.apiService
 
+    // Function to log in a user with email and password
     suspend fun login(email: String, password: String): Response<AuthModels.AuthResponseDTO> {
         return try {
             Log.d("CultureXRepository", "Making login request for email: $email")
+            // Call the API service login endpoint
             val response = apiService.login(AuthModels.LoginDTO(email, password))
             Log.d("CultureXRepository", "Login response received: ${response.code()}")
             response
         } catch (e: Exception) {
+            // Log the exception if the login request fails
             Log.e("CultureXRepository", "Login request failed", e)
             throw e
         }
     }
+
     // Function to register a new user with email, password, display name, and optional preferred language
     suspend fun register(
         email: String,
@@ -36,19 +40,23 @@ class CultureXRepository {
                 displayName = displayName,
                 preferredLanguage = preferredLanguage
             )
+            // Call the API service register endpoint
             val response = apiService.register(registerRequest)
             Log.d("CultureXRepository", "Registration response received: ${response.code()}")
             response
         } catch (e: Exception) {
+            // Log the exception if the registration request fails
             Log.e("CultureXRepository", "Registration request failed", e)
             throw e
         }
     }
 
+    // Function to get details of a specific country by ID
     suspend fun getCountry(countryId: String): Response<CountryModels.CountryDTO> {
         return apiService.getCountry(countryId)
     }
 
+    // Function to get a list of all countries
     suspend fun getCountries(): Response<List<CountryModels.CountryDTO>> {
         return try {
             apiService.getCountries()
@@ -68,6 +76,7 @@ class CultureXRepository {
         }
     }
 
+    // Function to get cultural content for a specific country and category
     suspend fun getCulturalContent(countryId: String, categoryId: String): Response<CountryModels.CulturalContentDTO> {
         return try {
             apiService.getCulturalContent(countryId, categoryId)
@@ -76,7 +85,7 @@ class CultureXRepository {
             throw e
         }
     }
-
+    // Function to get all available cultural categories across countries
     suspend fun getAllCategories(): Response<List<CountryModels.CulturalCategoryDTO>> {
         return try {
             apiService.getAllCategories()
@@ -86,6 +95,7 @@ class CultureXRepository {
         }
     }
 
+    // Function to search for countries by a query string
     suspend fun searchCountries(query: String): Response<List<CountryModels.CountryDTO>> {
         return try {
             apiService.searchCountries(query)
@@ -94,7 +104,6 @@ class CultureXRepository {
             throw e
         }
     }
-
 
     // User methods
 
@@ -108,6 +117,7 @@ class CultureXRepository {
         }
     }
 
+    // Function to update the user's profile information
     suspend fun updateUserProfile(token: String, profile: AuthModels.UpdateUserProfileDTO): Response<AuthModels.UserProfileDTO> {
         return try {
             apiService.updateUserProfile("Bearer $token", profile)
@@ -127,6 +137,7 @@ class CultureXRepository {
         }
     }
 
+    // Function to add a new favorite item for the user
     suspend fun addFavorite(token: String, favorite: AuthModels.AddFavoriteDTO): Response<Unit> {
         return try {
             apiService.addFavorite("Bearer $token", favorite)

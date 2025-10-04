@@ -22,10 +22,14 @@ import java.util.Locale
 
 class TippingFragment : Fragment(R.layout.fragment_tipping) {
 
+    // ViewModel instance for content data
     private val contentViewModel: ContentViewModel by viewModels()
+    // RecyclerView adapters for "Dos", "Don'ts" and example lists
     private lateinit var dosAdapter: StringListAdapter
     private lateinit var dontsAdapter: StringListAdapter
     private lateinit var examplesAdapter: StringListAdapter
+
+    // Tracks whether the content is marked as favorite
     private var isFavorite = false
 
     // Currency information
@@ -38,29 +42,36 @@ class TippingFragment : Fragment(R.layout.fragment_tipping) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Retrieve arguments passed to the fragment
         val countryId = arguments?.getString("countryId")
         val categoryId = arguments?.getString("categoryId")
         val countryName = arguments?.getString("countryName")
 
+        // Check for required data; if missing, show a toast and navigate up
         if (countryId == null || categoryId == null) {
             Toast.makeText(requireContext(), "Missing required data", Toast.LENGTH_SHORT).show()
             findNavController().navigateUp()
             return
         }
 
+        // Store country name and initialize currency settings
         currentCountryName = countryName ?: ""
         initializeCurrencyForCountry(currentCountryName)
 
+        // Set the country name in the UI and update tip calculator
         view.findViewById<TextView>(R.id.country_name)?.text = currentCountryName
         updateCalculatorUI(view)
 
+        // Setup RecyclerViews, LiveData observers, and click listeners
         setupRecyclerViews(view)
         setupObservers(view)
         setupClickListeners(view)
 
+        // Load content for the specified country and category
         contentViewModel.loadContent(countryId, categoryId)
     }
 
+    // Set currency, symbol, tip percentage, and number format based on country
     private fun initializeCurrencyForCountry(countryName: String) {
         // Set currency based on country
         when (countryName) {
@@ -140,6 +151,7 @@ class TippingFragment : Fragment(R.layout.fragment_tipping) {
         customTipLayout?.isVisible = recommendedTipPercentage != 0
     }
 
+    // Initialize adapters for the "Dos", "Don'ts", and examples RecyclerViews
     private fun setupRecyclerViews(view: View) {
         dosAdapter = StringListAdapter()
         dontsAdapter = StringListAdapter()
@@ -164,6 +176,7 @@ class TippingFragment : Fragment(R.layout.fragment_tipping) {
         }
     }
 
+    // Observe content LiveData to update UI when content is loaded
     private fun setupObservers(view: View) {
         contentViewModel.content.observe(viewLifecycleOwner) { content ->
             content?.let {
@@ -174,6 +187,7 @@ class TippingFragment : Fragment(R.layout.fragment_tipping) {
                 view.findViewById<TextView>(R.id.country_name)?.text =
                     it.countryName ?: arguments?.getString("countryName") ?: "Country"
 
+                // Update RecyclerViews with the loaded content
                 dosAdapter.updateItems(it.dos ?: emptyList())
                 dontsAdapter.updateItems(it.donts ?: emptyList())
                 examplesAdapter.updateItems(it.examples ?: emptyList())
@@ -182,6 +196,7 @@ class TippingFragment : Fragment(R.layout.fragment_tipping) {
             }
         }
 
+        // Observe errors and show toast messages
         contentViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             view.findViewById<View>(R.id.progress_bar)?.isVisible = isLoading
             view.findViewById<View>(R.id.content_scroll_view)?.isVisible = !isLoading
@@ -265,6 +280,7 @@ class TippingFragment : Fragment(R.layout.fragment_tipping) {
         view.findViewById<MaterialButton>(selectedButtonId)?.isSelected = true
     }
 
+    // Display the currency symbol in the tip calculator
     private fun calculateTip(percentage: Int) {
         val billInput = view?.findViewById<TextInputEditText>(R.id.bill_input)
         val tipAmountView = view?.findViewById<TextView>(R.id.tip_amount_display)
@@ -335,7 +351,7 @@ class TippingFragment : Fragment(R.layout.fragment_tipping) {
             ).show()
         }
     }
-
+    // Reset all input fields and displays
     private fun clearCalculator(view: View) {
         view.findViewById<TextInputEditText>(R.id.bill_input)?.text?.clear()
         view.findViewById<TextInputEditText>(R.id.custom_tip_input)?.text?.clear()
@@ -366,7 +382,7 @@ class TippingFragment : Fragment(R.layout.fragment_tipping) {
 
 
     }
-
+    // Toggle favorite state and update icon
     private fun toggleFavorite(view: View) {
         isFavorite = !isFavorite
         val favoriteIcon = view.findViewById<ImageView>(R.id.favorite_icon)
@@ -380,17 +396,21 @@ class TippingFragment : Fragment(R.layout.fragment_tipping) {
     }
 
     private fun saveContentOffline() {
+        // Placeholder for offline save
         Toast.makeText(context, "Content saved for offline viewing", Toast.LENGTH_SHORT).show()
     }
 
+    // Placeholder for sharing function
     private fun shareContent() {
         Toast.makeText(context, "Sharing content...", Toast.LENGTH_SHORT).show()
     }
 
+    // Placeholder for translation feature
     private fun translateContent() {
         Toast.makeText(context, "Translation feature coming soon", Toast.LENGTH_SHORT).show()
     }
 
+    // Pass country info and navigate to emergency fragment
     private fun navigateToEmergency() {
         val bundle = Bundle().apply {
             putString("countryId", arguments?.getString("countryId"))
@@ -403,4 +423,13 @@ class TippingFragment : Fragment(R.layout.fragment_tipping) {
         findNavController().navigate(R.id.savedFragment)
     }
 }
+
+//Reference List:
+// UiLover, 2025. Build a Coffee Shop app with Kotlin & Firebase in Android Studio Project. [video online]. Available at: https://www.youtube.com/watch?v=Pnw_9tZ2z4wn [Accessed on 16 September 2025]
+// Guedmioui, A. 2023. Retrofit Android Tutorial - Make API Calls. [video online]. Available at: https://www.youtube.com/watch?v=8IhNq0ng-wk [Accessed on 14 September 2025]
+// Code Heroes, 2024.Integrate Google Maps API in Android Studio 2025 | Step-by-Step Tutorial for Beginners. [video online]. Available at: https://www.youtube.com/watch?v=QVCNTPNy-vs&t=137s [Accessed on 17 September 2025]
+// CodeSchmell, 2022. How to implement API in Android Studio tutorial. [video online]. Available at: https://www.youtube.com/watch?v=Kjeh47epMqI [Accessed on 17 September 2025]
+// UiLover, 2023. Travel App Android Studio Tutorial Project - Android Material Design. [video online]. Available at: https://www.youtube.com/watch?v=PPhuxay3OV0 [Accessed on 12 September 2025]
+// CodeWithTS, 2024. View Binding and Data Binding in Android Studio using Kotlin. [video online]. Available at: https://www.youtube.com/watch?v=tIXSuoJbX-8  [Accessed on 20 September 2025]
+// Android Developers, 2025. Develop a UI with Views. [online]. Available at: https://developer.android.com/studio/write/layout-editor [Accessed on 15 September 2025]
 

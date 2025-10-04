@@ -19,12 +19,14 @@ class GreetingsAdapter(private val onPlayAudio: (GreetingItem) -> Unit
     // Called when RecyclerView needs a new ViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GreetingViewHolder {
         val view = LayoutInflater.from(parent.context)
+            // Inflate the layout for each greeting card
             .inflate(R.layout.item_greeting_card, parent, false)
         return GreetingViewHolder(view)
     }
-
+    // Called to display data at a specific position
     override fun onBindViewHolder(holder: GreetingViewHolder, position: Int) {
         holder.bind(getItem(position), position + 1)
+        // Bind the data to the ViewHolder, adding 1 to position for display numbering
     }
 
     // Inner class representing a single item in the RecyclerView
@@ -85,7 +87,9 @@ class GreetingsAdapter(private val onPlayAudio: (GreetingItem) -> Unit
         }
     }
 
+    // DiffUtil callback for efficiently updating the RecyclerView
     class GreetingDiffCallback : DiffUtil.ItemCallback<GreetingItem>() {
+        // Check if items represent the same language
         override fun areItemsTheSame(oldItem: GreetingItem, newItem: GreetingItem): Boolean {
             return oldItem.language == newItem.language
         }

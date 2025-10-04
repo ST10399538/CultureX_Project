@@ -1,5 +1,6 @@
 package com.example.culturex.data.models
 
+// A data class representing a tourist attraction
 data class TouristAttraction(
     val id: String,
     val name: String,

@@ -38,6 +38,7 @@ import android.util.Log
 
 class TouristAttractionsFragment : Fragment(R.layout.fragment_tourist_attractions), OnMapReadyCallback {
 
+    // UI components
     private lateinit var backArrow: ImageView
     private lateinit var searchInput: EditText
     private lateinit var clearSearch: ImageView
@@ -49,24 +50,30 @@ class TouristAttractionsFragment : Fragment(R.layout.fragment_tourist_attraction
     private lateinit var emptyStateText: TextView
     private lateinit var mapView: MapView
 
+    // Location & data helpers
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var attractionsAdapter: TouristAttractionsAdapter
     private lateinit var placesClient: PlacesClient
 
+    // Google Maps
     private var googleMap: GoogleMap? = null
     private var currentLocation: Location? = null
     private var countryId: String? = null
     private var countryName: String = "South Africa" // Made non-nullable with default
     private var attractions: MutableList<TouristAttraction> = mutableListOf()
-    private var isSearchingPlaces = false
+    private var isSearchingPlaces = false // Flag to check if user is searching
 
+    // Request permissions for location (fine + coarse)
     private val locationPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
     ) { permissions ->
         if (permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true ||
             permissions[Manifest.permission.ACCESS_COARSE_LOCATION] == true) {
+            // If granted, get user location
             getUserLocation()
         } else {
+
+            // If denied, show fallback message and load attractions without distance
             locationStatusText.text = "Location permission denied"
             Toast.makeText(requireContext(),
                 "Location permission is required to show distances",
@@ -78,6 +85,7 @@ class TouristAttractionsFragment : Fragment(R.layout.fragment_tourist_attraction
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+// Initialize Places API if not already initialized
         if (!Places.isInitialized()) {
             Places.initialize(requireContext(), "AIzaSyD1quqInPhHqHTGDtzTXT3iSOJjAJjl_1w")
         }
@@ -87,22 +95,27 @@ class TouristAttractionsFragment : Fragment(R.layout.fragment_tourist_attraction
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Get arguments passed to fragment (country details)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
         countryId = arguments?.getString("countryId")
         countryName = arguments?.getString("countryName") ?: "South Africa" // Safe handling
 
+        // Setup UI and functionality
         initializeViews(view)
         setupRecyclerView()
         setupSearchFunctionality()
         setupClickListeners()
 
+// Initialize MapView
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
 
+        // Request/check location permissions
         checkLocationPermission()
     }
 
+    // Bind views from layout
     private fun initializeViews(view: View) {
         backArrow = view.findViewById(R.id.back_arrow)
         searchInput = view.findViewById(R.id.search_input)
@@ -115,16 +128,18 @@ class TouristAttractionsFragment : Fragment(R.layout.fragment_tourist_attraction
         emptyStateText = view.findViewById(R.id.empty_state_text)
         mapView = view.findViewById(R.id.map_view)
     }
-
+    // Called when map is ready
     override fun onMapReady(map: GoogleMap) {
         googleMap = map
 
+        // Enable map UI features
         googleMap?.uiSettings?.isZoomControlsEnabled = true
         googleMap?.uiSettings?.isCompassEnabled = true
-
+// Move camera to selected country
         val countryCenter = getCountryCenter(countryName)
         googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(countryCenter, getCountryZoom(countryName)))
 
+        // Enable "My Location" button if permission granted
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -136,11 +151,12 @@ class TouristAttractionsFragment : Fragment(R.layout.fragment_tourist_attraction
             }
         }
 
+        // Add attraction markers if available
         if (attractions.isNotEmpty()) {
             updateMapMarkers()
         }
     }
-
+    // Country centers for camera positioning
     private fun getCountryCenter(country: String): LatLng {
         return when (country.lowercase()) {
             "south africa" -> LatLng(-30.5595, 22.9375)
@@ -151,7 +167,7 @@ class TouristAttractionsFragment : Fragment(R.layout.fragment_tourist_attraction
             else -> LatLng(0.0, 0.0)
         }
     }
-
+    // Country zoom levels
     private fun getCountryZoom(country: String): Float {
         return when (country.lowercase()) {
             "south africa" -> 5.5f
@@ -162,7 +178,7 @@ class TouristAttractionsFragment : Fragment(R.layout.fragment_tourist_attraction
             else -> 2f
         }
     }
-
+    // Country bounding boxes (used in place searches)
     private fun getCountryBounds(country: String): RectangularBounds {
         return when (country.lowercase()) {
             "south africa" -> RectangularBounds.newInstance(
@@ -191,7 +207,7 @@ class TouristAttractionsFragment : Fragment(R.layout.fragment_tourist_attraction
             )
         }
     }
-
+    // Add attraction markers to map
     private fun updateMapMarkers() {
         googleMap?.clear()
 
@@ -205,6 +221,7 @@ class TouristAttractionsFragment : Fragment(R.layout.fragment_tourist_attraction
             )
         }
 
+        // Center map on first attraction or user location
         if (attractions.isNotEmpty()) {
             val firstAttraction = attractions[0]
             val position = LatLng(firstAttraction.latitude, firstAttraction.longitude)
@@ -216,7 +233,7 @@ class TouristAttractionsFragment : Fragment(R.layout.fragment_tourist_attraction
             googleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(userPosition, 10f))
         }
     }
-
+    // Setup RecyclerView with adapter
     private fun setupRecyclerView() {
         attractionsAdapter = TouristAttractionsAdapter { attraction ->
             openAttractionInMaps(attraction)
@@ -228,6 +245,7 @@ class TouristAttractionsFragment : Fragment(R.layout.fragment_tourist_attraction
         }
     }
 
+    // Handle search input for attractions
     private fun setupSearchFunctionality() {
         searchInput.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -239,6 +257,7 @@ class TouristAttractionsFragment : Fragment(R.layout.fragment_tourist_attraction
                 if (query.isEmpty()) {
                     isSearchingPlaces = false
                     loadCountrySpecificAttractions()
+                    // Only search after 3+ chars
                 } else if (query.length >= 3) {
                     searchPlaces(query)
                 }
@@ -259,7 +278,7 @@ class TouristAttractionsFragment : Fragment(R.layout.fragment_tourist_attraction
             false
         }
     }
-
+    // Search Google Places API
     private fun searchPlaces(query: String) {
         loadingIndicator.visibility = View.VISIBLE
         isSearchingPlaces = true
@@ -267,6 +286,7 @@ class TouristAttractionsFragment : Fragment(R.layout.fragment_tourist_attraction
         val bounds = getCountryBounds(countryName)
         val countryCodes = getCountryCode(countryName)
 
+        // Build search request
         val requestBuilder = FindAutocompletePredictionsRequest.builder()
             .setLocationBias(bounds)
             .setQuery(query)
@@ -277,10 +297,12 @@ class TouristAttractionsFragment : Fragment(R.layout.fragment_tourist_attraction
 
         val request = requestBuilder.build()
 
+        // Perform search
         placesClient.findAutocompletePredictions(request)
             .addOnSuccessListener { response ->
                 val predictions = response.autocompletePredictions
 
+                // Handle no results
                 if (predictions.isEmpty()) {
                     loadingIndicator.visibility = View.GONE
                     emptyState.visibility = View.VISIBLE
@@ -288,7 +310,7 @@ class TouristAttractionsFragment : Fragment(R.layout.fragment_tourist_attraction
                     attractionsRecyclerView.visibility = View.GONE
                     return@addOnSuccessListener
                 }
-
+// Process predictions and fetch details
                 val searchResults = mutableListOf<TouristAttraction>()
                 var processedCount = 0
                 val maxResults = minOf(10, predictions.size)
@@ -304,6 +326,7 @@ class TouristAttractionsFragment : Fragment(R.layout.fragment_tourist_attraction
                     val fetchRequest = FetchPlaceRequest.builder(prediction.placeId, placeFields)
                         .build()
 
+                    // Fetch place details
                     placesClient.fetchPlace(fetchRequest)
                         .addOnSuccessListener { fetchResponse ->
                             val place = fetchResponse.place
@@ -318,6 +341,7 @@ class TouristAttractionsFragment : Fragment(R.layout.fragment_tourist_attraction
                                     longitude = latLng.longitude
                                 )
 
+                                // Calculate distance from user
                                 currentLocation?.let { userLocation ->
                                     val attractionLocation = Location("").apply {
                                         latitude = attraction.latitude
@@ -329,6 +353,7 @@ class TouristAttractionsFragment : Fragment(R.layout.fragment_tourist_attraction
                                 searchResults.add(attraction)
                             }
 
+                            // When all processed, update UI
                             processedCount++
                             if (processedCount == maxResults) {
                                 loadingIndicator.visibility = View.GONE
@@ -365,7 +390,7 @@ class TouristAttractionsFragment : Fragment(R.layout.fragment_tourist_attraction
                 ).show()
             }
     }
-
+    // Return ISO country codes for search filtering
     private fun getCountryCode(country: String): List<String> {
         return when (country.lowercase()) {
             "south africa" -> listOf("ZA")
@@ -376,7 +401,7 @@ class TouristAttractionsFragment : Fragment(R.layout.fragment_tourist_attraction
             else -> emptyList()
         }
     }
-
+    // Setup button click listeners
     private fun setupClickListeners() {
         backArrow.setOnClickListener {
             findNavController().navigateUp()
@@ -387,7 +412,7 @@ class TouristAttractionsFragment : Fragment(R.layout.fragment_tourist_attraction
             Toast.makeText(requireContext(), "Sorted by distance", Toast.LENGTH_SHORT).show()
         }
     }
-
+    // Request/check location permission
     private fun checkLocationPermission() {
         when {
             ContextCompat.checkSelfPermission(
@@ -420,6 +445,7 @@ class TouristAttractionsFragment : Fragment(R.layout.fragment_tourist_attraction
         }
     }
 
+    // Fetch user’s current location
     private fun getUserLocation() {
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
@@ -456,12 +482,13 @@ class TouristAttractionsFragment : Fragment(R.layout.fragment_tourist_attraction
             loadCountrySpecificAttractions()
         }
     }
-
+    // Load predefined attractions for the current country
     private fun loadCountrySpecificAttractions() {
         if (isSearchingPlaces) return
 
         attractions.clear()
 
+        // Load attractions by country
         val countryAttractions = when (countryName.lowercase()) {
             "south africa" -> getSouthAfricaAttractions()
             "france" -> getFranceAttractions()
@@ -473,6 +500,7 @@ class TouristAttractionsFragment : Fragment(R.layout.fragment_tourist_attraction
 
         attractions.addAll(countryAttractions)
 
+        // Calculate distances if user location available
         currentLocation?.let { userLocation ->
             attractions.forEach { attraction ->
                 val attractionLocation = Location("").apply {
@@ -483,11 +511,12 @@ class TouristAttractionsFragment : Fragment(R.layout.fragment_tourist_attraction
             }
         }
 
+        // Update UI
         attractionsAdapter.updateAttractions(attractions)
         updateMapMarkers()
         updateEmptyState()
     }
-
+    // Predefined attractions for South Africa
     private fun getSouthAfricaAttractions() = listOf(
         TouristAttraction("1", "Table Mountain", "Natural Wonder", "Iconic flat-topped mountain", -33.9628, 18.4098),
         TouristAttraction("2", "Kruger National Park", "Wildlife Reserve", "Largest game reserve", -23.9884, 31.5547),
@@ -498,7 +527,7 @@ class TouristAttractionsFragment : Fragment(R.layout.fragment_tourist_attraction
         TouristAttraction("7", "Blyde River Canyon", "Natural Wonder", "Third largest canyon", -24.5589, 30.8165),
         TouristAttraction("8", "Kirstenbosch Gardens", "Garden", "Botanical gardens", -33.9880, 18.4325)
     )
-
+    // Predefined attractions for France
     private fun getFranceAttractions() = listOf(
         TouristAttraction("1", "Eiffel Tower", "Landmark", "Iconic Paris monument", 48.8584, 2.2945),
         TouristAttraction("2", "Louvre Museum", "Museum", "World's largest art museum", 48.8606, 2.3376),
@@ -509,7 +538,7 @@ class TouristAttractionsFragment : Fragment(R.layout.fragment_tourist_attraction
         TouristAttraction("7", "Côte d'Azur", "Beach", "French Riviera", 43.7034, 7.2663),
         TouristAttraction("8", "Château de Chambord", "Castle", "Renaissance castle", 47.6163, 1.5172)
     )
-
+    // Predefined attractions for Japan
     private fun getJapanAttractions() = listOf(
         TouristAttraction("1", "Mount Fuji", "Mountain", "Iconic volcano", 35.3606, 138.7274),
         TouristAttraction("2", "Tokyo Tower", "Landmark", "Communications tower", 35.6586, 139.7454),
@@ -520,7 +549,7 @@ class TouristAttractionsFragment : Fragment(R.layout.fragment_tourist_attraction
         TouristAttraction("7", "Arashiyama Bamboo Grove", "Nature", "Bamboo forest", 35.0170, 135.6710),
         TouristAttraction("8", "Tokyo Skytree", "Tower", "Broadcasting tower", 35.7101, 139.8107)
     )
-
+    // Predefined attractions for India
     private fun getIndiaAttractions() = listOf(
         TouristAttraction("1", "Taj Mahal", "Monument", "Marble mausoleum", 27.1751, 78.0421),
         TouristAttraction("2", "Red Fort", "Fort", "Historic fortification", 28.6562, 77.2410),
@@ -531,7 +560,7 @@ class TouristAttractionsFragment : Fragment(R.layout.fragment_tourist_attraction
         TouristAttraction("7", "India Gate", "Memorial", "War memorial", 28.6129, 77.2295),
         TouristAttraction("8", "Amber Fort", "Fort", "Hilltop fort", 26.9855, 75.8513)
     )
-
+    // Predefined attractions for USA
     private fun getUSAttractions() = listOf(
         TouristAttraction("1", "Statue of Liberty", "Monument", "Liberty symbol", 40.6892, -74.0445),
         TouristAttraction("2", "Grand Canyon", "Natural Wonder", "Canyon landscape", 36.1069, -112.1129),
@@ -543,6 +572,7 @@ class TouristAttractionsFragment : Fragment(R.layout.fragment_tourist_attraction
         TouristAttraction("8", "Niagara Falls", "Waterfall", "Waterfalls", 43.0962, -79.0377)
     )
 
+    // Update empty state (UI when no attractions)
     private fun updateEmptyState() {
         val hasItems = attractionsAdapter.itemCount > 0
         emptyState.visibility = if (hasItems) View.GONE else View.VISIBLE
@@ -555,6 +585,7 @@ class TouristAttractionsFragment : Fragment(R.layout.fragment_tourist_attraction
         }
     }
 
+    // Open selected attraction in Google Maps
     private fun openAttractionInMaps(attraction: TouristAttraction) {
         val uri = Uri.parse("geo:${attraction.latitude},${attraction.longitude}?q=${attraction.latitude},${attraction.longitude}(${attraction.name})")
         val intent = Intent(Intent.ACTION_VIEW, uri)
@@ -567,9 +598,10 @@ class TouristAttractionsFragment : Fragment(R.layout.fragment_tourist_attraction
             startActivity(Intent(Intent.ACTION_VIEW, browserUri))
         }
     }
-
+    // Extension function for formatting doubles
     private fun Double.format(decimals: Int): String = "%.${decimals}f".format(this)
 
+    // Map lifecycle methods
     override fun onResume() {
         super.onResume()
         mapView.onResume()
@@ -595,3 +627,12 @@ class TouristAttractionsFragment : Fragment(R.layout.fragment_tourist_attraction
         mapView.onSaveInstanceState(outState)
     }
 }
+
+//Reference List:
+// UiLover, 2025. Build a Coffee Shop app with Kotlin & Firebase in Android Studio Project. [video online]. Available at: https://www.youtube.com/watch?v=Pnw_9tZ2z4wn [Accessed on 16 September 2025]
+// Guedmioui, A. 2023. Retrofit Android Tutorial - Make API Calls. [video online]. Available at: https://www.youtube.com/watch?v=8IhNq0ng-wk [Accessed on 14 September 2025]
+// Code Heroes, 2024.Integrate Google Maps API in Android Studio 2025 | Step-by-Step Tutorial for Beginners. [video online]. Available at: https://www.youtube.com/watch?v=QVCNTPNy-vs&t=137s [Accessed on 17 September 2025]
+// CodeSchmell, 2022. How to implement API in Android Studio tutorial. [video online]. Available at: https://www.youtube.com/watch?v=Kjeh47epMqI [Accessed on 17 September 2025]
+// UiLover, 2023. Travel App Android Studio Tutorial Project - Android Material Design. [video online]. Available at: https://www.youtube.com/watch?v=PPhuxay3OV0 [Accessed on 12 September 2025]
+// CodeWithTS, 2024. View Binding and Data Binding in Android Studio using Kotlin. [video online]. Available at: https://www.youtube.com/watch?v=tIXSuoJbX-8  [Accessed on 20 September 2025]
+// Android Developers, 2025. Develop a UI with Views. [online]. Available at: https://developer.android.com/studio/write/layout-editor [Accessed on 15 September 2025]

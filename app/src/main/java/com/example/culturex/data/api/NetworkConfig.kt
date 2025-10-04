@@ -13,10 +13,14 @@ object NetworkConfig {
     // private const val BASE_URL = "http://10.0.2.2:7070/" // For Android emulator
     // private const val BASE_URL = "http://192.168.1.XXX:7070/" // Replace XXX with your local IP for physical device
 
+
+    // HttpLoggingInterceptor logs network requests/responses.
+    // Level.BODY logs request and response lines and their respective headers and bodies
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
     }
 
+    // OkHttpClient is used by Retrofit to handle HTTP requests.
     private val okHttpClient = OkHttpClient.Builder()
         .addInterceptor(loggingInterceptor)
         .connectTimeout(30, TimeUnit.SECONDS)
@@ -24,12 +28,14 @@ object NetworkConfig {
         .writeTimeout(30, TimeUnit.SECONDS)
         .build()
 
+    // Retrofit instance to handle API calls.
     val retrofit: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .client(okHttpClient)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
+    // Create an implementation of the API endpoints defined in ApiService
     val apiService: ApiService = retrofit.create(ApiService::class.java)
 }
 

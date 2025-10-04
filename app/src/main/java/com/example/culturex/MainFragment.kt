@@ -16,21 +16,27 @@ import android.util.Log
 
 class MainFragment : Fragment(R.layout.fragment_main) {
 
+    // View binding reference
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
 
+    // ViewModel instance scoped to this fragment
     private val mainViewModel: MainViewModel by viewModels()
+    // Shared preferences manager for storing/retrieving persistent data
     private lateinit var sharedPrefsManager: SharedPreferencesManager
 
+    // Lists to hold countries and categories fetched from the ViewModel
     private var countriesList = emptyList<CountryModels.CountryDTO>()
     private var categoriesList = emptyList<CountryModels.CulturalCategoryDTO>()
 
+    // Called after the fragment's view has been created
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentMainBinding.bind(view)
 
         sharedPrefsManager = SharedPreferencesManager(requireContext())
 
+        // Setup LiveData observers
         setupObservers()
         setupClickListeners()
         setupTopNavigation()
@@ -70,23 +76,26 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         }
     }
 
+    // Observes LiveData from ViewModel and updates UI accordingly
     private fun setupObservers() {
         mainViewModel.countries.observe(viewLifecycleOwner) { countries ->
             countriesList = countries
             setupCountrySpinner(countries)
         }
 
+        // Observe country list and update spinner
         mainViewModel.categories.observe(viewLifecycleOwner) { categories ->
             categoriesList = categories
             updateCategoryButtonsVisibility(categories)
         }
 
+        // Observe categories and update buttons visibility
         mainViewModel.selectedCountry.observe(viewLifecycleOwner) { country ->
             country?.let {
                 // Update UI with selected country info if needed
             }
         }
-
+// Observe whether categories are loaded -> enable buttons if true
         mainViewModel.areCategoriesLoaded.observe(viewLifecycleOwner) { loaded ->
             if (loaded) {
                 enableCategoryButtons()
@@ -95,12 +104,13 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             }
         }
 
+        // Observe loading state -> disable buttons while loading
         mainViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             if (isLoading) {
                 disableCategoryButtons()
             }
         }
-
+// Observe error messages -> show toast and clear error
         mainViewModel.error.observe(viewLifecycleOwner) { error ->
             error?.let {
                 Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
@@ -108,7 +118,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             }
         }
     }
-
+    // Setup country spinner with a list of available countries
     private fun setupCountrySpinner(countries: List<CountryModels.CountryDTO>) {
         if (countries.isEmpty()) {
             Toast.makeText(requireContext(), "No countries available",
@@ -116,14 +126,17 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             return
         }
 
+        // Extract country names
         val countryNames = countries.map { it.name ?: "Unknown" }
+
+        // Setup adapter for spinner
         val adapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_spinner_item,
             countryNames
         )
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
+// Handle spinner item selection
         binding.countrySpinner.adapter = adapter
         binding.countrySpinner.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
@@ -139,6 +152,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         }
     }
 
+    // Show/hide category buttons depending on availability for selected country
     private fun updateCategoryButtonsVisibility(categories:
                                                 List<CountryModels.CulturalCategoryDTO>) {
         val categoryNames = categories.map { it.name }
@@ -150,9 +164,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         binding.menuEtiquette.isEnabled = categoryNames.contains("General Etiquette")
         binding.menuTipping.isEnabled = categoryNames.contains("Tipping Norms")
 
+        // Enable/disable category buttons
         val disabledAlpha = 0.5f
         val enabledAlpha = 1.0f
 
+        // Set button transparency depending on availability
         binding.menuDressCode.alpha = if (binding.menuDressCode.isEnabled)
             enabledAlpha else disabledAlpha
         binding.menuCommunication.alpha = if (binding.menuCommunication.isEnabled)
@@ -165,6 +181,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             enabledAlpha else disabledAlpha
     }
 
+    // Disable all category buttons
     private fun disableCategoryButtons() {
         binding.menuDressCode.isEnabled = false
         binding.menuCommunication.isEnabled = false
@@ -180,6 +197,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         binding.menuTipping.alpha = disabledAlpha
     }
 
+    // Enable all category buttons
     private fun enableCategoryButtons() {
         binding.menuDressCode.isEnabled = true
         binding.menuCommunication.isEnabled = true
@@ -195,6 +213,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         binding.menuTipping.alpha = enabledAlpha
     }
 
+    // Setup click listeners for category and bottom navigation buttons
     private fun setupClickListeners() {
         binding.menuDressCode.setOnClickListener {
             navigateToCategory("Dress Code")
@@ -230,6 +249,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         }
     }
 
+    // Navigate to a specific cultural category (only if available)
     private fun navigateToCategory(categoryName: String) {
         val selectedCountry = mainViewModel.selectedCountry.value
         if (selectedCountry == null) {
@@ -237,7 +257,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 Toast.LENGTH_SHORT).show()
             return
         }
-
+// Check if category exists for selected country
         if (!mainViewModel.isCategoryAvailable(categoryName)) {
             Toast.makeText(requireContext(),
                 "$categoryName not available for ${selectedCountry.name}",
@@ -245,6 +265,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             return
         }
 
+        // Get category object from ViewModel
         val category = mainViewModel.getCategoryByName(categoryName)
         if (category == null) {
             Toast.makeText(requireContext(), "Category not found",
@@ -252,6 +273,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             return
         }
 
+        // Prepare bundle to pass data to next fragment
         val bundle = Bundle().apply {
             putString("countryId", selectedCountry.id)
             putString("categoryId", category.id)
@@ -259,6 +281,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             putString("countryName", selectedCountry.name)
         }
 
+        // Navigate to the correct fragment based on category name
         try {
             when (categoryName) {
                 "Dress Code" -> {
@@ -327,8 +350,20 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         }
     }
 
+    // Navigates to the clicked category
+
+    // Clear binding when fragment view is destroyed
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 }
+
+//Reference List:
+// UiLover, 2025. Build a Coffee Shop app with Kotlin & Firebase in Android Studio Project. [video online]. Available at: https://www.youtube.com/watch?v=Pnw_9tZ2z4wn [Accessed on 16 September 2025]
+// Guedmioui, A. 2023. Retrofit Android Tutorial - Make API Calls. [video online]. Available at: https://www.youtube.com/watch?v=8IhNq0ng-wk [Accessed on 14 September 2025]
+// Code Heroes, 2024.Integrate Google Maps API in Android Studio 2025 | Step-by-Step Tutorial for Beginners. [video online]. Available at: https://www.youtube.com/watch?v=QVCNTPNy-vs&t=137s [Accessed on 17 September 2025]
+// CodeSchmell, 2022. How to implement API in Android Studio tutorial. [video online]. Available at: https://www.youtube.com/watch?v=Kjeh47epMqI [Accessed on 17 September 2025]
+// UiLover, 2023. Travel App Android Studio Tutorial Project - Android Material Design. [video online]. Available at: https://www.youtube.com/watch?v=PPhuxay3OV0 [Accessed on 12 September 2025]
+// CodeWithTS, 2024. View Binding and Data Binding in Android Studio using Kotlin. [video online]. Available at: https://www.youtube.com/watch?v=tIXSuoJbX-8  [Accessed on 20 September 2025]
+// Android Developers, 2025. Develop a UI with Views. [online]. Available at: https://developer.android.com/studio/write/layout-editor [Accessed on 15 September 2025]

@@ -8,24 +8,30 @@ import com.example.culturex.data.models.CountryModels
 import com.example.culturex.data.repository.CultureXRepository
 import kotlinx.coroutines.launch
 
-class MainViewModel : ViewModel(){
+class MainViewModel : ViewModel() {
 
 
     // Repository instance to handle API calls
     private val repository = CultureXRepository()
 
+    // LiveData to hold the list of countries
     private val _countries = MutableLiveData<List<CountryModels.CountryDTO>>()
     val countries: LiveData<List<CountryModels.CountryDTO>> = _countries
 
+    // LiveData to hold the list of categories for the selected country
     private val _categories = MutableLiveData<List<CountryModels.CulturalCategoryDTO>>()
     val categories: LiveData<List<CountryModels.CulturalCategoryDTO>> = _categories
 
+    // LiveData to hold the currently selected country
     private val _selectedCountry = MutableLiveData<CountryModels.CountryDTO?>()
     val selectedCountry: LiveData<CountryModels.CountryDTO?> = _selectedCountry
 
+    // LiveData to indicate loading state for network requests
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
+
+    // LiveData to hold error messages
     private val _error = MutableLiveData<String?>()
     val error: LiveData<String?> = _error
 
@@ -41,6 +47,7 @@ class MainViewModel : ViewModel(){
                 val response = repository.getCountries()
                 if (response.isSuccessful) {
                     val countriesList = response.body() ?: emptyList()
+                    // Update LiveData with response
                     _countries.value = countriesList
 
                     // Auto-select first country if available
@@ -51,6 +58,7 @@ class MainViewModel : ViewModel(){
                     _error.value = "Failed to load countries: ${response.message()}"
                 }
             } catch (e: Exception) {
+                // Handle network errors
                 _error.value = "Network error: ${e.message}"
             } finally {
                 _isLoading.value = false
@@ -60,11 +68,13 @@ class MainViewModel : ViewModel(){
 
     // Remove the global loadCategories() method since we only want country-specific categories
 
+    // Function to select a country and load its specific categories
     fun selectCountry(country: CountryModels.CountryDTO) {
         _selectedCountry.value = country
         loadCountryCategories(country.id)
     }
 
+    // Private function to load categories for a specific country
     private fun loadCountryCategories(countryId: String) {
         viewModelScope.launch {
             _isLoading.value = true
@@ -92,21 +102,22 @@ class MainViewModel : ViewModel(){
         }
     }
 
-    // Add method to get category by name
+    // Get a category object by its name from the loaded categories
     fun getCategoryByName(categoryName: String): CountryModels.CulturalCategoryDTO? {
         return _categories.value?.find { it.name == categoryName }
     }
 
-    // Add method to check if category is available
+    // Check if a specific category is available
     fun isCategoryAvailable(categoryName: String): Boolean {
         return getCategoryByName(categoryName) != null
     }
 
+    // Clear any existing error messages
     fun clearError() {
         _error.value = null
     }
 
-    // Add method to retry loading categories
+    // Method to retry loading categories
     fun retryLoadCategories() {
         _selectedCountry.value?.let { country ->
             loadCountryCategories(country.id)

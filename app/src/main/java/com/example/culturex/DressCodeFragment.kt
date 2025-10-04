@@ -21,32 +21,41 @@ import com.google.android.material.card.MaterialCardView
 
 class DressCodeFragment : Fragment(R.layout.fragment_dress_code) {
 
+    // ViewModel instance to handle content data (lifecycle-aware)
     private val contentViewModel: ContentViewModel by viewModels()
+
+    // RecyclerView adapters for displaying lists of "Dos", "Don'ts", and "Examples"
     private lateinit var dosAdapter: StringListAdapter
     private lateinit var dontsAdapter: StringListAdapter
     private lateinit var examplesAdapter: StringListAdapter
 
+    // Called when the fragment's view is created
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Retrieve arguments passed to this fragment
         val countryId = arguments?.getString("countryId")
         val categoryId = arguments?.getString("categoryId")
         val categoryName = arguments?.getString("categoryName")
 
+        // If required arguments are missing, show error and navigate back
         if (countryId == null || categoryId == null) {
             Toast.makeText(requireContext(), "Missing required data", Toast.LENGTH_SHORT).show()
             findNavController().navigateUp()
             return
         }
 
+        // Setup UI components and data observers
         setupRecyclerViews(view)
         setupObservers(view)
         setupClickListeners(view)
         animateViews(view)
 
+// Request content for this country and category from the ViewModel
         contentViewModel.loadContent(countryId, categoryId)
     }
 
+    // Initialize RecyclerViews for Dos, Don'ts, and Examples lists
     private fun setupRecyclerViews(view: View) {
         dosAdapter = StringListAdapter()
         dontsAdapter = StringListAdapter()
@@ -56,28 +65,31 @@ class DressCodeFragment : Fragment(R.layout.fragment_dress_code) {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = dosAdapter
             isNestedScrollingEnabled = false
-        }
+        } // Setup RecyclerView for "Dos"
 
         view.findViewById<RecyclerView>(R.id.donts_recycler_view)?.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = dontsAdapter
             isNestedScrollingEnabled = false
-        }
+        } // Setup RecyclerView for "Don't"
 
         view.findViewById<RecyclerView>(R.id.examples_recycler_view)?.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = examplesAdapter
             isNestedScrollingEnabled = false
-        }
+        } // Setup RecyclerView for "Examples"
     }
 
+    // Setup LiveData observers from the ViewModel to update the UI
     private fun setupObservers(view: View) {
+        // Observe content (title, description, dos, don'ts, examples)
         contentViewModel.content.observe(viewLifecycleOwner) { content ->
             content?.let {
                 view.findViewById<TextView>(R.id.content_title)?.text = it.title ?: "Dress Code Guide"
                 view.findViewById<TextView>(R.id.content_description)?.text = it.content ?:
                         "Understanding local dress codes helps you respect cultural norms and make positive impressions in both professional and social settings."
 
+                // Update lists with data from ViewModel
                 dosAdapter.updateItems(it.dos ?: emptyList())
                 dontsAdapter.updateItems(it.donts ?: emptyList())
                 examplesAdapter.updateItems(it.examples ?: emptyList())
@@ -88,6 +100,7 @@ class DressCodeFragment : Fragment(R.layout.fragment_dress_code) {
             view.findViewById<View>(R.id.progress_bar)?.isVisible = isLoading
         }
 
+        // Observe errors and show them as Toast messages
         contentViewModel.error.observe(viewLifecycleOwner) { error ->
             error?.let {
                 Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
@@ -96,6 +109,7 @@ class DressCodeFragment : Fragment(R.layout.fragment_dress_code) {
         }
     }
 
+    // Setup all click listeners for navigation and actions
     private fun setupClickListeners(view: View) {
         // Back button
         view.findViewById<MaterialCardView>(R.id.back_button_card)?.setOnClickListener {
@@ -104,6 +118,7 @@ class DressCodeFragment : Fragment(R.layout.fragment_dress_code) {
         view.findViewById<ImageView>(R.id.back_arrow)?.setOnClickListener{
             findNavController().navigate(R.id.mainFragment)
         }
+
 
 
         // Bookmark button
@@ -125,6 +140,7 @@ class DressCodeFragment : Fragment(R.layout.fragment_dress_code) {
         setupBottomNavigation(view)
     }
 
+    // Setup navigation bar actions (home, emergency, saved, profile)
     private fun setupBottomNavigation(view: View) {
         val navHome = view.findViewById<LinearLayout>(R.id.nav_home)
         val navEmergency = view.findViewById<LinearLayout>(R.id.nav_emergency)
@@ -181,4 +197,13 @@ class DressCodeFragment : Fragment(R.layout.fragment_dress_code) {
         findNavController().navigate(R.id.savedFragment)
     }
 }
+
+//Reference List:
+// UiLover, 2025. Build a Coffee Shop app with Kotlin & Firebase in Android Studio Project. [video online]. Available at: https://www.youtube.com/watch?v=Pnw_9tZ2z4wn [Accessed on 16 September 2025]
+// Guedmioui, A. 2023. Retrofit Android Tutorial - Make API Calls. [video online]. Available at: https://www.youtube.com/watch?v=8IhNq0ng-wk [Accessed on 14 September 2025]
+// Code Heroes, 2024.Integrate Google Maps API in Android Studio 2025 | Step-by-Step Tutorial for Beginners. [video online]. Available at: https://www.youtube.com/watch?v=QVCNTPNy-vs&t=137s [Accessed on 17 September 2025]
+// CodeSchmell, 2022. How to implement API in Android Studio tutorial. [video online]. Available at: https://www.youtube.com/watch?v=Kjeh47epMqI [Accessed on 17 September 2025]
+// UiLover, 2023. Travel App Android Studio Tutorial Project - Android Material Design. [video online]. Available at: https://www.youtube.com/watch?v=PPhuxay3OV0 [Accessed on 12 September 2025]
+// CodeWithTS, 2024. View Binding and Data Binding in Android Studio using Kotlin. [video online]. Available at: https://www.youtube.com/watch?v=tIXSuoJbX-8  [Accessed on 20 September 2025]
+// Android Developers, 2025. Develop a UI with Views. [online]. Available at: https://developer.android.com/studio/write/layout-editor [Accessed on 15 September 2025]
 
