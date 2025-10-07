@@ -1,3 +1,6 @@
+YouTube Link: https://youtu.be/esRVgvUBwFw 
+API Link: https://culturex-api-a8f5g9avfjb3fyfy.southafricanorth-01.azurewebsites.net/swagger
+
 Executive Summary
 CultureX is a mobile application designed to bridge cultural gaps for international travellers by providing authentic, localized insights into cultural etiquette and customs worldwide. This report details the app's purpose, design considerations, technical architecture, and development methodology, including the utilization of GitHub and GitHub Actions for version control and continuous integration/continuous deployment (CI/CD).
 ________________________________________
