@@ -6,6 +6,7 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="web_client_id">257009955481-8aikluaaghc2ctdat5pu5hu62komdmdg.apps.googleusercontent.com</string>
 
     <string-array name="countries">
         <item>South Africa</item>

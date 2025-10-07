@@ -10,6 +10,10 @@ interface ApiService {
     @POST("api/Auth/login")
     suspend fun login(@Body loginRequest: AuthModels.LoginDTO): Response<AuthModels.AuthResponseDTO>
 
+    @POST("api/auth/google-login")
+    suspend fun googleLogin(@Body googleLoginDto: AuthModels.GoogleLoginDTO): Response<AuthModels.AuthResponseDTO>
+
+
     @POST("api/Auth/register")
     suspend fun register(@Body registerRequest: AuthModels.RegisterDTO): Response<AuthModels.AuthResponseDTO>
 

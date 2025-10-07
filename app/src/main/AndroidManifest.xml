@@ -36,6 +36,10 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyD1quqInPhHqHTGDtzTXT3iSOJjAJjl_1w" />
 
+        <meta-data
+            android:name="com.google.android.gms.auth.api.signin.client_id"
+            android:value="257009955481-8aikluaaghc2ctdat5pu5hu62komdmdg.apps.googleusercontent.com" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

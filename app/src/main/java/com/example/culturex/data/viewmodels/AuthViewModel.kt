@@ -10,43 +10,49 @@ import com.example.culturex.data.models.AuthModels
 import android.util.Log
 
 class AuthViewModel : ViewModel() {
-    // Repository instance to handle API calls
+    // Repository instance for making API calls
     private val repository = CultureXRepository()
 
-    // LiveData to expose login results to the UI
+    // LiveData for login result (success or failure)
     private val _loginResult = MutableLiveData<Result<AuthModels.AuthResponseDTO>>()
     val loginResult: LiveData<Result<AuthModels.AuthResponseDTO>> = _loginResult
 
-    // LiveData to expose registration results to the UI
+    // LiveData for registration result
     private val _registerResult = MutableLiveData<Result<AuthModels.AuthResponseDTO>>()
     val registerResult: LiveData<Result<AuthModels.AuthResponseDTO>> = _registerResult
 
-    // LiveData to show loading state during API calls
+    // LiveData for Google login result
+    private val _googleLoginResult = MutableLiveData<Result<AuthModels.AuthResponseDTO>>()
+    val googleLoginResult: LiveData<Result<AuthModels.AuthResponseDTO>> = _googleLoginResult
+
+    // LiveData to track loading state (true = loading, false = done)
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
+    // LiveData to store and display error messages
     private val _errorMessage = MutableLiveData<String?>()
     val errorMessage: LiveData<String?> = _errorMessage
-
-    // Function to perform login
+    // Function to handle user login using email and password
     fun login(email: String, password: String) {
         viewModelScope.launch {
             _isLoading.value = true
             _errorMessage.value = null
 
             try {
+                // Call repository to make login API request
                 Log.d("AuthViewModel", "Attempting login for email: $email")
                 val response = repository.login(email, password)
 
                 Log.d("AuthViewModel", "Login response code: ${response.code()}")
                 Log.d("AuthViewModel", "Login response message: ${response.message()}")
 
+                // If response is successful and contains a body
                 if (response.isSuccessful && response.body() != null) {
                     val authResponse = response.body()!!
                     Log.d("AuthViewModel", "Login successful for user: ${authResponse.user?.email}")
                     _loginResult.value = Result.success(authResponse)
                 } else {
-                    // Handle API errors based on HTTP status code
+                    // Handle error responses with specific messages based on status code
                     val errorBody = response.errorBody()?.string()
                     val errorMessage = when (response.code()) {
                         400 -> "Invalid email or password format"
@@ -58,6 +64,7 @@ class AuthViewModel : ViewModel() {
                     Log.e("AuthViewModel", "Login failed: $errorMessage. Error body: $errorBody")
                     _loginResult.value = Result.failure(Exception(errorMessage))
                 }
+                // Handle network or unexpected exceptions
             } catch (e: Exception) {
                 Log.e("AuthViewModel", "Login exception: ${e.message}", e)
                 val errorMessage = when {
@@ -71,29 +78,65 @@ class AuthViewModel : ViewModel() {
             }
         }
     }
+    // Function to handle Google Sign-In authentication
+    fun googleLogin(idToken: String, displayName: String?, email: String?, profilePictureUrl: String?) {
+        viewModelScope.launch {
+            _isLoading.value = true
+            _errorMessage.value = null
 
+            try {
+                // Call repository to handle Google authentication API request
+                Log.d("AuthViewModel", "Attempting Google login")
+                val response = repository.googleLogin(idToken, displayName, email, profilePictureUrl)
 
-    // Function to perform user registration
+                // Check if Google login response is successful
+                if (response.isSuccessful && response.body() != null) {
+                    val authResponse = response.body()!!
+                    Log.d("AuthViewModel", "Google login successful")
+                    _googleLoginResult.value = Result.success(authResponse)
+                } else {
+                    // Provide specific error messages for known failure codes
+                    val errorMessage = when (response.code()) {
+                        400 -> "Invalid Google token"
+                        401 -> "Google authentication failed"
+                        500 -> "Server error. Please try again later"
+                        else -> "Google login failed: ${response.message()}"
+                    }
+                    Log.e("AuthViewModel", "Google login failed: $errorMessage")
+                    _googleLoginResult.value = Result.failure(Exception(errorMessage))
+                }
+            } catch (e: Exception) {
+                // Catch network or unexpected exceptions
+                Log.e("AuthViewModel", "Google login exception: ${e.message}", e)
+                _googleLoginResult.value = Result.failure(Exception("Network error: ${e.message}"))
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
 
+    // Function to handle user registration
     fun register(email: String, password: String, displayName: String, preferredLanguage: String? = null) {
         viewModelScope.launch {
             _isLoading.value = true
             _errorMessage.value = null
 
             try {
+                // Make API call to register the user
                 Log.d("AuthViewModel", "Attempting registration for email: $email")
                 val response = repository.register(email, password, displayName, preferredLanguage)
 
                 Log.d("AuthViewModel", "Registration response code: ${response.code()}")
                 Log.d("AuthViewModel", "Registration response message: ${response.message()}")
 
-                // If response is successful, update registerResult LiveData
+                // Handle successful registration
                 if (response.isSuccessful && response.body() != null) {
                     val authResponse = response.body()!!
                     Log.d("AuthViewModel", "Registration successful for user: ${authResponse.user?.email}")
                     _registerResult.value = Result.success(authResponse)
                 } else {
-                    // Handle API errors based on HTTP status code
+
+                    // Handle various server response codes with user-friendly messages
                     val errorBody = response.errorBody()?.string()
                     val errorMessage = when (response.code()) {
                         400 -> "Invalid registration data. Please check your input"
@@ -106,6 +149,7 @@ class AuthViewModel : ViewModel() {
                     _registerResult.value = Result.failure(Exception(errorMessage))
                 }
             } catch (e: Exception) {
+                // Catch and process exceptions (network, parsing, etc.)
                 Log.e("AuthViewModel", "Registration exception: ${e.message}", e)
                 val errorMessage = when {
                     e.message?.contains("Unable to resolve host") == true -> "No internet connection. Please check your network"
@@ -118,13 +162,12 @@ class AuthViewModel : ViewModel() {
             }
         }
     }
-
-    // Function to clear any existing error messages
+    // Clears any current error message
     fun clearError() {
         _errorMessage.value = null
     }
 
-    // Function to clear previous login and registration results
+    // Clears stored login and registration results (useful when navigating away or retrying)
     fun clearResults() {
         _loginResult.value = null
         _registerResult.value = null
