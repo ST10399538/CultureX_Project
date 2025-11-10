@@ -66,6 +66,6 @@
 
     <color name="onboard_orange">#E06E4A</color>
     <color name="button_background">#5EB7FB</color>
-
+    <color name="primary_color">#FFC107</color>
 
 </resources>

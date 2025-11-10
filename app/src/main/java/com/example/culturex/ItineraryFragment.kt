@@ -5,10 +5,12 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +20,9 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
 import java.util.*
+import com.example.culturex.utils.ItineraryEventScheduler
 
 class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
 
@@ -44,6 +48,13 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
     private var editingEventId: String? = null
     private var isEditMode = false
     private val calendar = Calendar.getInstance()
+
+    // Store the selected year, month, day, hour, and minute for notification scheduling
+    private var selectedYear: Int = 0
+    private var selectedMonth: Int = 0
+    private var selectedDay: Int = 0
+    private var selectedHour: Int = 0
+    private var selectedMinute: Int = 0
 
     // Called when the view is created
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -108,7 +119,7 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
         calendarIcon.setOnClickListener {
             showDateTimePickers()
         }
-// If editing an event, update it; otherwise, save a new one
+        // If editing an event, update it; otherwise, save a new one
         saveButton.setOnClickListener {
             if (editingEventId != null) {
                 updateEvent()
@@ -116,7 +127,7 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
                 saveEvent()
             }
         }
-// Toggle visibility of saved events
+        // Toggle visibility of saved events
         viewSavedButton.setOnClickListener {
             eventsRecyclerView.visibility = if (eventsRecyclerView.visibility == View.VISIBLE) {
                 viewSavedButton.text = "View Saved Itinerary Events"
@@ -133,7 +144,7 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
             eventAdapter.setEditMode(isEditMode)
             editButton.text = if (isEditMode) "Done" else "Edit"
         }
-// open filter dialog
+        // open filter dialog
         filterButton.setOnClickListener {
             showFilterDialog()
         }
@@ -149,6 +160,12 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
                 selectedDateMillis = cal.timeInMillis
                 selectedDate = String.format("%02d/%02d/%d", dayOfMonth, month + 1, year)
                 selectedDateText.text = "Date: $selectedDate"
+
+                // Store date components for notification scheduling
+                selectedYear = year
+                selectedMonth = month + 1 // Calendar months are 0-indexed
+                selectedDay = dayOfMonth
+
                 showTimePicker()
             },
             calendar.get(Calendar.YEAR),
@@ -164,6 +181,10 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
             { _, hourOfDay, minute ->
                 selectedTime = String.format("%02d:%02d", hourOfDay, minute)
                 selectedTimeText.text = "Time: $selectedTime"
+
+                // Store time components for notification scheduling
+                selectedHour = hourOfDay
+                selectedMinute = minute
             },
             calendar.get(Calendar.HOUR_OF_DAY),
             calendar.get(Calendar.MINUTE),
@@ -187,18 +208,48 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
             return
         }
 
+        // Generate unique ID for the event
+        val eventId = ItineraryEventScheduler.generateUniqueId()
+
         // Create event object
         val event = ItineraryEvent(
+            id = eventId,
             date = selectedDate,
             time = selectedTime,
             description = description,
             timestamp = selectedDateMillis
         )
-// persist event
+
+        // Persist event
         saveEventToPreferences(event)
+
+        // Schedule notifications for this event
+        try {
+            val eventDateTime = LocalDateTime.of(
+                selectedYear,
+                selectedMonth,
+                selectedDay,
+                selectedHour,
+                selectedMinute
+            )
+
+            ItineraryEventScheduler.scheduleItineraryEvent(
+                context = requireContext(),
+                eventId = eventId,
+                eventTitle = "Itinerary Event",
+                eventDescription = description,
+                eventDateTime = eventDateTime
+            )
+
+            Log.d("ItineraryFragment", "Scheduled notifications for event: $description at $eventDateTime")
+        } catch (e: Exception) {
+            Log.e("ItineraryFragment", "Error scheduling notifications: ${e.message}")
+            Toast.makeText(requireContext(), "Event saved but notifications failed", Toast.LENGTH_SHORT).show()
+        }
+
         clearForm()
         createEventCard.visibility = View.GONE
-        Toast.makeText(requireContext(), "Event saved successfully!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), "Event saved successfully with reminders!", Toast.LENGTH_SHORT).show()
         loadSavedEvents()
     }
 
@@ -208,6 +259,20 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
         selectedDate = event.date
         selectedTime = event.time
         selectedDateMillis = event.timestamp
+
+        // Parse the date and time to extract components
+        try {
+            val dateParts = event.date.split("/")
+            val timeParts = event.time.split(":")
+
+            selectedDay = dateParts[0].toInt()
+            selectedMonth = dateParts[1].toInt()
+            selectedYear = dateParts[2].toInt()
+            selectedHour = timeParts[0].toInt()
+            selectedMinute = timeParts[1].toInt()
+        } catch (e: Exception) {
+            Log.e("ItineraryFragment", "Error parsing date/time: ${e.message}")
+        }
 
         selectedDateText.text = "Date: $selectedDate"
         selectedTimeText.text = "Time: $selectedTime"
@@ -254,6 +319,34 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
                 timestamp = selectedDateMillis
             )
             prefs.edit().putString("events", gson.toJson(events)).apply()
+
+            // Cancel old notifications and schedule new ones
+            try {
+                // Cancel old notifications
+                ItineraryEventScheduler.cancelEvent(requireContext(), editingEventId!!)
+
+                // Schedule new notifications with updated date/time
+                val eventDateTime = LocalDateTime.of(
+                    selectedYear,
+                    selectedMonth,
+                    selectedDay,
+                    selectedHour,
+                    selectedMinute
+                )
+
+                ItineraryEventScheduler.scheduleItineraryEvent(
+                    context = requireContext(),
+                    eventId = editingEventId!!,
+                    eventTitle = "Itinerary Event",
+                    eventDescription = description,
+                    eventDateTime = eventDateTime
+                )
+
+                Log.d("ItineraryFragment", "Updated notifications for event: $description")
+            } catch (e: Exception) {
+                Log.e("ItineraryFragment", "Error updating notifications: ${e.message}")
+            }
+
             Toast.makeText(requireContext(), "Event updated successfully!", Toast.LENGTH_SHORT).show()
         }
 
@@ -276,6 +369,14 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
                 val eventsJson = prefs.getString("events", "[]")
                 val type = object : TypeToken<MutableList<ItineraryEvent>>() {}.type
                 val events: MutableList<ItineraryEvent> = gson.fromJson(eventsJson, type)
+
+                // Cancel notifications for this event
+                try {
+                    ItineraryEventScheduler.cancelEvent(requireContext(), event.id)
+                    Log.d("ItineraryFragment", "Cancelled notifications for deleted event: ${event.description}")
+                } catch (e: Exception) {
+                    Log.e("ItineraryFragment", "Error cancelling notifications: ${e.message}")
+                }
 
                 // Removes by ID for deleted item
                 events.removeAll { it.id == event.id }
@@ -330,6 +431,11 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
         selectedDate = ""
         selectedTime = ""
         selectedDateMillis = 0
+        selectedYear = 0
+        selectedMonth = 0
+        selectedDay = 0
+        selectedHour = 0
+        selectedMinute = 0
         selectedDateText.text = "Date: Not selected"
         selectedTimeText.text = "Time: Not selected"
         editingEventId = null
@@ -366,3 +472,4 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
 // UiLover, 2023. Travel App Android Studio Tutorial Project - Android Material Design. [video online]. Available at: https://www.youtube.com/watch?v=PPhuxay3OV0 [Accessed on 12 September 2025]
 // CodeWithTS, 2024. View Binding and Data Binding in Android Studio using Kotlin. [video online]. Available at: https://www.youtube.com/watch?v=tIXSuoJbX-8  [Accessed on 20 September 2025]
 // Android Developers, 2025. Develop a UI with Views. [online]. Available at: https://developer.android.com/studio/write/layout-editor [Accessed on 15 September 2025]
+// Android Developers, 2025. Schedule tasks with WorkManager. [online]. Available at: https://developer.android.com/topic/libraries/architecture/workmanager [Accessed on 9 November 2025]
