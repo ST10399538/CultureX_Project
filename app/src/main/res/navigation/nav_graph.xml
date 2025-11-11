@@ -12,7 +12,9 @@
         android:label="SplashFragment">
         <action
             android:id="@+id/action_splash_to_login"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <!-- Login Screen -->
@@ -34,11 +36,31 @@
         android:name="com.example.culturex.SignupFragment"
         android:label="SignupFragment">
         <action
-            android:id="@+id/action_signup_to_onboarding"
-            app:destination="@id/onboardingFragment" />
+            android:id="@+id/action_signup_to_biometric_setup"
+            app:destination="@id/biometricSetupFragment" />
         <action
             android:id="@+id/action_signup_to_login"
             app:destination="@id/loginFragment" />
+    </fragment>
+
+    <!-- Biometric Setup Screen -->
+    <fragment
+        android:id="@+id/biometricSetupFragment"
+        android:name="com.example.culturex.BiometricSetupFragment"
+        android:label="BiometricSetupFragment">
+        <action
+            android:id="@+id/action_biometric_setup_to_main"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_biometric_setup_to_onboarding"
+            app:destination="@id/onboardingFragment" />
+        <action
+            android:id="@+id/action_biometric_setup_to_login"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <!-- Onboarding Screen -->
@@ -48,7 +70,9 @@
         android:label="OnboardingFragment">
         <action
             android:id="@+id/action_onboarding_to_main"
-            app:destination="@id/mainFragment" />
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <!-- Main Screen -->
@@ -56,8 +80,7 @@
         android:id="@+id/mainFragment"
         android:name="com.example.culturex.MainFragment"
         android:label="MainFragment">
-
-        <!-- Actions from MainFragment to other screens -->
+        <!-- Cultural Content Actions -->
         <action
             android:id="@+id/action_main_to_dressCodeFragment"
             app:destination="@id/dressCodeFragment" />
@@ -73,8 +96,7 @@
         <action
             android:id="@+id/action_main_to_tippingFragment"
             app:destination="@id/tippingFragment" />
-
-        <!-- Bottom nav actions -->
+        <!-- Bottom Navigation Actions -->
         <action
             android:id="@+id/action_main_to_savedFragment"
             app:destination="@id/savedFragment" />
@@ -84,9 +106,59 @@
         <action
             android:id="@+id/action_main_to_emergencyFragment"
             app:destination="@id/emergencyFragment" />
+        <!-- Top Navigation Actions -->
+        <action
+            android:id="@+id/action_main_to_profile"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_main_to_touristAttractions"
+            app:destination="@id/touristAttractionsFragment" />
     </fragment>
 
-    <!-- Other fragments -->
+    <!-- Profile Fragment -->
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.culturex.ProfileFragment"
+        android:label="Profile">
+        <action
+            android:id="@+id/action_profile_to_editProfile"
+            app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_profile_to_settings"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_profile_to_itinerary"
+            app:destination="@id/itineraryFragment" />
+        <action
+            android:id="@+id/action_profile_to_emergency"
+            app:destination="@id/emergencyFragment" />
+    </fragment>
+
+    <!-- Edit Profile Fragment -->
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.example.culturex.EditProfileFragment"
+        android:label="Edit Profile" />
+
+    <!-- Settings Fragment -->
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.culturex.SettingsFragment"
+        android:label="Settings" />
+
+    <!-- Itinerary Fragment -->
+    <fragment
+        android:id="@+id/itineraryFragment"
+        android:name="com.example.culturex.ItineraryFragment"
+        android:label="Itinerary" />
+
+    <!-- Tourist Attractions Fragment -->
+    <fragment
+        android:id="@+id/touristAttractionsFragment"
+        android:name="com.example.culturex.TouristAttractionsFragment"
+        android:label="Tourist Attractions" />
+
+    <!-- Cultural Content Fragments -->
     <fragment
         android:id="@+id/dressCodeFragment"
         android:name="com.example.culturex.DressCodeFragment"
@@ -112,6 +184,7 @@
         android:name="com.example.culturex.TippingFragment"
         android:label="TippingFragment" />
 
+    <!-- Utility Fragments -->
     <fragment
         android:id="@+id/savedFragment"
         android:name="com.example.culturex.SavedFragment"
@@ -126,4 +199,19 @@
         android:id="@+id/emergencyFragment"
         android:name="com.example.culturex.EmergencyFragment"
         android:label="Emergency" />
+
+    <fragment
+        android:id="@+id/privacyPolicyFragment"
+        android:name="com.example.culturex.PrivacyPolicyFragment"
+        android:label="Privacy Policy"
+        tools:layout="@layout/fragment_privacy_policy" />
 </navigation>
+
+    <!-- Reference List
+       Iarn Tech, 2022. Android Studio User Interface - Layout and XML. [video online]. Available at: https://www.youtube.com/watch?v=kn_7H8v4Emo [Accessed on 15 September 2025]
+       UiLover, 2023. Android UI Design Mobile dashboard UI Tutorial | android projects. [video online]. Available at: https://www.youtube.com/watch?v=5dDHplq9rss  [Accessed on 18 September 2025]
+       WsCube Tech, 2021. Layouts in Android Studio (XML) | Android UI Design Explained. [video online]. Available at: https://www.youtube.com/watch?v=PeCOKgAua7A  [Accessed on 16 September 2025]
+       CodeWithTS, 2024. View Binding and Data Binding in Android Studio using Kotlin. [video online]. Available at: https://www.youtube.com/watch?v=tIXSuoJbX-8  [Accessed on 20 September 2025]
+       Android Developers, 2025. Develop a UI with Views. [online]. Available at: https://developer.android.com/studio/write/layout-editor [Accessed on 15 September 2025]
+
+       -->

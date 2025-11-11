@@ -1,0 +1,247 @@
+package com.example.culturex
+
+import android.net.Uri
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.View
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.Toast
+import androidx.navigation.fragment.findNavController
+import com.example.culturex.utils.SharedPreferencesManager
+import android.util.Log
+import com.example.culturex.utils.BiometricHelper
+
+class ProfileFragment : Fragment(R.layout.fragment_profile) {
+
+    // SharedPreferences manager to handle saved user data like profile picture URL
+    private lateinit var sharedPrefsManager: SharedPreferencesManager
+    private lateinit var biometricHelper: BiometricHelper
+    private lateinit var profileImage: ImageView
+    private lateinit var editProfileButton: Button
+    private lateinit var downloadOption: LinearLayout
+    private lateinit var settingsOption: LinearLayout
+    private lateinit var itineraryOption: LinearLayout
+    private lateinit var signOutOption: LinearLayout
+
+    // Bottom navigation
+    private lateinit var navEmergency: LinearLayout
+    private lateinit var navHome: LinearLayout
+    private lateinit var navSaved: LinearLayout
+    private lateinit var navNotifications: LinearLayout
+
+    // Called when the fragment's view has been created
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        sharedPrefsManager = SharedPreferencesManager(requireContext())
+        biometricHelper = BiometricHelper(this)
+
+        initializeViews(view)
+        loadProfilePicture()
+        setupClickListeners()
+    }
+
+    // Called when the fragment becomes visible again (e.g., returning from edit profile)
+    override fun onResume() {
+        super.onResume()
+        // Reload profile picture when returning from edit profile
+        loadProfilePicture()
+    }
+
+    private fun initializeViews(view: View) {
+        profileImage = view.findViewById(R.id.profile_image)
+        editProfileButton = view.findViewById(R.id.edit_profile_button)
+        downloadOption = view.findViewById(R.id.download_option)
+        settingsOption = view.findViewById(R.id.settings_option)
+        itineraryOption = view.findViewById(R.id.itinerary_option)
+        signOutOption = view.findViewById(R.id.sign_out_option)
+
+        // Bottom navigation
+        navEmergency = view.findViewById(R.id.nav_emergency)
+        navHome = view.findViewById(R.id.nav_home)
+        navSaved = view.findViewById(R.id.nav_saved)
+        navNotifications = view.findViewById(R.id.nav_notifications)
+    }
+
+    // Loads the user's profile picture from SharedPreferences and sets it to ImageView
+    private fun loadProfilePicture() {
+        val profilePictureUrl = sharedPrefsManager.getProfilePictureUrl()
+        profilePictureUrl?.let { urlString ->
+            try {
+                val uri = Uri.parse(urlString)
+                profileImage.setImageURI(uri)
+            } catch (e: Exception) {
+                Log.e("ProfileFragment", "Error loading profile picture", e)
+            }
+        }
+    }
+
+    // Sets click listeners for all interactive UI elements
+    private fun setupClickListeners() {
+        // Edit Profile Button
+        editProfileButton.setOnClickListener {
+            try {
+                findNavController().navigate(R.id.action_profile_to_editProfile)
+            } catch (e: Exception) {
+                Log.e("ProfileFragment", "Navigation to edit profile failed", e)
+                Toast.makeText(requireContext(), "Navigation error: ${e.message}",
+                    Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        // Download Option
+        downloadOption.setOnClickListener {
+            Toast.makeText(requireContext(), "Download functionality coming soon",
+                Toast.LENGTH_SHORT).show()
+        }
+
+        // Settings Option
+        settingsOption.setOnClickListener {
+            try {
+                findNavController().navigate(R.id.action_profile_to_settings)
+            } catch (e: Exception) {
+                Log.e("ProfileFragment", "Navigation to settings failed", e)
+                Toast.makeText(requireContext(), "Settings feature coming soon",
+                    Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        // Itinerary Plans Option
+        itineraryOption.setOnClickListener {
+            try {
+                findNavController().navigate(R.id.action_profile_to_itinerary)
+            } catch (e: Exception) {
+                Log.e("ProfileFragment", "Navigation to itinerary failed", e)
+                Toast.makeText(requireContext(), "Navigation error: ${e.message}",
+                    Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        // Sign Out Option
+        signOutOption.setOnClickListener {
+            showSignOutConfirmation()
+        }
+
+        // Bottom Navigation
+        navEmergency.setOnClickListener {
+            try {
+                findNavController().navigate(R.id.action_profile_to_emergency)
+            } catch (e: Exception) {
+                Toast.makeText(requireContext(), "Emergency feature coming soon",
+                    Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        navHome.setOnClickListener {
+            try {
+                findNavController().navigate(R.id.mainFragment)
+            } catch (e: Exception) {
+                Log.e("ProfileFragment", "Navigation to home failed", e)
+            }
+        }
+
+        navSaved.setOnClickListener {
+            try {
+                findNavController().navigate(R.id.savedFragment)
+            } catch (e: Exception) {
+                Toast.makeText(requireContext(), "Saved feature coming soon",
+                    Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        navNotifications.setOnClickListener {
+            try {
+                findNavController().navigate(R.id.notificationsFragment)
+            } catch (e: Exception) {
+                Toast.makeText(requireContext(), "Notifications feature coming soon",
+                    Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    // Shows a confirmation dialog before signing out
+    private fun showSignOutConfirmation() {
+        android.app.AlertDialog.Builder(requireContext())
+            .setTitle("Sign Out")
+            .setMessage("Are you sure you want to sign out?")
+            .setPositiveButton("Sign Out") { _, _ ->
+                performSignOut()
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    /**
+     * Performs sign out while preserving biometric login credentials
+     * This allows the user to quickly sign back in using biometric authentication
+     */
+    private fun performSignOut() {
+        // Save current user credentials before logging out (for biometric login)
+        val currentEmail = sharedPrefsManager.getEmail()
+        val currentUserId = sharedPrefsManager.getUserId()
+        val currentDisplayName = sharedPrefsManager.getDisplayName()
+        val currentBiometricEnabled = sharedPrefsManager.isBiometricEnabled()
+        val isBiometricAvailable = biometricHelper.isBiometricAvailable()
+
+        Log.d("ProfileFragment", "Signing out user: $currentEmail")
+        Log.d("ProfileFragment", "Biometric status - Available: $isBiometricAvailable, Enabled: $currentBiometricEnabled")
+
+        // Clear all session data (tokens, etc.)
+        sharedPrefsManager.logout()
+
+        // If biometric is available and was enabled, restore minimal credentials for biometric login
+        if (isBiometricAvailable && currentBiometricEnabled && !currentEmail.isNullOrEmpty() && !currentUserId.isNullOrEmpty()) {
+            Log.d("ProfileFragment", "Preserving biometric credentials for: $currentEmail")
+
+            // Restore only the necessary data for biometric login
+            sharedPrefsManager.saveAuthData(
+                accessToken = null, // Clear tokens for security
+                refreshToken = null,
+                userId = currentUserId, // Keep user ID for biometric login
+                email = currentEmail, // Keep email for display
+                displayName = currentDisplayName, // Keep display name for personalization
+                phoneNumber = null // Clear sensitive data
+            )
+
+            // Ensure biometric remains enabled
+            sharedPrefsManager.setBiometricEnabled(true)
+
+            Toast.makeText(
+                requireContext(),
+                "Signed out. Use biometric to sign in quickly!",
+                Toast.LENGTH_LONG
+            ).show()
+
+            Log.d("ProfileFragment", "Biometric credentials preserved for quick login")
+        } else {
+            // Standard sign out without biometric preservation
+            Toast.makeText(
+                requireContext(),
+                "Signed out successfully",
+                Toast.LENGTH_SHORT
+            ).show()
+
+            Log.d("ProfileFragment", "Standard sign out - biometric not preserved")
+        }
+
+        // Navigate to login screen
+        try {
+            // Clear the entire back stack and navigate to login
+            findNavController().navigate(R.id.loginFragment)
+        } catch (e: Exception) {
+            Log.e("ProfileFragment", "Navigation to login failed", e)
+            activity?.finish() // Close app if navigation fails
+        }
+    }
+}
+
+//Reference List:
+// UiLover, 2025. Build a Coffee Shop app with Kotlin & Firebase in Android Studio Project. [video online]. Available at: https://www.youtube.com/watch?v=Pnw_9tZ2z4wn [Accessed on 16 September 2025]
+// Guedmioui, A. 2023. Retrofit Android Tutorial - Make API Calls. [video online]. Available at: https://www.youtube.com/watch?v=8IhNq0ng-wk [Accessed on 14 September 2025]
+// Code Heroes, 2024.Integrate Google Maps API in Android Studio 2025 | Step-by-Step Tutorial for Beginners. [video online]. Available at: https://www.youtube.com/watch?v=QVCNTPNy-vs&t=137s [Accessed on 17 September 2025]
+// CodeSchmell, 2022. How to implement API in Android Studio tutorial. [video online]. Available at: https://www.youtube.com/watch?v=Kjeh47epMqI [Accessed on 17 September 2025]
+// UiLover, 2023. Travel App Android Studio Tutorial Project - Android Material Design. [video online]. Available at: https://www.youtube.com/watch?v=PPhuxay3OV0 [Accessed on 12 September 2025]
+// CodeWithTS, 2024. View Binding and Data Binding in Android Studio using Kotlin. [video online]. Available at: https://www.youtube.com/watch?v=tIXSuoJbX-8  [Accessed on 20 September 2025]
+// Android Developers, 2025. Develop a UI with Views. [online]. Available at: https://developer.android.com/studio/write/layout-editor [Accessed on 15 September 2025]
