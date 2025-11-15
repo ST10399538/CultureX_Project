@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CultureX</string>
+    <string name="action_settings">Izilungiselelo</string>
+
+    <!-- Navigation -->
+    <string name="nav_emergency">Isimo Esiphuthumayo</string>
+    <string name="nav_home">Ikhaya</string>
+    <string name="nav_saved">Okulondolozile</string>
+    <string name="nav_notifications">Izaziso</string>
+
+    <!-- Home -->
+    <string name="home_title">Ikhaya</string>
+    <string name="select_country">Khetha Izwe</string>
+    <string name="menu_dress_code">Indlela Yokugqoka</string>
+    <string name="menu_communication">Indlela Yokuxhumana</string>
+    <string name="menu_greetings">Ukubingelela</string>
+    <string name="menu_etiquette">Isimilo</string>
+    <string name="menu_tipping">Amasiko Ezipha</string>
+    <string name="search">Sesha</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Izilungiselelo</string>
+    <string name="customize_experience">Yenza Isipiliyoni Sakho</string>
+    <string name="account_section">I-Akhawunti</string>
+    <string name="biometric_login">Ukungena Nge-Biometric</string>
+    <string name="biometric_subtext">Sebenzisa izigxivizo zeminwe noma ubuso</string>
+    <string name="biometric_not_available">Akutholakali kuleli divayisi</string>
+    <string name="biometric_login_first">Ngena kuqala ukuze unike amandla</string>
+    <string name="biometric_enabled">✓ Ukungena nge-biometric kunikwe amandla</string>
+    <string name="biometric_disabled">Ukungena nge-biometric kukhutshazwe</string>
+
+    <!-- Preferences -->
+    <string name="preferences_section">Okuncamelayo</string>
+    <string name="language">Ulimi</string>
+    <string name="language_english">IsiNgisi</string>
+    <string name="language_afrikaans">IsiBhunu</string>
+    <string name="language_zulu">IsiZulu</string>
+    <string name="language_french">IsiFulentshi</string>
+    <string name="language_spanish">IsiSpanishi</string>
+    <string name="language_changed">Ulimi lushintshwe ku-%s</string>
+
+    <!-- Theme -->
+    <string name="theme">Itimu</string>
+    <string name="light_mode">Imodi Ekhanyayo</string>
+    <string name="dark_mode">Imodi Emnyama</string>
+    <string name="theme_changed">Itimu ishintshiwe</string>
+
+    <!-- Notifications -->
+    <string name="notifications">Izaziso</string>
+    <string name="notifications_subtext">Hlala unolwazi ngezexwayiso</string>
+    <string name="notifications_enabled">Izaziso zinikwe amandla</string>
+    <string name="notifications_disabled">Izaziso zikhutshazwe</string>
+
+    <!-- About -->
+    <string name="about_section">Mayelana</string>
+    <string name="privacy_policy">Inqubomgomo Yobumfihlo</string>
+    <string name="app_version">Inguqulo Yohlelo</string>
+    <string name="export_data">Thumela Idatha</string>
+    <string name="export_success">Ithunyelwe ku-Downloads/culturex_export.json</string>
+    <string name="export_failed">Kwehlulekile ukuthumela: %s</string>
+
+    <!-- Profile -->
+    <string name="profile_title">Iphrofayela</string>
+    <string name="edit_profile">Hlela Iphrofayela</string>
+    <string name="edit_profile_button">Hlela Iphrofayela</string>
+    <string name="content_section">Okuqukethwe</string>
+    <string name="download">Dawuniloda</string>
+    <string name="settings">Izilungiselelo</string>
+    <string name="itinerary_plans">Izinhlelo Zohambo</string>
+    <string name="itinerary_subtext">Buka futhi uhlele izibalo zakho</string>
+    <string name="sign_out">Phuma</string>
+
+    <!-- Profile Form -->
+    <string name="name">Igama</string>
+    <string name="surname">Isibongo</string>
+    <string name="email">I-imeyili</string>
+    <string name="phone_number">Inombolo Yocingo</string>
+    <string name="change_picture">Shintsha Isithombe</string>
+    <string name="update_profile">Buyekeza Iphrofayela</string>
+    <string name="name_hint">Faka igama lakho</string>
+    <string name="surname_hint">Faka isibongo sakho</string>
+    <string name="email_hint">isibonelo@imeyili.com</string>
+    <string name="phone_hint">XX XXX XXXX</string>
+    <string name="personal_info_security">Imininingwane yakho yomuntu siqu iphephile futhi ngeke yabiwe nezinye izinhlaka.</string>
+
+    <!-- Emergency Services -->
+    <string name="emergency_services">Izinsizakalo Zesimo Esiphuthumayo</string>
+    <string name="loading">Iyalayisha...</string>
+    <string name="police">Amaphoyisa</string>
+    <string name="medical_emergency">Isimo Esiphuthumayo Sezempilo</string>
+    <string name="fire_department">Umnyango Womlilo</string>
+    <string name="tourist_helpline">Usizo Lwabakhenkethi</string>
+    <string name="general_emergency">Isimo Esiphuthumayo Esijwayelekile</string>
+    <string name="emergency_tips">Amathiphu Esimo Esiphuthumayo</string>
+    <string name="emergency_tips_content">• Hlala uzolile futhi ukhulume ngokucacile\n• Yazi indawo yakho/ikheli\n• Landela imiyalelo yomshini\n• Ungavali ucingo ngaphandle kokushelwa\n• Londoloza lezi zinombolo ngaphandle kwe-inthanethi</string>
+    <string name="emergency_notice">Thepha noma iyiphi inombolo yesimo esiphuthumayo ukuze ucingo ngqo. Londoloza lezi zinombolo ukuze ukwazi ukufinyelela ngaphandle kwe-inthanethi.</string>
+    <string name="save_offline">Londoloza Ngaphandle Kwe-inthanethi</string>
+
+    <!-- Actions -->
+    <string name="share">Yabelana</string>
+    <string name="translate">Humusha</string>
+    <string name="bookmark">Uphawu</string>
+    <string name="overview">Ukubuka Konke</string>
+    <string name="cultural_context">Umongo Wamasiko</string>
+    <string name="loading_content">Iyalayisha okuqukethwe...</string>
+
+    <!-- Dress Code -->
+    <string name="dress_code_guide">Umhlahlandlela Wokugqoka</string>
+    <string name="local_fashion_etiquette">Isimilo Semfashini Yasendaweni</string>
+    <string name="recommended_attire">Ukugqoka Okunconyiwe</string>
+    <string name="items_to_avoid">Izinto Okufanele Uzigweme</string>
+    <string name="practical_examples">Izibonelo Ezisebenzayo</string>
+    <string name="what_to_wear">Okufanele Ukugqoke</string>
+    <string name="what_to_avoid">Okufanele Ukugweme</string>
+
+    <!-- Communication -->
+    <string name="communication_style">Indlela Yokuxhumana</string>
+    <string name="master_local_communication">Funda Ukuxhumana Kwasendaweni</string>
+    <string name="connect_authentically">Xhumana ngeqiniso nabantu bendawo</string>
+    <string name="recommended_practices">Izinqubo Ezinconyiwe</string>
+    <string name="common_mistakes">Amaphutha Ajwayelekile</string>
+    <string name="real_world_scenarios">Izimo Zomhlaba Wangempela</string>
+    <string name="dos_count">%d Kwenza</string>
+    <string name="donts_count">%d Musa Ukwenza</string>
+    <string name="examples_count">%d Amathiphu</string>
+    <string name="loading_communication">Iyalayisha imihlahlandlela yokuxhumana...</string>
+
+    <!-- Greetings -->
+    <string name="greetings">Ukubingelela</string>
+    <string name="learn_local_greetings">Funda Ukubingelela Kwasendaweni</string>
+    <string name="language_diversity">Ukuhlukahluka Kwezilimi</string>
+    <string name="common_greetings">Ukubingelela Okujwayelekile</string>
+    <string name="loading_greetings">Iyalayisha ukubingelela...</string>
+    <string name="practice">Zijwayeze</string>
+
+    <!-- Etiquette -->
+    <string name="social_etiquette">Isimilo Somphakathi</string>
+    <string name="quick_guide">Umhlahlandlela Osheshayo</string>
+    <string name="key_points">Amaphuzu Abalulekile</string>
+    <string name="key_points_placeholder">Amaphuzu abalulekile esimilo azovela lapha...</string>
+    <string name="formal">Okusemthethweni</string>
+    <string name="business">Ibhizinisi</string>
+    <string name="social">Umphakathi</string>
+    <string name="formal_etiquette">Isimilo Esisemthethweni</string>
+    <string name="loading_etiquette">Iyalayisha ulwazi lwesimilo...</string>
+
+    <!-- Tipping -->
+    <string name="tipping_culture">Amasiko Ezipha</string>
+    <string name="quick_tip_calculator">Isibali Sesipha Esisheshayo</string>
+    <string name="recommended_tip">Kunconyiwe: %s%%</string>
+    <string name="bill_amount">Faka inani lebhili</string>
+    <string name="split_between">Hlukanisa phakathi</string>
+    <string name="people">abantu</string>
+    <string name="select_tip_percentage">Khetha Iphesenti Lesipha</string>
+    <string name="tip_amount">Inani Lesipha</string>
+    <string name="total_amount">Inani Eliphelele</string>
+    <string name="per_person">Ngomuntu: %s</string>
+    <string name="tipping_guidelines">Imihlahlandlela Yokupha</string>
+    <string name="when_to_tip">Nini Okumelwe Unike</string>
+    <string name="when_not_to_tip">Nini Okungafanele Unike</string>
+    <string name="tipping_scenarios">Izimo Zokupha</string>
+    <string name="loading_tipping">Iyalayisha ulwazi lokupha...</string>
+    <string name="custom">Ngokwezifiso</string>
+    <string name="apply_custom">Sebenzisa Okungokwezifiso</string>
+
+    <!-- Itinerary -->
+    <string name="trip_itinerary">Uhlelo Lohambo</string>
+    <string name="quick_actions">Izenzo Ezisheshayo</string>
+    <string name="add_event">+</string>
+    <string name="edit">Hlela</string>
+    <string name="filter">Hlunga</string>
+    <string name="view_all">Buka Konke</string>
+    <string name="create_event">Dala Umcimbi</string>
+    <string name="set_date_time">Beka Usuku Nesikhathi</string>
+    <string name="date_not_selected">Usuku: Akukhethiwe</string>
+    <string name="time_not_selected">Isikhathi: Asikukhethiwe</string>
+    <string name="event_description_hint">Chaza umcimbi wakho...</string>
+    <string name="save">Londoloza</string>
+    <string name="your_events">Imicimbi Yakho</string>
+    <string name="itinerary_tip">💡 Ithiphu: Sebenzisa imodi yokuhlela ukuze ushintshe noma ususe imicimbi yakho</string>
+    <string name="event_title">Umcimbi - %d</string>
+    <string name="last_updated">Ibuyekezwe Kamuva: Okthoba 2, 2025</string>
+
+    <!-- Privacy Policy -->
+    <string name="introduction">Isingeniso</string>
+    <string name="privacy_intro">Siyakwamukela ku-CultureX. Sizinikele ekuvikeleni ubumfihlo bakho nokuvikeleka kwemininingwane yakho yomuntu siqu. Le Nqubomgomo Yobumfihlo ichaza indlela esiqoqa ngayo, sisebenzisa ngayo, siveze ngayo futhi sivikele ngayo imininingwane yakho lapho usebenzisa uhlelo lwethu lamasiko nesipiliyoni sohambo.</string>
+    <string name="info_we_collect">1. Imininingwane Esiyiqoqayo</string>
+    <string name="personal_information">Imininingwane Yomuntu Siqu</string>
+    <string name="usage_information">Imininingwane Yokusetshenziswa</string>
+    <string name="how_we_use_info">2. Indlela Esisebenzisa Ngayo Imininingwane Yakho</string>
+    <string name="data_security">3. Ukuphepha Kwedatha</string>
+    <string name="info_sharing">4. Ukwabelana Ngemininingwane</string>
+    <string name="your_rights">5. Amalungelo Akho Obumfihlo</string>
+    <string name="data_retention">6. Ukugcinwa Kwedatha</string>
+    <string name="children_privacy">7. Ubumfihlo Bezingane</string>
+    <string name="policy_changes">8. Izinguquko Kule Nqubomgomo</string>
+    <string name="contact_us">9. Sithinte</string>
+    <string name="privacy_agreement">Ngokusebenzisa i-CultureX, uyavuma le Nqubomgomo Yobumfihlo nemigomo yethu Yensizakalo.</string>
+
+    <!-- Common Actions -->
+    <string name="back">Emuva</string>
+    <string name="continue_button">Qhubeka</string>
+    <string name="skip">Yeqa manje</string>
+    <string name="close">Vala</string>
+    <string name="ok">KULUNGILE</string>
+    <string name="cancel">Khansela</string>
+    <string name="delete">Susa</string>
+    <string name="confirm">Qinisekisa</string>
+    <string name="offline_mode">📵 Imodi Engaxhunyiwe - Izinguquko zizovumelaniswa uma kuxhunywe</string>
+
+    <!-- Biometric Prompts -->
+    <string name="biometric_prompt_title">Vula ukuqinisekiswa nge-biometric.</string>
+    <string name="biometric_prompt_description">Ukuqinisekiswa nge-biometric kukuvumela ukuba ungene ngokushesha nangokuvikelekile usebenzisa izigxivizo zeminwe noma ukuqashelwa kobuso baleli divayisi.</string>
+    <string name="biometric_prompt_info">Ungavula ukuqinisekiswa nge-biometric kamuva ku-akhawunti yakho → Izilungiselelo zokuphepha.</string>
+
+    <!-- Stats -->
+    <string name="stats_dos">%d Kwenza</string>
+    <string name="stats_donts">%d Musa Ukwenza</string>
+    <string name="stats_tips">%d Amathiphu</string>
+</resources>

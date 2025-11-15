@@ -14,7 +14,7 @@
         android:background="#FFA726"
         android:gravity="center"
         android:padding="8dp"
-        android:text="📵 Offline Mode - Changes will sync when online"
+        android:text="@string/offline_mode"
         android:textColor="@android:color/white"
         android:textSize="12sp"
         android:textStyle="bold"
@@ -70,7 +70,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Dress Code Guide"
+                    android:text="@string/dress_code_guide"
                     android:textColor="#1F2937"
                     android:textSize="20sp"
                     android:gravity="center"
@@ -150,7 +150,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="32dp"
-                            android:text="Local Fashion Etiquette"
+                            android:text="@string/local_fashion_etiquette"
                             android:textColor="@android:color/white"
                             android:textSize="22sp"
                             android:letterSpacing="0.02" />
@@ -197,7 +197,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Save Offline"
+                            android:text="@string/save_offline"
                             android:textColor="#3B82F6"
                             android:textSize="18sp"
                             />
@@ -233,7 +233,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Share"
+                            android:text="@string/share"
                             android:textColor="#10B981"
                             android:textSize="18sp"
                             />
@@ -274,7 +274,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Overview"
+                            android:text="@string/overview"
                             android:textColor="#1F2937"
                             android:textSize="16sp"
                             />
@@ -284,7 +284,7 @@
                         android:id="@+id/content_description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Understanding local dress codes helps you respect cultural norms and make positive impressions..."
+                        android:text="@string/dress_code_description"
                         android:textColor="#6B7280"
                         android:textSize="14sp"
                         android:lineSpacingExtra="6dp"
@@ -296,7 +296,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Recommended Attire"
+                android:text="@string/recommended_attire"
                 android:textColor="#1F2937"
                 android:textSize="18sp"
                 android:layout_marginStart="16dp"
@@ -343,7 +343,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="What to Wear"
+                            android:text="@string/what_to_wear"
                             android:textColor="#059669"
                             android:textSize="26sp"
                             android:layout_marginStart="16dp"
@@ -362,7 +362,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Items to Avoid"
+                android:text="@string/items_to_avoid"
                 android:textColor="#1F2937"
                 android:textSize="18sp"
                 android:layout_marginStart="16dp"
@@ -409,7 +409,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="What to Avoid"
+                            android:text="@string/what_to_avoid"
                             android:textColor="#DC2626"
                             android:textSize="16sp"
                             android:layout_marginStart="16dp"
@@ -428,7 +428,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Practical Examples"
+                android:text="@string/practical_examples"
                 android:textColor="#1F2937"
                 android:textSize="18sp"
                 android:layout_marginStart="16dp"
@@ -474,7 +474,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Scenario Examples"
+                            android:text="@string/scenario_examples"
                             android:textColor="#D97706"
                             android:textSize="16sp"
                             android:layout_marginStart="16dp"
@@ -492,24 +492,17 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <!-- Progress Indicator -->
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        style="@style/Widget.Material3.CircularProgressIndicator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:indeterminateTint="#4F46E5"
-        android:visibility="gone" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-    <!-- Reference List
-       Iarn Tech, 2022. Android Studio User Interface - Layout and XML. [video online]. Available at: https://www.youtube.com/watch?v=kn_7H8v4Emo [Accessed on 15 September 2025]
-       UiLover, 2023. Android UI Design Mobile dashboard UI Tutorial | android projects. [video online]. Available at: https://www.youtube.com/watch?v=5dDHplq9rss  [Accessed on 18 September 2025]
-       WsCube Tech, 2021. Layouts in Android Studio (XML) | Android UI Design Explained. [video online]. Available at: https://www.youtube.com/watch?v=PeCOKgAua7A  [Accessed on 16 September 2025]
-       CodeWithTS, 2024. View Binding and Data Binding in Android Studio using Kotlin. [video online]. Available at: https://www.youtube.com/watch?v=tIXSuoJbX-8  [Accessed on 20 September 2025]
-       Android Developers, 2025. Develop a UI with Views. [online]. Available at: https://developer.android.com/studio/write/layout-editor [Accessed on 15 September 2025]
 
-       -->
+
+<!--   Reference List-->
+<!--       Iarn Tech, 2022. Android Studio User Interface - Layout and XML. [video online]. Available at: https://www.youtube.com/watch?v=kn_7H8v4Emo [Accessed on 15 September 2025]-->
+<!--       UiLover, 2023. Android UI Design Mobile dashboard UI Tutorial | android projects. [video online]. Available at: https://www.youtube.com/watch?v=5dDHplq9rss  [Accessed on 18 September 2025]-->
+<!--       WsCube Tech, 2021. Layouts in Android Studio (XML) | Android UI Design Explained. [video online]. Available at: https://www.youtube.com/watch?v=PeCOKgAua7A  [Accessed on 16 September 2025]-->
+<!--       CodeWithTS, 2024. View Binding and Data Binding in Android Studio using Kotlin. [video online]. Available at: https://www.youtube.com/watch?v=tIXSuoJbX-8  [Accessed on 20 September 2025]-->
+<!--       Android Developers, 2025. Develop a UI with Views. [online]. Available at: https://developer.android.com/studio/write/layout-editor [Accessed on 15 September 2025]-->
+
+<!-- -->

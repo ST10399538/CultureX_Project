@@ -1,12 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">CultureX</string>
     <string name="action_settings">Settings</string>
-    <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="web_client_id">257009955481-8aikluaaghc2ctdat5pu5hu62komdmdg.apps.googleusercontent.com</string>
+
+    <!-- Navigation -->
+    <string name="nav_emergency">Emergency</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_saved">Saved</string>
+    <string name="nav_notifications">Notifications</string>
+
+    <!-- Home -->
+    <string name="home_title">Home</string>
+    <string name="select_country">Select Country</string>
+    <string name="menu_dress_code">Dress Code</string>
+    <string name="menu_communication">Communication Style</string>
+    <string name="menu_greetings">Greetings</string>
+    <string name="menu_etiquette">Etiquette</string>
+    <string name="menu_tipping">Tipping Norms</string>
+    <string name="search">Search</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="customize_experience">Customize Your Experience</string>
+    <string name="account_section">Account</string>
+    <string name="biometric_login">Biometric Login</string>
+    <string name="biometric_subtext">Use fingerprint or face ID</string>
+    <string name="biometric_not_available">Not available on this device</string>
+    <string name="biometric_login_first">Login first to enable</string>
+    <string name="biometric_enabled">✓ Biometric login enabled</string>
+    <string name="biometric_disabled">Biometric login disabled</string>
+
+    <!-- Preferences -->
+    <string name="preferences_section">Preferences</string>
+    <string name="language">Language</string>
+    <string name="language_english">English</string>
+    <string name="language_afrikaans">Afrikaans</string>
+    <string name="language_zulu">Zulu</string>
+    <string name="language_french">French</string>
+    <string name="language_spanish">Spanish</string>
+    <string name="language_changed">Language changed to %s</string>
+
+    <!-- Theme -->
+    <string name="theme">Theme</string>
+    <string name="light_mode">Light Mode</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="theme_changed">Theme changed</string>
+
+    <!-- Notifications -->
+    <string name="notifications">Notifications</string>
+    <string name="notifications_subtext">Stay updated with alerts</string>
+    <string name="notifications_enabled">Notifications enabled</string>
+    <string name="notifications_disabled">Notifications disabled</string>
+
+    <!-- About -->
+    <string name="about_section">About</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="app_version">App Version</string>
+    <string name="export_data">Export Data</string>
+    <string name="export_success">Exported to Downloads/culturex_export.json</string>
+    <string name="export_failed">Failed to export: %s</string>
+
+    <!-- Profile -->
+    <string name="profile_title">Profile</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="edit_profile_button">Edit Profile</string>
+    <string name="content_section">Content</string>
+    <string name="download">Download</string>
+    <string name="settings">Settings</string>
+    <string name="itinerary_plans">Itinerary Plans</string>
+    <string name="itinerary_subtext">View and edit your trips</string>
+    <string name="sign_out">Sign Out</string>
+
+    <!-- Profile Form -->
+    <string name="name">Name</string>
+    <string name="surname">Surname</string>
+    <string name="email">Email</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="change_picture">Change Picture</string>
+    <string name="update_profile">Update Profile</string>
+    <string name="name_hint">Enter your name</string>
+    <string name="surname_hint">Enter your surname</string>
+    <string name="email_hint">example@email.com</string>
+    <string name="phone_hint">XX XXX XXXX</string>
+    <string name="personal_info_security">Your personal information is secure and will not be shared with third parties.</string>
+
+    <!-- Emergency Services -->
+    <string name="emergency_services">Emergency Services</string>
+    <string name="loading">Loading...</string>
+    <string name="police">Police</string>
+    <string name="medical_emergency">Medical Emergency</string>
+    <string name="fire_department">Fire Department</string>
+    <string name="tourist_helpline">Tourist Helpline</string>
+    <string name="general_emergency">General Emergency</string>
+    <string name="emergency_tips">Emergency Tips</string>
+    <string name="emergency_tips_content">- Stay calm and speak clearly\n- Know your location/address\n- Follow operator instructions\n- Don\'t hang up unless told\n- Save these numbers offline</string>
+    <string name="emergency_notice">Tap any emergency number to dial directly. Save these numbers for offline access.</string>
+    <string name="save_offline">Save Offline</string>
+
+    <!-- Actions -->
+    <string name="share">Share</string>
+    <string name="translate">Translate</string>
+    <string name="bookmark">Bookmark</string>
+    <string name="overview">Overview</string>
+    <string name="cultural_context">Cultural Context</string>
+    <string name="loading_content">Loading content...</string>
+
+    <!-- Dress Code -->
+    <string name="dress_code_guide">Dress Code Guide</string>
+    <string name="local_fashion_etiquette">Local Fashion Etiquette</string>
+    <string name="recommended_attire">Recommended Attire</string>
+    <string name="items_to_avoid">Items to Avoid</string>
+    <string name="practical_examples">Practical Examples</string>
+    <string name="dress_code_description">Understanding local dress codes helps you respect cultural norms and make positive impressions...</string>
+    <string name="what_to_wear">What to Wear</string>
+    <string name="what_to_avoid">What to Avoid</string>
+    <string name="scenario_examples">Scenario Examples</string>
+
+
+    <!-- Communication -->
+    <string name="content_title">Communication Style</string>
+    <string name="interactive_card_emoji">🗣️</string>
+    <string name="interactive_card_title">Master Local Communication</string>
+    <string name="interactive_card_subtitle">Connect authentically with locals</string>
+    <string name="dos_emoji">👍</string>
+    <string name="dos_count">%1$d Do's</string>
+    <string name="donts_emoji">⚠️</string>
+    <string name="donts_count">%1$d Don'ts</string>
+    <string name="examples_emoji">💬</string>
+    <string name="examples_count">%1$d Tips</string>
+    <string name="content_description">Loading communication guidelines...</string>
+    <string name="recommended_practices">Recommended Practices</string>
+    <string name="common_mistakes">Common Mistakes</string>
+    <string name="real_world_scenarios">Real-World Scenarios</string>
+
+    <!-- Greetings -->
+    <string name="greetings">Greetings</string>
+    <string name="learn_local_greetings">Learn Local Greetings</string>
+    <string name="language_diversity">Language Diversity</string>
+    <string name="common_greetings">Common Greetings</string>
+    <string name="loading_greetings">Loading greetings...</string>
+    <string name="practice">Practice</string>
+
+    <!-- Etiquette -->
+    <string name="social_etiquette">Social Etiquette</string>
+    <string name="quick_guide">Quick Guide</string>
+    <string name="key_points">Key Points</string>
+    <string name="key_points_placeholder">Key etiquette points will appear here...</string>
+    <string name="formal">Formal</string>
+    <string name="business">Business</string>
+    <string name="social">Social</string>
+    <string name="formal_etiquette">Formal Etiquette</string>
+    <string name="loading_etiquette">Loading etiquette information...</string>
+
+    <!-- Tipping -->
+    <string name="tipping_culture">Tipping Culture</string>
+    <string name="quick_tip_calculator">Quick Tip Calculator</string>
+    <string name="recommended_tip">Recommended: %s%%</string>
+    <string name="bill_amount">Enter bill amount</string>
+    <string name="split_between">Split between</string>
+    <string name="people">people</string>
+    <string name="select_tip_percentage">Select Tip Percentage</string>
+    <string name="tip_amount">Tip Amount</string>
+    <string name="total_amount">Total Amount</string>
+    <string name="per_person">Per person: %s</string>
+    <string name="tipping_guidelines">Tipping Guidelines</string>
+    <string name="when_to_tip">When to Tip</string>
+    <string name="when_not_to_tip">When Not to Tip</string>
+    <string name="tipping_scenarios">Tipping Scenarios</string>
+    <string name="loading_tipping">Loading tipping information...</string>
+    <string name="custom">Custom</string>
+    <string name="apply_custom">Apply Custom</string>
+
+    <!-- Itinerary -->
+    <string name="trip_itinerary">Trip Itinerary</string>
+    <string name="quick_actions">Quick Actions</string>
+    <string name="add_event">+</string>
+    <string name="edit">Edit</string>
+    <string name="filter">Filter</string>
+    <string name="view_all">View All</string>
+    <string name="create_event">Create Event</string>
+    <string name="set_date_time">Set Date and Time</string>
+    <string name="date_not_selected">Date: Not selected</string>
+    <string name="time_not_selected">Time: Not selected</string>
+    <string name="event_description_hint">Describe your event...</string>
+    <string name="save">Save</string>
+    <string name="your_events">Your Events</string>
+    <string name="itinerary_tip">💡 Tip: Use Edit mode to modify or delete your events</string>
+    <string name="event_title">Event - %d</string>
+    <string name="last_updated">Last Updated: October 2, 2025</string>
+
+    <!-- Privacy Policy -->
+    <string name="introduction">Introduction</string>
+    <string name="privacy_intro">Welcome to CultureX. We are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our cultural etiquette and travel application.</string>
+    <string name="info_we_collect">1. Information We Collect</string>
+    <string name="personal_information">Personal Information</string>
+    <string name="usage_information">Usage Information</string>
+    <string name="how_we_use_info">2. How We Use Your Information</string>
+    <string name="data_security">3. Data Security</string>
+    <string name="info_sharing">4. Information Sharing</string>
+    <string name="your_rights">5. Your Privacy Rights</string>
+    <string name="data_retention">6. Data Retention</string>
+    <string name="children_privacy">7. Children\'s Privacy</string>
+    <string name="policy_changes">8. Changes to This Policy</string>
+    <string name="contact_us">9. Contact Us</string>
+    <string name="privacy_agreement">By using CultureX, you agree to this Privacy Policy and our Terms of Service.</string>
+
+    <!-- Common Actions -->
+    <string name="back">Back</string>
+    <string name="continue_button">Continue</string>
+    <string name="skip">Skip for now</string>
+    <string name="close">Close</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+    <string name="confirm">Confirm</string>
+    <string name="offline_mode">📵 Offline Mode - Changes will sync when online</string>
+
+    <!-- Biometric Prompts -->
+    <string name="biometric_prompt_title">Turn on biometric authentication.</string>
+    <string name="biometric_prompt_description">Biometric authentication lets you log in quickly and securely using this device\'s fingerprint or face recognition.</string>
+    <string name="biometric_prompt_info">You can turn on biometric authentication later in your account → Security settings.</string>
+
+    <!-- Stats -->
+    <string name="stats_dos">%d Do\'s</string>
+    <string name="stats_donts">%d Don\'ts</string>
+    <string name="stats_tips">%d Tips</string>
 
     <string-array name="countries">
         <item>South Africa</item>
@@ -16,43 +239,6 @@
         <item>USA</item>
     </string-array>
 
-
-    <string name="lorem_ipsum">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
-        volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
-        dui nec risus. Maecenas non sodales nisi, vel dictum dolor. Class aptent taciti sociosqu ad
-        litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse blandit eleifend
-        diam, vel rutrum tellus vulputate quis. Aliquam eget libero aliquet, imperdiet nisl a,
-        ornare ex. Sed rhoncus est ut libero porta lobortis. Fusce in dictum tellus.\n\n
-        Suspendisse interdum ornare ante. Aliquam nec cursus lorem. Morbi id magna felis. Vivamus
-        egestas, est a condimentum egestas, turpis nisl iaculis ipsum, in dictum tellus dolor sed
-        neque. Morbi tellus erat, dapibus ut sem a, iaculis tincidunt dui. Interdum et malesuada
-        fames ac ante ipsum primis in faucibus. Curabitur et eros porttitor, ultricies urna vitae,
-        molestie nibh. Phasellus at commodo eros, non aliquet metus. Sed maximus nisl nec dolor
-        bibendum, vel congue leo egestas.\n\n
-        Sed interdum tortor nibh, in sagittis risus mollis quis. Curabitur mi odio, condimentum sit
-        amet auctor at, mollis non turpis. Nullam pretium libero vestibulum, finibus orci vel,
-        molestie quam. Fusce blandit tincidunt nulla, quis sollicitudin libero facilisis et. Integer
-        interdum nunc ligula, et fermentum metus hendrerit id. Vestibulum lectus felis, dictum at
-        lacinia sit amet, tristique id quam. Cras eu consequat dui. Suspendisse sodales nunc ligula,
-        in lobortis sem porta sed. Integer id ultrices magna, in luctus elit. Sed a pellentesque
-        est.\n\n
-        Aenean nunc velit, lacinia sed dolor sed, ultrices viverra nulla. Etiam a venenatis nibh.
-        Morbi laoreet, tortor sed facilisis varius, nibh orci rhoncus nulla, id elementum leo dui
-        non lorem. Nam mollis ipsum quis auctor varius. Quisque elementum eu libero sed commodo. In
-        eros nisl, imperdiet vel imperdiet et, scelerisque a mauris. Pellentesque varius ex nunc,
-        quis imperdiet eros placerat ac. Duis finibus orci et est auctor tincidunt. Sed non viverra
-        ipsum. Nunc quis augue egestas, cursus lorem at, molestie sem. Morbi a consectetur ipsum, a
-        placerat diam. Etiam vulputate dignissim convallis. Integer faucibus mauris sit amet finibus
-        convallis.\n\n
-        Phasellus in aliquet mi. Pellentesque habitant morbi tristique senectus et netus et
-        malesuada fames ac turpis egestas. In volutpat arcu ut felis sagittis, in finibus massa
-        gravida. Pellentesque id tellus orci. Integer dictum, lorem sed efficitur ullamcorper,
-        libero justo consectetur ipsum, in mollis nisl ex sed nisl. Donec maximus ullamcorper
-        sodales. Praesent bibendum rhoncus tellus nec feugiat. In a ornare nulla. Donec rhoncus
-        libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
-        vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
-    </string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

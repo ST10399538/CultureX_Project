@@ -38,13 +38,13 @@
                 app:strokeWidth="0dp"
                 app:elevation="4dp" />
 
-            <!-- Title with Animation Ready -->
+            <!-- Title -->
             <TextView
                 android:id="@+id/content_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Communication Style"
+                android:text="@string/content_title"
                 android:textColor="#111827"
                 android:textSize="22sp"
                 android:gravity="center"
@@ -110,7 +110,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="🗣️"
+                        android:text="@string/interactive_card_emoji"
                         android:textSize="48sp"
                         android:layout_gravity="center"
                         android:layout_marginTop="24dp" />
@@ -118,7 +118,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Master Local Communication"
+                        android:text="@string/interactive_card_title"
                         android:textColor="@android:color/black"
                         android:textSize="20sp"
                         android:layout_gravity="center"
@@ -127,7 +127,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Connect authentically with locals"
+                        android:text="@string/interactive_card_subtitle"
                         android:textColor="#757575"
                         android:textSize="14sp"
                         android:layout_gravity="center"
@@ -145,6 +145,7 @@
                 android:paddingHorizontal="16dp"
                 android:layout_marginBottom="20dp">
 
+                <!-- Do's -->
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="0dp"
                     android:layout_height="80dp"
@@ -164,20 +165,21 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="👍"
+                            android:text="@string/dos_emoji"
                             android:textSize="24sp" />
 
                         <TextView
                             android:id="@+id/dos_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="5 Do's"
+                            android:text="@string/dos_count"
                             android:textColor="#135c43"
                             android:textSize="14sp"
                             android:layout_marginTop="4dp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
+                <!-- Don'ts -->
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="0dp"
                     android:layout_height="80dp"
@@ -197,20 +199,21 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="⚠️"
+                            android:text="@string/donts_emoji"
                             android:textSize="24sp" />
 
                         <TextView
                             android:id="@+id/donts_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="3 Don'ts"
+                            android:text="@string/donts_count"
                             android:textColor="#EF4444"
                             android:textSize="14sp"
                             android:layout_marginTop="4dp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
+                <!-- Examples -->
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="0dp"
                     android:layout_height="80dp"
@@ -230,14 +233,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="💬"
+                            android:text="@string/examples_emoji"
                             android:textSize="24sp" />
 
                         <TextView
                             android:id="@+id/examples_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="4 Tips"
+                            android:text="@string/examples_count"
                             android:textColor="#3B82F6"
                             android:textSize="14sp"
                             android:layout_marginTop="4dp" />
@@ -265,7 +268,7 @@
                         android:id="@+id/content_description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Loading communication guidelines..."
+                        android:text="@string/content_description"
                         android:textColor="#4B5563"
                         android:textSize="15sp"
                         android:lineSpacingExtra="8dp"
@@ -290,10 +293,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Recommended Practices"
+                    android:text="@string/recommended_practices"
                     android:textColor="#065F46"
                     android:textSize="18sp"
-
                     android:layout_marginStart="12dp" />
             </LinearLayout>
 
@@ -321,7 +323,6 @@
                         android:layout_marginHorizontal="16dp"
                         android:layout_marginBottom="24dp"
                         android:nestedScrollingEnabled="false" />
-
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -342,7 +343,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Common Mistakes"
+                    android:text="@string/common_mistakes"
                     android:textColor="#991B1B"
                     android:textSize="18sp"
                     android:layout_marginStart="12dp" />
@@ -372,7 +373,6 @@
                         android:layout_marginHorizontal="16dp"
                         android:layout_marginBottom="24dp"
                         android:nestedScrollingEnabled="false" />
-
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -393,7 +393,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Real-World Scenarios"
+                    android:text="@string/real_world_scenarios"
                     android:textColor="#1E3A8A"
                     android:textSize="18sp"
                     android:layout_marginStart="12dp" />
@@ -461,15 +461,4 @@
         android:layout_margin="16dp"
         app:cardCornerRadius="24dp"
         app:cardElevation="12dp"/>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!-- Reference List
-       Iarn Tech, 2022. Android Studio User Interface - Layout and XML. [video online]. Available at: https://www.youtube.com/watch?v=kn_7H8v4Emo [Accessed on 15 September 2025]
-       UiLover, 2023. Android UI Design Mobile dashboard UI Tutorial | android projects. [video online]. Available at: https://www.youtube.com/watch?v=5dDHplq9rss  [Accessed on 18 September 2025]
-       WsCube Tech, 2021. Layouts in Android Studio (XML) | Android UI Design Explained. [video online]. Available at: https://www.youtube.com/watch?v=PeCOKgAua7A  [Accessed on 16 September 2025]
-       CodeWithTS, 2024. View Binding and Data Binding in Android Studio using Kotlin. [video online]. Available at: https://www.youtube.com/watch?v=tIXSuoJbX-8  [Accessed on 20 September 2025]
-       Android Developers, 2025. Develop a UI with Views. [online]. Available at: https://developer.android.com/studio/write/layout-editor [Accessed on 15 September 2025]
-
-       -->

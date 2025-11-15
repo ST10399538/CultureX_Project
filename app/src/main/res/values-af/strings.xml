@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CultureX</string>
+    <string name="action_settings">Instellings</string>
+
+    <!-- Navigation -->
+    <string name="nav_emergency">Noodgeval</string>
+    <string name="nav_home">Tuis</string>
+    <string name="nav_saved">Gestoor</string>
+    <string name="nav_notifications">Kennisgewings</string>
+
+    <!-- Home -->
+    <string name="home_title">Tuis</string>
+    <string name="select_country">Kies Land</string>
+    <string name="menu_dress_code">Kleredrag Kode</string>
+    <string name="menu_communication">Kommunikasie Styl</string>
+    <string name="menu_greetings">Groete</string>
+    <string name="menu_etiquette">Etiket</string>
+    <string name="menu_tipping">Fooigee Norme</string>
+    <string name="search">Soek</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Instellings</string>
+    <string name="customize_experience">Pasmaak Jou Ervaring</string>
+    <string name="account_section">Rekening</string>
+    <string name="biometric_login">Biometriese Aanmelding</string>
+    <string name="biometric_subtext">Gebruik vingerafdruk of gesig ID</string>
+    <string name="biometric_not_available">Nie beskikbaar op hierdie toestel nie</string>
+    <string name="biometric_login_first">Meld eers aan om te aktiveer</string>
+    <string name="biometric_enabled">✓ Biometriese aanmelding geaktiveer</string>
+    <string name="biometric_disabled">Biometriese aanmelding gedeaktiveer</string>
+
+    <!-- Preferences -->
+    <string name="preferences_section">Voorkeure</string>
+    <string name="language">Taal</string>
+    <string name="language_english">Engels</string>
+    <string name="language_afrikaans">Afrikaans</string>
+    <string name="language_zulu">Zoeloe</string>
+    <string name="language_french">Frans</string>
+    <string name="language_spanish">Spaans</string>
+    <string name="language_changed">Taal verander na %s</string>
+
+    <!-- Theme -->
+    <string name="theme">Tema</string>
+    <string name="light_mode">Ligmodus</string>
+    <string name="dark_mode">Donkermodus</string>
+    <string name="theme_changed">Tema verander</string>
+
+    <!-- Notifications -->
+    <string name="notifications">Kennisgewings</string>
+    <string name="notifications_subtext">Bly op hoogte met waarskuwings</string>
+    <string name="notifications_enabled">Kennisgewings geaktiveer</string>
+    <string name="notifications_disabled">Kennisgewings gedeaktiveer</string>
+
+    <!-- About -->
+    <string name="about_section">Omtrent</string>
+    <string name="privacy_policy">Privaatheidsbeleid</string>
+    <string name="app_version">App Weergawe</string>
+    <string name="export_data">Voer Data Uit</string>
+    <string name="export_success">Uitgevoer na Aflaai/culturex_export.json</string>
+    <string name="export_failed">Kon nie uitvoer nie: %s</string>
+
+    <!-- Profile -->
+    <string name="profile_title">Profiel</string>
+    <string name="edit_profile">Wysig Profiel</string>
+    <string name="edit_profile_button">Wysig Profiel</string>
+    <string name="content_section">Inhoud</string>
+    <string name="download">Aflaai</string>
+    <string name="settings">Instellings</string>
+    <string name="itinerary_plans">Reisplan</string>
+    <string name="itinerary_subtext">Bekyk en wysig jou reise</string>
+    <string name="sign_out">Meld Af</string>
+
+    <!-- Profile Form -->
+    <string name="name">Naam</string>
+    <string name="surname">Van</string>
+    <string name="email">E-pos</string>
+    <string name="phone_number">Telefoonnommer</string>
+    <string name="change_picture">Verander Foto</string>
+    <string name="update_profile">Opdateer Profiel</string>
+    <string name="name_hint">Voer jou naam in</string>
+    <string name="surname_hint">Voer jou van in</string>
+    <string name="email_hint">voorbeeld@epos.com</string>
+    <string name="phone_hint">XX XXX XXXX</string>
+    <string name="personal_info_security">Jou persoonlike inligting is veilig en sal nie met derde partye gedeel word nie.</string>
+
+    <!-- Emergency Services -->
+    <string name="emergency_services">Nooddienste</string>
+    <string name="loading">Laai...</string>
+    <string name="police">Polisie</string>
+    <string name="medical_emergency">Mediese Noodgeval</string>
+    <string name="fire_department">Branddiens</string>
+    <string name="tourist_helpline">Toeristehelp</string>
+    <string name="general_emergency">Algemene Noodgeval</string>
+    <string name="emergency_tips">Noodwenke</string>
+    <string name="emergency_tips_content">- Bly kalm en praat duidelik\n- Ken jou ligging/adres\n- Volg operateur instruksies\n- Moenie ophang nie tensy gesê\n- Stoor hierdie nommers vanlyn</string>
+    <string name="emergency_notice">Tik enige noodnommer om direk te skakel. Stoor hierdie nommers vir vanlyn toegang.</string>
+    <string name="save_offline">Stoor Vanlyn</string>
+
+    <!-- Actions -->
+    <string name="share">Deel</string>
+    <string name="translate">Vertaal</string>
+    <string name="bookmark">Boekmerk</string>
+    <string name="overview">Oorsig</string>
+    <string name="cultural_context">Kulturele Konteks</string>
+    <string name="loading_content">Laai inhoud...</string>
+
+    <!-- Dress Code -->
+    <string name="dress_code_guide">Kleredrag Gids</string>
+    <string name="local_fashion_etiquette">Plaaslike Mode Etiket</string>
+    <string name="recommended_attire">Aanbevole Drag</string>
+    <string name="items_to_avoid">Items om te Vermy</string>
+    <string name="practical_examples">Praktiese Voorbeelde</string>
+    <string name="what_to_wear">Wat om te Dra</string>
+    <string name="what_to_avoid">Wat om te Vermy</string>
+
+    <!-- Communication -->
+    <string name="communication_style">Kommunikasie Styl</string>
+    <string name="master_local_communication">Bemeester Plaaslike Kommunikasie</string>
+    <string name="connect_authentically">Koppel eg met plaaslike mense</string>
+    <string name="recommended_practices">Aanbevole Praktyke</string>
+    <string name="common_mistakes">Algemene Foute</string>
+    <string name="real_world_scenarios">Werklike Wêreld Scenarios</string>
+    <string name="dos_count">%d Doen\'s</string>
+    <string name="donts_count">%d Moenie\'s</string>
+    <string name="examples_count">%d Wenke</string>
+    <string name="loading_communication">Laai kommunikasie riglyne...</string>
+
+    <!-- Greetings -->
+    <string name="greetings">Groete</string>
+    <string name="learn_local_greetings">Leer Plaaslike Groete</string>
+    <string name="language_diversity">Taal Diversiteit</string>
+    <string name="common_greetings">Algemene Groete</string>
+    <string name="loading_greetings">Laai groete...</string>
+    <string name="practice">Oefen</string>
+
+    <!-- Etiquette -->
+    <string name="social_etiquette">Sosiale Etiket</string>
+    <string name="quick_guide">Vinnige Gids</string>
+    <string name="key_points">Sleutelpunte</string>
+    <string name="key_points_placeholder">Sleutel etiket punte sal hier verskyn...</string>
+    <string name="formal">Formeel</string>
+    <string name="business">Besigheid</string>
+    <string name="social">Sosiaal</string>
+    <string name="formal_etiquette">Formele Etiket</string>
+    <string name="loading_etiquette">Laai etiket inligting...</string>
+
+    <!-- Tipping -->
+    <string name="tipping_culture">Fooigee Kultuur</string>
+    <string name="quick_tip_calculator">Vinnige Fooi Sakrekenaar</string>
+    <string name="recommended_tip">Aanbeveel: %s%%</string>
+    <string name="bill_amount">Voer rekening bedrag in</string>
+    <string name="split_between">Verdeel tussen</string>
+    <string name="people">mense</string>
+    <string name="select_tip_percentage">Kies Fooi Persentasie</string>
+    <string name="tip_amount">Fooi Bedrag</string>
+    <string name="total_amount">Totale Bedrag</string>
+    <string name="per_person">Per persoon: %s</string>
+    <string name="tipping_guidelines">Fooigee Riglyne</string>
+    <string name="when_to_tip">Wanneer om Fooi te Gee</string>
+    <string name="when_not_to_tip">Wanneer om Nie Fooi te Gee Nie</string>
+    <string name="tipping_scenarios">Fooigee Scenarios</string>
+    <string name="loading_tipping">Laai fooigee inligting...</string>
+    <string name="custom">Pasgemaak</string>
+    <string name="apply_custom">Pas Pasgemaak Toe</string>
+
+    <!-- Itinerary -->
+    <string name="trip_itinerary">Reis Roete</string>
+    <string name="quick_actions">Vinnige Aksies</string>
+    <string name="add_event">+</string>
+    <string name="edit">Wysig</string>
+    <string name="filter">Filter</string>
+    <string name="view_all">Bekyk Alles</string>
+    <string name="create_event">Skep Gebeurtenis</string>
+    <string name="set_date_time">Stel Datum en Tyd</string>
+    <string name="date_not_selected">Datum: Nie gekies nie</string>
+    <string name="time_not_selected">Tyd: Nie gekies nie</string>
+    <string name="event_description_hint">Beskryf jou gebeurtenis...</string>
+    <string name="save">Stoor</string>
+    <string name="your_events">Jou Gebeure</string>
+    <string name="itinerary_tip">💡 Wenk: Gebruik Wysig modus om jou gebeure te verander of uit te vee</string>
+    <string name="event_title">Gebeurtenis - %d</string>
+    <string name="last_updated">Laaste Opdatering: 2 Oktober 2025</string>
+
+    <!-- Privacy Policy -->
+    <string name="introduction">Inleiding</string>
+    <string name="privacy_intro">Welkom by CultureX. Ons is verbind tot die beskerming van jou privaatheid en die versekering van die sekuriteit van jou persoonlike inligting. Hierdie Privaatheidsbeleid verduidelik hoe ons jou inligting versamel, gebruik, openbaar en beskerm wanneer jy ons kulturele etiket en reis toepassing gebruik.</string>
+    <string name="info_we_collect">1. Inligting wat Ons Versamel</string>
+    <string name="personal_information">Persoonlike Inligting</string>
+    <string name="usage_information">Gebruiksinligting</string>
+    <string name="how_we_use_info">2. Hoe Ons Jou Inligting Gebruik</string>
+    <string name="data_security">3. Data Sekuriteit</string>
+    <string name="info_sharing">4. Inligting Deling</string>
+    <string name="your_rights">5. Jou Privaatheidsregte</string>
+    <string name="data_retention">6. Data Bewaring</string>
+    <string name="children_privacy">7. Kinders se Privaatheid</string>
+    <string name="policy_changes">8. Veranderinge aan Hierdie Beleid</string>
+    <string name="contact_us">9. Kontak Ons</string>
+    <string name="privacy_agreement">Deur CultureX te gebruik, stem jy in tot hierdie Privaatheidsbeleid en ons Diensbepalings.</string>
+
+    <!-- Common Actions -->
+    <string name="back">Terug</string>
+    <string name="continue_button">Gaan Voort</string>
+    <string name="skip">Slaan nou oor</string>
+    <string name="close">Sluit</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Kanselleer</string>
+    <string name="delete">Vee Uit</string>
+    <string name="confirm">Bevestig</string>
+    <string name="offline_mode">📵 Vanlyn Modus - Veranderinge sal sinchroniseer wanneer aanlyn</string>
+
+    <!-- Biometric Prompts -->
+    <string name="biometric_prompt_title">Skakel biometriese verifikasie aan.</string>
+    <string name="biometric_prompt_description">Biometriese verifikasie laat jou toe om vinnig en veilig aan te meld deur hierdie toestel se vingerafdruk of gesigherkenning te gebruik.</string>
+    <string name="biometric_prompt_info">Jy kan biometriese verifikasie later aanskakel in jou rekening → Sekuriteit instellings.</string>
+
+    <!-- Stats -->
+    <string name="stats_dos">%d Doen\'s</string>
+    <string name="stats_donts">%d Moenie\'s</string>
+    <string name="stats_tips">%d Wenke</string>
+</resources>

@@ -6,9 +6,7 @@ import android.util.Log
 
 class SharedPreferencesManager(context: Context) {
 
-    // Name of the SharedPreferences file
     companion object {
-        // Keys for storing different types of data
         private const val PREF_NAME = "culturex_prefs"
         private const val KEY_ACCESS_TOKEN = "access_token"
         private const val KEY_REFRESH_TOKEN = "refresh_token"
@@ -30,7 +28,6 @@ class SharedPreferencesManager(context: Context) {
         private const val KEY_APP_VERSION = "app_version"
     }
 
-    // Obtain SharedPreferences instance for reading and writing
     private val sharedPreferences: SharedPreferences =
         context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
 
@@ -68,95 +65,40 @@ class SharedPreferencesManager(context: Context) {
         Log.d("SharedPreferencesManager", "Auth data saved successfully")
     }
 
-    // Getter functions to retrieve stored data
+    // Authentication getters
+    fun getAccessToken(): String? = sharedPreferences.getString(KEY_ACCESS_TOKEN, null)
+    fun getRefreshToken(): String? = sharedPreferences.getString(KEY_REFRESH_TOKEN, null)
+    fun getUserId(): String? = sharedPreferences.getString(KEY_USER_ID, null)
+    fun getEmail(): String? = sharedPreferences.getString(KEY_EMAIL, null)
+    fun getDisplayName(): String? = sharedPreferences.getString(KEY_DISPLAY_NAME, null)
+    fun getProfilePictureUrl(): String? = sharedPreferences.getString(KEY_PROFILE_PICTURE_URL, null)
+    fun isBiometricEnabled(): Boolean = sharedPreferences.getBoolean(KEY_BIOMETRIC_ENABLED, false)
+    fun getPhoneNumber(): String? = sharedPreferences.getString(KEY_PHONE_NUMBER, null)
+    fun getFirstName(): String? = sharedPreferences.getString(KEY_FIRST_NAME, null)
+    fun getLastName(): String? = sharedPreferences.getString(KEY_LAST_NAME, null)
+    fun getLastLoginTime(): Long = sharedPreferences.getLong(KEY_LAST_LOGIN_TIME, 0L)
 
-    fun getAccessToken(): String? {
-        return sharedPreferences.getString(KEY_ACCESS_TOKEN, null)
-    }
-
-    fun getRefreshToken(): String? {
-        return sharedPreferences.getString(KEY_REFRESH_TOKEN, null)
-    }
-
-    fun getUserId(): String? {
-        return sharedPreferences.getString(KEY_USER_ID, null)
-    }
-
-    fun getEmail(): String? {
-        return sharedPreferences.getString(KEY_EMAIL, null)
-    }
-
-    fun getDisplayName(): String? {
-        return sharedPreferences.getString(KEY_DISPLAY_NAME, null)
-    }
-
-    fun getProfilePictureUrl(): String? {
-        return sharedPreferences.getString(KEY_PROFILE_PICTURE_URL, null)
-    }
-
-    fun getPreferredLanguage(): String? {
-        return sharedPreferences.getString(KEY_PREFERRED_LANGUAGE, "en")
-    }
-
-    fun isBiometricEnabled(): Boolean {
-        return sharedPreferences.getBoolean(KEY_BIOMETRIC_ENABLED, false)
-    }
-
-    fun getPhoneNumber(): String? {
-        return sharedPreferences.getString(KEY_PHONE_NUMBER, null)
-    }
-
-    fun getFirstName(): String? {
-        return sharedPreferences.getString(KEY_FIRST_NAME, null)
-    }
-
-    fun getLastName(): String? {
-        return sharedPreferences.getString(KEY_LAST_NAME, null)
-    }
-
-    fun getLastLoginTime(): Long {
-        return sharedPreferences.getLong(KEY_LAST_LOGIN_TIME, 0L)
-    }
-
-    // NEW: Notifications settings
-    fun isNotificationsEnabled(): Boolean {
-        return sharedPreferences.getBoolean(KEY_NOTIFICATIONS_ENABLED, true)
-    }
-
+    // Notifications settings
+    fun isNotificationsEnabled(): Boolean = sharedPreferences.getBoolean(KEY_NOTIFICATIONS_ENABLED, true)
     fun setNotificationsEnabled(enabled: Boolean) {
-        with(sharedPreferences.edit()) {
-            putBoolean(KEY_NOTIFICATIONS_ENABLED, enabled)
-            apply()
-        }
+        sharedPreferences.edit().putBoolean(KEY_NOTIFICATIONS_ENABLED, enabled).apply()
         Log.d("SharedPreferencesManager", "Notifications enabled: $enabled")
     }
 
     // Dark mode settings
-    fun isDarkModeEnabled(): Boolean {
-        return sharedPreferences.getBoolean(KEY_DARK_MODE_ENABLED, false)
-    }
-
+    fun isDarkModeEnabled(): Boolean = sharedPreferences.getBoolean(KEY_DARK_MODE_ENABLED, false)
     fun setDarkModeEnabled(enabled: Boolean) {
-        with(sharedPreferences.edit()) {
-            putBoolean(KEY_DARK_MODE_ENABLED, enabled)
-            apply()
-        }
+        sharedPreferences.edit().putBoolean(KEY_DARK_MODE_ENABLED, enabled).apply()
         Log.d("SharedPreferencesManager", "Dark mode enabled: $enabled")
     }
 
-    // App version tracking
-    fun getAppVersion(): String? {
-        return sharedPreferences.getString(KEY_APP_VERSION, null)
-    }
-
+    // App version
+    fun getAppVersion(): String? = sharedPreferences.getString(KEY_APP_VERSION, null)
     fun setAppVersion(version: String) {
-        with(sharedPreferences.edit()) {
-            putString(KEY_APP_VERSION, version)
-            apply()
-        }
+        sharedPreferences.edit().putString(KEY_APP_VERSION, version).apply()
     }
 
-    // Check if the user is logged in by verifying flag and token
+    // Login status
     fun isLoggedIn(): Boolean {
         val isLoggedIn = sharedPreferences.getBoolean(KEY_IS_LOGGED_IN, false)
         val hasAccessToken = getAccessToken() != null
@@ -165,7 +107,7 @@ class SharedPreferencesManager(context: Context) {
         return result
     }
 
-    // Update only user profile-related information
+    // Update user profile
     fun updateUserProfile(
         displayName: String? = null,
         profilePictureUrl: String? = null,
@@ -186,16 +128,13 @@ class SharedPreferencesManager(context: Context) {
         Log.d("SharedPreferencesManager", "User profile updated")
     }
 
-    // Enable or disable biometric login
+    // Biometric toggle
     fun setBiometricEnabled(enabled: Boolean) {
-        with(sharedPreferences.edit()) {
-            putBoolean(KEY_BIOMETRIC_ENABLED, enabled)
-            apply()
-        }
+        sharedPreferences.edit().putBoolean(KEY_BIOMETRIC_ENABLED, enabled).apply()
         Log.d("SharedPreferencesManager", "Biometric enabled: $enabled")
     }
 
-    // Clear all authentication-related data from SharedPreferences
+    // Clear auth data
     fun clearAuthData() {
         Log.d("SharedPreferencesManager", "Clearing auth data")
         with(sharedPreferences.edit()) {
@@ -217,33 +156,38 @@ class SharedPreferencesManager(context: Context) {
         Log.d("SharedPreferencesManager", "Auth data cleared")
     }
 
-    // Clear all settings (including theme and notifications)
     fun clearAllSettings() {
         Log.d("SharedPreferencesManager", "Clearing all settings")
         sharedPreferences.edit().clear().apply()
         Log.d("SharedPreferencesManager", "All settings cleared")
     }
 
-    // Convenience method to logout user
     fun logout() {
         clearAuthData()
     }
 
-    // Check if all essential user data is available
+    // ✅ Preferred language (FIXED, single key)
+    fun setPreferredLanguage(lang: String) {
+        sharedPreferences.edit().putString(KEY_PREFERRED_LANGUAGE, lang).apply()
+    }
+
+    fun getPreferredLanguage(): String {
+        return sharedPreferences.getString(KEY_PREFERRED_LANGUAGE, "en") ?: "en"
+    }
+
+    // Complete user data check
     fun hasCompleteUserData(): Boolean {
         return !getEmail().isNullOrEmpty() &&
                 !getDisplayName().isNullOrEmpty() &&
                 !getUserId().isNullOrEmpty()
     }
 
-    // Get formatted last login time
+    // Formatted last login
     fun getFormattedLastLoginTime(): String {
         val lastLogin = getLastLoginTime()
         if (lastLogin == 0L) return "Never"
 
-        val currentTime = System.currentTimeMillis()
-        val diff = currentTime - lastLogin
-
+        val diff = System.currentTimeMillis() - lastLogin
         return when {
             diff < 60000 -> "Just now"
             diff < 3600000 -> "${diff / 60000} minutes ago"
@@ -252,7 +196,7 @@ class SharedPreferencesManager(context: Context) {
         }
     }
 
-    // Debugging helper to log current stored state
+    // Debugging helper
     fun logCurrentState() {
         Log.d("SharedPreferencesManager", """
             Current auth state:
@@ -273,12 +217,3 @@ class SharedPreferencesManager(context: Context) {
         """.trimIndent())
     }
 }
-
-//Reference List:
-// UiLover, 2025. Build a Coffee Shop app with Kotlin & Firebase in Android Studio Project. [video online]. Available at: https://www.youtube.com/watch?v=Pnw_9tZ2z4wn [Accessed on 16 September 2025]
-// Guedmioui, A. 2023. Retrofit Android Tutorial - Make API Calls. [video online]. Available at: https://www.youtube.com/watch?v=8IhNq0ng-wk [Accessed on 14 September 2025]
-// Code Heroes, 2024.Integrate Google Maps API in Android Studio 2025 | Step-by-Step Tutorial for Beginners. [video online]. Available at: https://www.youtube.com/watch?v=QVCNTPNy-vs&t=137s [Accessed on 17 September 2025]
-// CodeSchmell, 2022. How to implement API in Android Studio tutorial. [video online]. Available at: https://www.youtube.com/watch?v=Kjeh47epMqI [Accessed on 17 September 2025]
-// UiLover, 2023. Travel App Android Studio Tutorial Project - Android Material Design. [video online]. Available at: https://www.youtube.com/watch?v=PPhuxay3OV0 [Accessed on 12 September 2025]
-// CodeWithTS, 2024. View Binding and Data Binding in Android Studio using Kotlin. [video online]. Available at: https://www.youtube.com/watch?v=tIXSuoJbX-8  [Accessed on 20 September 2025]
-// Android Developers, 2025. Develop a UI with Views. [online]. Available at: https://developer.android.com/studio/write/layout-editor [Accessed on 15 September 2025]
