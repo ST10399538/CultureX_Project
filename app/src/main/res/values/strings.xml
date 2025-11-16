@@ -1,20 +1,29 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="web_client_id" translatable="false">257009955481-8aikluaaghc2ctdat5pu5hu62komdmdg.apps.googleusercontent.com</string>
+
     <string name="app_name">CultureX</string>
     <string name="action_settings">Settings</string>
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-    <string name="web_client_id">257009955481-8aikluaaghc2ctdat5pu5hu62komdmdg.apps.googleusercontent.com</string>
 
-    <!-- Navigation -->
+    <string name="communication_style">Communication Style</string>
+    <string name="connect_authentically">Connect Authentically</string>
+    <string name="dos_count">Number of Do’s</string>
+    <string name="donts_count">Don’ts</string>
+    <string name="examples_count">Tips</string>
+    <string name="emergency_notice">Emergency Notice</string>
+    <string name="emergency_tips_content">Essential emergency tips and steps to follow.</string>
+    <string name="loading_communication">Loading communication guidelines…</string>
+    <string name="master_local_communication">Master Local Communication</string>
+    <string name="save_offline">Save Offline</string>
+
     <string name="nav_emergency">Emergency</string>
     <string name="nav_home">Home</string>
     <string name="nav_saved">Saved</string>
     <string name="nav_notifications">Notifications</string>
 
-    <!-- Home -->
     <string name="home_title">Home</string>
     <string name="select_country">Select Country</string>
     <string name="menu_dress_code">Dress Code</string>
@@ -24,9 +33,9 @@
     <string name="menu_tipping">Tipping Norms</string>
     <string name="search">Search</string>
 
-    <!-- Settings -->
     <string name="settings_title">Settings</string>
     <string name="customize_experience">Customize Your Experience</string>
+
     <string name="account_section">Account</string>
     <string name="biometric_login">Biometric Login</string>
     <string name="biometric_subtext">Use fingerprint or face ID</string>
@@ -35,7 +44,6 @@
     <string name="biometric_enabled">✓ Biometric login enabled</string>
     <string name="biometric_disabled">Biometric login disabled</string>
 
-    <!-- Preferences -->
     <string name="preferences_section">Preferences</string>
     <string name="language">Language</string>
     <string name="language_english">English</string>
@@ -45,19 +53,15 @@
     <string name="language_spanish">Spanish</string>
     <string name="language_changed">Language changed to %s</string>
 
-    <!-- Theme -->
     <string name="theme">Theme</string>
     <string name="light_mode">Light Mode</string>
     <string name="dark_mode">Dark Mode</string>
     <string name="theme_changed">Theme changed</string>
 
-    <!-- Notifications -->
-    <string name="notifications">Notifications</string>
     <string name="notifications_subtext">Stay updated with alerts</string>
     <string name="notifications_enabled">Notifications enabled</string>
     <string name="notifications_disabled">Notifications disabled</string>
 
-    <!-- About -->
     <string name="about_section">About</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="app_version">App Version</string>
@@ -65,18 +69,16 @@
     <string name="export_success">Exported to Downloads/culturex_export.json</string>
     <string name="export_failed">Failed to export: %s</string>
 
-    <!-- Profile -->
     <string name="profile_title">Profile</string>
     <string name="edit_profile">Edit Profile</string>
-    <string name="edit_profile_button">Edit Profile</string>
+
     <string name="content_section">Content</string>
     <string name="download">Download</string>
-    <string name="settings">Settings</string>
+
     <string name="itinerary_plans">Itinerary Plans</string>
     <string name="itinerary_subtext">View and edit your trips</string>
     <string name="sign_out">Sign Out</string>
 
-    <!-- Profile Form -->
     <string name="name">Name</string>
     <string name="surname">Surname</string>
     <string name="email">Email</string>
@@ -89,20 +91,25 @@
     <string name="phone_hint">XX XXX XXXX</string>
     <string name="personal_info_security">Your personal information is secure and will not be shared with third parties.</string>
 
-    <!-- Emergency Services -->
-    <string name="emergency_services">Emergency Services</string>
-    <string name="loading">Loading...</string>
+    <string name="emergency_title">Emergency Services</string>
+    <string name="emergency_services">Access essential emergency services quickly.</string>
+    <string name="emergency_tip">Always have emergency numbers saved and accessible on your phone.</string>
+
     <string name="police">Police</string>
     <string name="medical_emergency">Medical Emergency</string>
     <string name="fire_department">Fire Department</string>
     <string name="tourist_helpline">Tourist Helpline</string>
     <string name="general_emergency">General Emergency</string>
     <string name="emergency_tips">Emergency Tips</string>
-    <string name="emergency_tips_content">- Stay calm and speak clearly\n- Know your location/address\n- Follow operator instructions\n- Don\'t hang up unless told\n- Save these numbers offline</string>
-    <string name="emergency_notice">Tap any emergency number to dial directly. Save these numbers for offline access.</string>
-    <string name="save_offline">Save Offline</string>
 
-    <!-- Actions -->
+    <string name="emergency_tips_list">
+        1. Always stay calm and assess your surroundings.\n
+        2. Identify the type of emergency and contact the appropriate service.\n
+        3. Keep your phone charged and accessible at all times.\n
+        4. Share your location with responders.\n
+        5. Follow instructions carefully until help arrives.
+    </string>
+
     <string name="share">Share</string>
     <string name="translate">Translate</string>
     <string name="bookmark">Bookmark</string>
@@ -110,76 +117,32 @@
     <string name="cultural_context">Cultural Context</string>
     <string name="loading_content">Loading content...</string>
 
-    <!-- Dress Code -->
     <string name="dress_code_guide">Dress Code Guide</string>
     <string name="local_fashion_etiquette">Local Fashion Etiquette</string>
     <string name="recommended_attire">Recommended Attire</string>
     <string name="items_to_avoid">Items to Avoid</string>
     <string name="practical_examples">Practical Examples</string>
-    <string name="dress_code_description">Understanding local dress codes helps you respect cultural norms and make positive impressions...</string>
+    <string name="dress_code_description">
+        Understanding local dress codes helps you respect cultural norms
+        and make positive impressions. Dress expectations vary based on region,
+        religion, and the type of event.
+    </string>
+
     <string name="what_to_wear">What to Wear</string>
     <string name="what_to_avoid">What to Avoid</string>
     <string name="scenario_examples">Scenario Examples</string>
 
-
-    <!-- Communication -->
-    <string name="content_title">Communication Style</string>
     <string name="interactive_card_emoji">🗣️</string>
     <string name="interactive_card_title">Master Local Communication</string>
     <string name="interactive_card_subtitle">Connect authentically with locals</string>
+
     <string name="dos_emoji">👍</string>
-    <string name="dos_count">%1$d Do's</string>
     <string name="donts_emoji">⚠️</string>
-    <string name="donts_count">%1$d Don'ts</string>
     <string name="examples_emoji">💬</string>
-    <string name="examples_count">%1$d Tips</string>
-    <string name="content_description">Loading communication guidelines...</string>
-    <string name="recommended_practices">Recommended Practices</string>
-    <string name="common_mistakes">Common Mistakes</string>
-    <string name="real_world_scenarios">Real-World Scenarios</string>
 
-    <!-- Greetings -->
-    <string name="greetings">Greetings</string>
-    <string name="learn_local_greetings">Learn Local Greetings</string>
-    <string name="language_diversity">Language Diversity</string>
-    <string name="common_greetings">Common Greetings</string>
-    <string name="loading_greetings">Loading greetings...</string>
-    <string name="practice">Practice</string>
-
-    <!-- Etiquette -->
-    <string name="social_etiquette">Social Etiquette</string>
-    <string name="quick_guide">Quick Guide</string>
-    <string name="key_points">Key Points</string>
-    <string name="key_points_placeholder">Key etiquette points will appear here...</string>
-    <string name="formal">Formal</string>
-    <string name="business">Business</string>
-    <string name="social">Social</string>
-    <string name="formal_etiquette">Formal Etiquette</string>
-    <string name="loading_etiquette">Loading etiquette information...</string>
-
-    <!-- Tipping -->
-    <string name="tipping_culture">Tipping Culture</string>
-    <string name="quick_tip_calculator">Quick Tip Calculator</string>
-    <string name="recommended_tip">Recommended: %s%%</string>
-    <string name="bill_amount">Enter bill amount</string>
-    <string name="split_between">Split between</string>
-    <string name="people">people</string>
-    <string name="select_tip_percentage">Select Tip Percentage</string>
-    <string name="tip_amount">Tip Amount</string>
-    <string name="total_amount">Total Amount</string>
-    <string name="per_person">Per person: %s</string>
-    <string name="tipping_guidelines">Tipping Guidelines</string>
-    <string name="when_to_tip">When to Tip</string>
-    <string name="when_not_to_tip">When Not to Tip</string>
-    <string name="tipping_scenarios">Tipping Scenarios</string>
-    <string name="loading_tipping">Loading tipping information...</string>
-    <string name="custom">Custom</string>
-    <string name="apply_custom">Apply Custom</string>
-
-    <!-- Itinerary -->
     <string name="trip_itinerary">Trip Itinerary</string>
     <string name="quick_actions">Quick Actions</string>
-    <string name="add_event">+</string>
+    <string name="add_event_symbol">+</string>
     <string name="edit">Edit</string>
     <string name="filter">Filter</string>
     <string name="view_all">View All</string>
@@ -187,51 +150,169 @@
     <string name="set_date_time">Set Date and Time</string>
     <string name="date_not_selected">Date: Not selected</string>
     <string name="time_not_selected">Time: Not selected</string>
-    <string name="event_description_hint">Describe your event...</string>
+    <string name="describe_event_hint">Describe your event...</string>
     <string name="save">Save</string>
     <string name="your_events">Your Events</string>
-    <string name="itinerary_tip">💡 Tip: Use Edit mode to modify or delete your events</string>
-    <string name="event_title">Event - %d</string>
-    <string name="last_updated">Last Updated: October 2, 2025</string>
+    <string name="tip_edit_mode">💡 Tip: Use Edit mode to modify or delete your events</string>
 
-    <!-- Privacy Policy -->
-    <string name="introduction">Introduction</string>
-    <string name="privacy_intro">Welcome to CultureX. We are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our cultural etiquette and travel application.</string>
-    <string name="info_we_collect">1. Information We Collect</string>
-    <string name="personal_information">Personal Information</string>
-    <string name="usage_information">Usage Information</string>
-    <string name="how_we_use_info">2. How We Use Your Information</string>
+    <string name="emoji_wave">👋</string>
+    <string name="learn_local_greetings">Learn Local Greetings</string>
+    <string name="practice">Practice</string>
+    <string name="emoji_speech">🗣️</string>
+    <string name="language_diversity">Language Diversity</string>
+    <string name="loading_greeting_info">Loading greeting information...</string>
+    <string name="common_greetings">Common Greetings</string>
+    <string name="loading_greetings">Loading greetings...</string>
+
+    <!-- Required by fragment_communication.xml -->
+    <string name="content_title">Communication Style</string>
+    <string name="recommended_practices">Recommended Practices</string>
+    <string name="common_mistakes">Common Mistakes</string>
+    <string name="real_world_scenarios">Real-World Scenarios</string>
+
+    <!-- Required by dress code -->
+    <string name="offline_mode">Offline Mode</string>
+
+    <!-- Required by emergency screens -->
+    <string name="loading">Loading...</string>
+    <string name="emergency">Emergency</string>
+    <string name="home">Home</string>
+    <string name="saved">Saved</string>
+    <string name="notifications">Notifications</string>
+
+    <!-- Required by etiquette -->
+    <string name="emoji_hat">🎩</string>
+    <string name="social_etiquette">Social Etiquette</string>
+    <string name="loading_etiquette_information">Loading etiquette information...</string>
+    <string name="formal">Formal</string>
+
+    <string name="introduction_text">
+CultureX is committed to protecting your personal information. This Privacy Policy explains what data we collect, how we use it, and the rights you have regarding your information.
+</string>
+
+    <string name="personal_info_text">
+We may collect personal information such as your name, email address, and usage activity within the app.
+</string>
+
+    <string name="usage_info_text">
+We collect usage information to improve app performance, including pages visited, features used, and time spent in the app.
+</string>
+
+    <string name="how_use_info_text">
+We use collected data to provide services, improve user experience, personalize content, and enhance app security.
+</string>
+
+    <string name="data_security_text">
+We implement industry-standard security measures to protect your information from unauthorized access or misuse.
+</string>
+
+    <string name="info_sharing_text">
+We do not sell or rent personal information. Data may be shared only with trusted partners required for app functionality.
+</string>
+
+    <string name="privacy_rights_text">
+You have the right to access, update, or delete your information, as well as control how it is used.
+</string>
+
+    <string name="data_retention_text">
+We store data only for as long as necessary to deliver services or comply with legal requirements.
+</string>
+
+    <string name="child_privacy_text">
+CultureX does not knowingly collect data from children under 13. Parents may contact us to request data removal.
+</string>
+
+    <string name="policy_changes_text">
+We may update this Privacy Policy periodically. Continued use of the app indicates acceptance of any changes.
+</string>
+    <string name="offline">Offline</string>
+
+
+    <string name="total_with_tip">Total with Tip</string>
+    <string name="per_person">Per Person</string>
+
+
+
+    <string name="enter_bill_amount">Enter bill amount</string>
+    <string name="split_hint">Enter number of people to split with</string>
+    <string name="people">people</string>
+    <string name="custom_hint">Enter custom tip percentage</string>
+    <string name="percent_symbol">%</string>
+    <string name="app_custom">Custom</string>
+
+
+    <string name="contact_us_text">
+If you have questions about this Privacy Policy or your data, please contact us below.
+</string>
+
+    <string name="contact_email">Email: support@culturex.app</string>
+    <string name="contact_address">Address: CultureX Support, Johannesburg, South Africa</string>
+
+
+    <string name="business">Business</string>
+    <string name="social">Social</string>
+    <string name="formal_etiquette">Formal Etiquette</string>
+    <string name="key_points">Key Points</string>
+    <string name="key_points_placeholder">No key points available.</string>
+    <string name="quick_guide">Quick Guide</string>
+
+    <!-- Required by tipping -->
+    <string name="calculate">Calculate</string>
+    <string name="tip_amount">Tip Amount</string>
+    <string name="total_amount">Total Amount</string>
+    <string name="total_per_person">Total per person</string>
+
+    <string name="content_title_tip">Tipping Culture</string>
+    <string name="country_name">Country</string>
+    <string name="content_title_coms">Communication Style</string>
+    <string name="quick_tip_calculator">Quick Tip Calculator</string>
+    <string name="recommended_tip">Recommended: 15%</string>
+    <string name="bill_hint">Enter bill amount</string>
+    <string name="currency_symbol">$</string>
+    <string name="split_between">Split between</string>
+    <string name="people_label">people</string>
+    <string name="select_tip_percentage">Select Tip Percentage</string>
+    <string name="tip_10">10%</string>
+    <string name="tip_15">15%</string>
+    <string name="tip_20">20%</string>
+    <string name="custom_tip_hint">Custom</string>
+    <string name="apply_custom_tip">Apply Custom</string>
+    <string name="tip_amount_label">Tip Amount</string>
+    <string name="total_amount_label">Total Amount</string>
+    <string name="per_person_amount">Per person: $0.00</string>
+
+    <string name="tipping_guidelines">Tipping Guidelines</string>
+    <string name="content_description">Loading tipping information...</string>
+    <string name="when_to_tip">When to Tip</string>
+    <string name="when_not_to_tip">When Not to Tip</string>
+    <string name="tipping_scenarios">Tipping Scenarios</string>
+
+    <string name="back_button">Back</string>
+    <string name="favorite">Favorite</string>
+    <string name="clear">Clear</string>
+
+    <string name="privacy_policy_title">Privacy Policy</string>
+    <string name="last_updated">Last Updated: October 2, 2025</string>
+    <string name="introduction_header">Introduction</string>
+    <string name="info_collect_header">1. Information We Collect</string>
+    <string name="personal_info">Personal Information</string>
+    <string name="usage_info">Usage Information</string>
+    <string name="how_use_info">2. How We Use Your Information</string>
     <string name="data_security">3. Data Security</string>
     <string name="info_sharing">4. Information Sharing</string>
-    <string name="your_rights">5. Your Privacy Rights</string>
+    <string name="privacy_rights">5. Your Privacy Rights</string>
     <string name="data_retention">6. Data Retention</string>
-    <string name="children_privacy">7. Children\'s Privacy</string>
+    <string name="child_privacy">7. Children\'s Privacy</string>
     <string name="policy_changes">8. Changes to This Policy</string>
     <string name="contact_us">9. Contact Us</string>
-    <string name="privacy_agreement">By using CultureX, you agree to this Privacy Policy and our Terms of Service.</string>
 
-    <!-- Common Actions -->
-    <string name="back">Back</string>
-    <string name="continue_button">Continue</string>
-    <string name="skip">Skip for now</string>
-    <string name="close">Close</string>
-    <string name="ok">OK</string>
-    <string name="cancel">Cancel</string>
-    <string name="delete">Delete</string>
-    <string name="confirm">Confirm</string>
-    <string name="offline_mode">📵 Offline Mode - Changes will sync when online</string>
+    <string name="agreement_notice">By using CultureX, you agree to this Privacy Policy and our Terms of Service.</string>
 
-    <!-- Biometric Prompts -->
-    <string name="biometric_prompt_title">Turn on biometric authentication.</string>
-    <string name="biometric_prompt_description">Biometric authentication lets you log in quickly and securely using this device\'s fingerprint or face recognition.</string>
-    <string name="biometric_prompt_info">You can turn on biometric authentication later in your account → Security settings.</string>
-
-    <!-- Stats -->
-    <string name="stats_dos">%d Do\'s</string>
-    <string name="stats_donts">%d Don\'ts</string>
+    <string name="stats_dos">%d Do’s</string>
+    <string name="stats_donts">%d Don’ts</string>
     <string name="stats_tips">%d Tips</string>
 
-    <string-array name="countries">
+    <string-array name="countries_array">
         <item>South Africa</item>
         <item>Spain</item>
         <item>France</item>
@@ -239,6 +320,6 @@
         <item>USA</item>
     </string-array>
 
-    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</string>
+    <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:background="@drawable/gradient_background">
 
-    <!-- Enhanced Top Bar (Keep existing) -->
+    <!-- Enhanced Top Bar -->
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -56,7 +56,7 @@
                         android:id="@+id/content_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tipping Culture"
+                        android:text="@string/content_title_tip"
                         android:textColor="#111827"
                         android:textSize="20sp"
                         android:layout_gravity="center" />
@@ -65,7 +65,7 @@
                         android:id="@+id/country_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Country"
+                        android:text="@string/country_name"
                         android:textColor="#6B7280"
                         android:textSize="14sp"
                         android:layout_gravity="center" />
@@ -131,8 +131,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:fillViewport="true"
-        android:visibility="visible">
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -141,7 +140,7 @@
             android:paddingTop="16dp"
             android:paddingBottom="100dp">
 
-            <!-- Advanced Tipping Calculator Card -->
+            <!-- Tipping Calculator Card -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -170,16 +169,15 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Quick Tip Calculator"
+                            android:text="@string/quick_tip_calculator"
                             android:textColor="@android:color/white"
-                            android:textSize="20sp"
-                            />
+                            android:textSize="20sp" />
 
                         <TextView
                             android:id="@+id/recommended_tip_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Recommended: 15%"
+                            android:text="@string/recommended_tip"
                             android:textColor="#B0E0E6"
                             android:textSize="19sp"
                             android:background="@drawable/ic_globe"
@@ -208,7 +206,7 @@
                                 android:id="@+id/currency_symbol"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="$"
+                                android:text="@string/currency_symbol"
                                 android:textColor="@android:color/white"
                                 android:textSize="26sp"
                                 android:layout_marginEnd="12dp" />
@@ -219,7 +217,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:background="@android:color/transparent"
-                                android:hint="Enter bill amount"
+                                android:hint="@string/enter_bill_amount"
                                 android:textColorHint="#80FFFFFF"
                                 android:textColor="@android:color/white"
                                 android:textSize="20sp"
@@ -264,10 +262,9 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Split between"
+                                android:text="@string/split_between"
                                 android:textColor="#E0E0E0"
-                                android:textSize="14sp"
-                                />
+                                android:textSize="14sp" />
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/split_input"
@@ -275,7 +272,7 @@
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/bottom_nav_background"
                                 android:backgroundTint="#20FFFFFF"
-                                android:hint="1"
+                                android:hint="@string/split_hint"
                                 android:gravity="center"
                                 android:textColorHint="@color/white"
                                 android:textColor="@android:color/white"
@@ -287,18 +284,129 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="people"
+                                android:text="@string/people"
                                 android:textColor="#E0E0E0"
                                 android:textSize="18sp"
                                 android:layout_marginStart="8dp" />
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
 
+                    <!-- Save / Share / Offline Chips -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="16dp">
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/save_offline_chip"
+                            style="@style/Widget.Material3.Chip.Assist"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/save"
+                            app:chipIcon="@drawable/ic_bookmark"
+                            app:chipIconTint="@android:color/white"
+                            android:textColor="@android:color/white"
+                            app:chipStrokeColor="@android:color/white"
+                            app:chipStrokeWidth="1dp"
+                            android:layout_marginEnd="8dp" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/share_chip"
+                            style="@style/Widget.Material3.Chip.Assist"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/share"
+                            app:chipIcon="@drawable/ic_share"
+                            app:chipIconTint="@android:color/white"
+                            android:textColor="@android:color/white"
+                            app:chipStrokeColor="@android:color/white"
+                            app:chipStrokeWidth="1dp"
+                            android:layout_marginEnd="8dp" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/offline_chip"
+                            style="@style/Widget.Material3.Chip.Assist"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/offline"
+                            app:chipIcon="@drawable/ic_download"
+                            app:chipIconTint="@android:color/white"
+                            android:textColor="@android:color/white"
+                            app:chipStrokeColor="@android:color/white"
+                            app:chipStrokeWidth="1dp" />
+                    </LinearLayout>
+
+                    <!-- Translation Chip -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="20dp">
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/translate_chip"
+                            style="@style/Widget.Material3.Chip.Assist"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/translate"
+                            app:chipIconTint="@android:color/white"
+                            android:textColor="@android:color/white"
+                            app:chipStrokeColor="@android:color/white"
+                            app:chipStrokeWidth="1dp" />
+                    </LinearLayout>
+
+                    <!-- Tip Results Display -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="20dp">
+
+                        <TextView
+                            android:id="@+id/tip_amount_display"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/tip_amount"
+                            android:textColor="@android:color/white"
+                            android:textSize="18sp"
+                            android:paddingVertical="6dp" />
+
+                        <TextView
+                            android:id="@+id/total_amount_display"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/total_with_tip"
+                            android:textColor="@android:color/white"
+                            android:textSize="18sp"
+                            android:paddingVertical="6dp" />
+
+                        <TextView
+                            android:id="@+id/per_person_amount"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/per_person"
+                            android:textColor="@android:color/white"
+                            android:textSize="18sp"
+                            android:paddingVertical="6dp" />
+
+                        <!-- Percentage Indicator -->
+                        <ProgressBar
+                            android:id="@+id/percentage_indicator"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="6dp"
+                            android:progress="0"
+                            android:progressTint="#10B981"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="6dp" />
+                    </LinearLayout>
+
                     <!-- Tip Percentage Buttons -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Select Tip Percentage"
+                        android:text="@string/select_tip_percentage"
                         android:textColor="#E0E0E0"
                         android:textSize="12sp"
                         android:layout_marginBottom="8dp" />
@@ -315,7 +423,7 @@
                             android:layout_width="0dp"
                             android:layout_height="56dp"
                             android:layout_weight="1"
-                            android:text="10%"
+                            android:text="@string/tip_10"
                             android:textSize="16sp"
                             android:textColor="#1F2937"
                             android:backgroundTint="@android:color/white"
@@ -328,7 +436,7 @@
                             android:layout_width="0dp"
                             android:layout_height="56dp"
                             android:layout_weight="1"
-                            android:text="15%"
+                            android:text="@string/tip_15"
                             android:textSize="16sp"
                             android:textColor="#1F2937"
                             android:backgroundTint="@android:color/white"
@@ -341,7 +449,7 @@
                             android:layout_width="0dp"
                             android:layout_height="56dp"
                             android:layout_weight="1"
-                            android:text="20%"
+                            android:text="@string/tip_20"
                             android:textSize="16sp"
                             android:textColor="#1F2937"
                             android:backgroundTint="@android:color/white"
@@ -364,7 +472,7 @@
                             android:layout_height="48dp"
                             android:background="@drawable/bottom_nav_background"
                             android:backgroundTint="#20FFFFFF"
-                            android:hint="Custom"
+                            android:hint="@string/custom_hint"
                             android:gravity="center"
                             android:textColorHint="@color/white"
                             android:textColor="@android:color/white"
@@ -377,7 +485,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="%"
+                            android:text="@string/percent_symbol"
                             android:textColor="@android:color/white"
                             android:textSize="18sp"
                             android:layout_marginEnd="12dp" />
@@ -388,365 +496,14 @@
                             android:layout_width="0dp"
                             android:layout_height="48dp"
                             android:layout_weight="1"
-                            android:text="Apply Custom"
+                            android:text="@string/app_custom"
                             android:textSize="13sp"
-                            android:textColor="@android:color/white"
-                            app:strokeColor="@android:color/white"
-                            app:strokeWidth="1dp"
-                            app:cornerRadius="12dp" />
-                    </LinearLayout>
-
-                    <!-- Results Display -->
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:cardCornerRadius="16dp"
-                        app:cardElevation="0dp"
-                        app:cardBackgroundColor="@android:color/white">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="16dp">
-
-                            <!-- Tip Amount -->
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_marginBottom="12dp">
-
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="Tip Amount"
-                                    android:textColor="#6B7280"
-                                    android:textSize="14sp"
-                                    />
-
-                                <TextView
-                                    android:id="@+id/tip_amount_display"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="$0.00"
-                                    android:textColor="#059669"
-                                    android:textSize="20sp"
-                                    />
-
-                                <TextView
-                                    android:id="@+id/percentage_indicator"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="15%"
-                                    android:textColor="#6B7280"
-                                    android:textSize="12sp"
-                                    android:layout_marginStart="8dp"
-                                    android:background="@drawable/bottom_nav_background"
-                                    android:backgroundTint="#F3F4F6"
-                                    android:paddingHorizontal="8dp"
-                                    android:paddingVertical="2dp"
-                                    android:visibility="gone" />
-                            </LinearLayout>
-
-                            <!-- Divider -->
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="#E5E7EB"
-                                android:layout_marginVertical="8dp" />
-
-                            <!-- Total Amount -->
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="Total Amount"
-                                    android:textColor="#374151"
-                                    android:textSize="16sp"
-                                    />
-
-                                <TextView
-                                    android:id="@+id/total_amount_display"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="$0.00"
-                                    android:textColor="#1F2937"
-                                    android:textSize="24sp"
-                                    />
-                            </LinearLayout>
-
-                            <!-- Per Person Amount (shown when split) -->
-                            <TextView
-                                android:id="@+id/per_person_amount"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Per person: $0.00"
-                                android:textColor="#6366F1"
-                                android:textSize="14sp"
-                                android:gravity="end"
-                                android:visibility="gone"
-                                android:layout_marginTop="4dp" />
-                        </LinearLayout>
-                    </com.google.android.material.card.MaterialCardView>
-
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Action Chips (existing) -->
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="none"
-                android:layout_marginBottom="20dp">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingHorizontal="16dp">
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/save_offline_chip"
-                        style="@style/Widget.Material3.Chip.Assist"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Save Offline"
-                        app:chipIcon="@drawable/ic_download"
-                        app:chipIconTint="#6366F1"
-                        app:chipBackgroundColor="#EEF2FF"
-                        app:chipStrokeColor="#6366F1"
-                        app:chipStrokeWidth="1dp"
-                        android:layout_marginEnd="8dp" />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/share_chip"
-                        style="@style/Widget.Material3.Chip.Assist"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Share"
-                        app:chipIcon="@drawable/ic_export"
-                        app:chipIconTint="#10B981"
-                        app:chipBackgroundColor="#F0FDF4"
-                        app:chipStrokeColor="#10B981"
-                        app:chipStrokeWidth="1dp"
-                        android:layout_marginEnd="8dp" />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/translate_chip"
-                        style="@style/Widget.Material3.Chip.Assist"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Translate"
-                        app:chipIcon="@drawable/ic_globe"
-                        app:chipIconTint="#F59E0B"
-                        app:chipBackgroundColor="#FEF3C7"
-                        app:chipStrokeColor="#F59E0B"
-                        app:chipStrokeWidth="1dp" />
-                </LinearLayout>
-            </HorizontalScrollView>
-
-            <!-- Rest of the existing content sections -->
-            <!-- Content Description Card -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginBottom="20dp"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="0dp"
-                app:strokeWidth="1dp"
-                app:strokeColor="#E5E7EB">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginBottom="12dp">
-
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@drawable/ic_globe"
-                            app:tint="#6366F1"
-                            android:layout_marginEnd="8dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Tipping Guidelines"
                             android:textColor="#1F2937"
-                            android:textSize="16sp"
-                            />
+                            android:backgroundTint="@android:color/white"
+                            app:cornerRadius="14dp" />
                     </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/content_description"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Loading tipping information..."
-                        android:textColor="#4B5563"
-                        android:textSize="14sp"
-                        android:lineSpacingExtra="6dp"
-                        />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
-
-            <!-- Keep the rest of your existing layout for Do's, Don'ts, and Examples sections -->
-            <!-- Do's Section with Icons -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="When to Tip"
-                android:textColor="#059669"
-                android:textSize="17sp"
-                android:layout_marginStart="16dp"
-                android:layout_marginBottom="12dp"
-                android:drawableStart="@drawable/ic_globe"
-                android:drawablePadding="8dp"
-                app:drawableTint="#059669" />
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginBottom="24dp"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="0dp"
-                app:cardBackgroundColor="#DCFCE7"
-                app:strokeWidth="1dp"
-                app:strokeColor="#86EFAC">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/dos_recycler_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="16dp"
-                        android:layout_marginBottom="20dp"
-                        android:nestedScrollingEnabled="false" />
-
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Don'ts Section with Icons -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="When Not to Tip"
-                android:textColor="#DC2626"
-                android:textSize="17sp"
-                android:layout_marginStart="16dp"
-                android:layout_marginBottom="12dp"
-                android:drawableStart="@drawable/ic_globe"
-                android:drawablePadding="8dp"
-                app:drawableTint="#DC2626" />
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginBottom="24dp"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="0dp"
-                app:cardBackgroundColor="#FEE2E2"
-                app:strokeWidth="1dp"
-                app:strokeColor="#FCA5A5">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/donts_recycler_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="16dp"
-                        android:layout_marginBottom="20dp"
-                        android:nestedScrollingEnabled="false" />
-
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Examples Section with Icons -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tipping Scenarios"
-                android:textColor="#1E40AF"
-                android:textSize="17sp"
-                android:layout_marginStart="16dp"
-                android:layout_marginBottom="12dp"
-                android:drawableStart="@drawable/ic_light_mode"
-                android:drawablePadding="8dp"
-                app:drawableTint="#3B82F6" />
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginBottom="24dp"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="0dp"
-                app:cardBackgroundColor="#cfe2f3"
-                app:strokeWidth="1dp"
-                app:strokeColor="#3d85c6">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/examples_recycler_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="16dp"
-                        android:nestedScrollingEnabled="false" />
-
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-
-    <!-- Progress Indicator -->
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:indeterminateTint="#6366F1"
-        android:visibility="gone" />
-
 </LinearLayout>
-
-    <!-- Reference List
-       Iarn Tech, 2022. Android Studio User Interface - Layout and XML. [video online]. Available at: https://www.youtube.com/watch?v=kn_7H8v4Emo [Accessed on 15 September 2025]
-       UiLover, 2023. Android UI Design Mobile dashboard UI Tutorial | android projects. [video online]. Available at: https://www.youtube.com/watch?v=5dDHplq9rss  [Accessed on 18 September 2025]
-       WsCube Tech, 2021. Layouts in Android Studio (XML) | Android UI Design Explained. [video online]. Available at: https://www.youtube.com/watch?v=PeCOKgAua7A  [Accessed on 16 September 2025]
-       CodeWithTS, 2024. View Binding and Data Binding in Android Studio using Kotlin. [video online]. Available at: https://www.youtube.com/watch?v=tIXSuoJbX-8  [Accessed on 20 September 2025]
-       Android Developers, 2025. Develop a UI with Views. [online]. Available at: https://developer.android.com/studio/write/layout-editor [Accessed on 15 September 2025]
-
-       -->

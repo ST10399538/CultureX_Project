@@ -31,7 +31,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Emergency Services"
+            android:text="@string/emergency_title"
             android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -86,7 +86,7 @@
                         android:id="@+id/country_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Loading..."
+                        android:text="@string/loading"
                         android:textColor="#991B1B"
                         android:textSize="20sp"
                         android:textStyle="bold"
@@ -96,7 +96,7 @@
                         android:id="@+id/country_description"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Emergency Services"
+                        android:text="@string/emergency_services"
                         android:textColor="#7F1D1D"
                         android:textSize="14sp"
                         android:layout_gravity="center"
@@ -132,7 +132,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Tap any emergency number to dial directly. Save these numbers for offline access."
+                        android:text="@string/emergency_tip"
                         android:textColor="#78350F"
                         android:textSize="13sp" />
 
@@ -184,7 +184,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Police"
+                            android:text="@string/police"
                             android:textColor="@android:color/black"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -193,7 +193,7 @@
                             android:id="@+id/police_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Loading..."
+                            android:text="@string/loading"
                             android:textColor="#1E40AF"
                             android:textSize="20sp"
                             android:textStyle="bold"
@@ -255,7 +255,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Medical Emergency"
+                            android:text="@string/medical_emergency"
                             android:textColor="@android:color/black"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -264,7 +264,7 @@
                             android:id="@+id/medical_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Loading..."
+                            android:text="@string/loading"
                             android:textColor="#DC2626"
                             android:textSize="20sp"
                             android:textStyle="bold"
@@ -326,7 +326,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Fire Department"
+                            android:text="@string/fire_department"
                             android:textColor="@android:color/black"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -335,7 +335,7 @@
                             android:id="@+id/fire_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Loading..."
+                            android:text="@string/loading"
                             android:textColor="#EA580C"
                             android:textSize="20sp"
                             android:textStyle="bold"
@@ -397,7 +397,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Tourist Helpline"
+                            android:text="@string/tourist_helpline"
                             android:textColor="@android:color/black"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -406,7 +406,7 @@
                             android:id="@+id/tourist_helpline_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Loading..."
+                            android:text="@string/loading"
                             android:textColor="#7C3AED"
                             android:textSize="20sp"
                             android:textStyle="bold"
@@ -469,7 +469,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="General Emergency"
+                            android:text="@string/general_emergency"
                             android:textColor="@android:color/black"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -478,7 +478,7 @@
                             android:id="@+id/general_emergency_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Loading..."
+                            android:text="@string/loading"
                             android:textColor="#DC2626"
                             android:textSize="20sp"
                             android:textStyle="bold"
@@ -513,7 +513,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Emergency Tips"
+                        android:text="@string/emergency_tips"
                         android:textColor="@android:color/black"
                         android:textSize="18sp"
                         android:textStyle="bold"
@@ -522,7 +522,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="• Stay calm and speak clearly\n• Know your location/address\n• Follow operator instructions\n• Don't hang up unless told\n• Save these numbers offline"
+                        android:text="@string/emergency_tips_list"
                         android:textColor="#374151"
                         android:textSize="14sp"
                         android:lineSpacingExtra="6dp" />
@@ -566,7 +566,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Emergency"
+                android:text="@string/emergency"
                 android:textColor="#DC2626"
                 android:textSize="12sp"
                 android:fontFamily="sans-serif-medium" />
@@ -581,10 +581,7 @@
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:padding="8dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="?android:attr/selectableItemBackground">
+            android:padding="8dp">
 
             <ImageView
                 android:layout_width="24dp"
@@ -596,9 +593,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Home"
+                android:text="@string/home"
                 android:textColor="#6B7280"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:fontFamily="sans-serif-medium" />
 
         </LinearLayout>
 
@@ -610,24 +608,22 @@
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:padding="8dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="?android:attr/selectableItemBackground">
+            android:padding="8dp">
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_bookmark"
+                android:src="@drawable/ic_saved"
                 app:tint="#6B7280"
                 android:layout_marginBottom="4dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Saved"
+                android:text="@string/saved"
                 android:textColor="#6B7280"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:fontFamily="sans-serif-medium" />
 
         </LinearLayout>
 
@@ -639,10 +635,7 @@
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:padding="8dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="?android:attr/selectableItemBackground">
+            android:padding="8dp">
 
             <ImageView
                 android:layout_width="24dp"
@@ -654,21 +647,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Notifications"
+                android:text="@string/notifications"
                 android:textColor="#6B7280"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:fontFamily="sans-serif-medium" />
 
         </LinearLayout>
 
     </LinearLayout>
 
 </RelativeLayout>
-
-    <!-- Reference List
-       Iarn Tech, 2022. Android Studio User Interface - Layout and XML. [video online]. Available at: https://www.youtube.com/watch?v=kn_7H8v4Emo [Accessed on 15 September 2025]
-       UiLover, 2023. Android UI Design Mobile dashboard UI Tutorial | android projects. [video online]. Available at: https://www.youtube.com/watch?v=5dDHplq9rss  [Accessed on 18 September 2025]
-       WsCube Tech, 2021. Layouts in Android Studio (XML) | Android UI Design Explained. [video online]. Available at: https://www.youtube.com/watch?v=PeCOKgAua7A  [Accessed on 16 September 2025]
-       CodeWithTS, 2024. View Binding and Data Binding in Android Studio using Kotlin. [video online]. Available at: https://www.youtube.com/watch?v=tIXSuoJbX-8  [Accessed on 20 September 2025]
-       Android Developers, 2025. Develop a UI with Views. [online]. Available at: https://developer.android.com/studio/write/layout-editor [Accessed on 15 September 2025]
-
-       -->

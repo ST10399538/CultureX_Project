@@ -53,7 +53,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Greetings"
+                    android:text="@string/content_title"
                     android:textColor="#111827"
                     android:textSize="20sp"
                     android:gravity="center"
@@ -125,10 +125,9 @@
                             android:id="@+id/country_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Loading..."
+                            android:text="@string/loading"
                             android:textColor="@android:color/white"
-                            android:textSize="22sp"
-                            />
+                            android:textSize="22sp" />
 
                     </LinearLayout>
 
@@ -137,14 +136,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="👋"
+                        android:text="@string/emoji_wave"
                         android:textSize="56dp"
                         android:layout_marginTop="16dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Learn Local Greetings"
+                        android:text="@string/learn_local_greetings"
                         android:textColor="@android:color/white"
                         android:textSize="18sp"
                         android:layout_gravity="center"
@@ -191,10 +190,9 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Save Offline"
+                            android:text="@string/save_offline"
                             android:textColor="#6366F1"
-                            android:textSize="18sp"
-                            />
+                            android:textSize="18sp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -227,10 +225,9 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Practice"
+                            android:text="@string/practice"
                             android:textColor="#10B981"
-                            android:textSize="18sp"
-                            />
+                            android:textSize="18sp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
@@ -269,14 +266,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="🗣️"
+                            android:text="@string/emoji_speech"
                             android:textSize="20sp"
                             android:layout_marginStart="-30dp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Language Diversity"
+                            android:text="@string/language_diversity"
                             android:textColor="#1F2937"
                             android:textSize="21sp"
                             android:layout_marginStart="20dp" />
@@ -286,12 +283,10 @@
                         android:id="@+id/content_description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Loading greeting information..."
+                        android:text="@string/loading_greeting_info"
                         android:textColor="#4B5563"
                         android:textSize="19sp"
-                        android:lineSpacingExtra="6dp"
-                        />
-
+                        android:lineSpacingExtra="6dp" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -305,18 +300,16 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Common Greetings"
+                    android:text="@string/common_greetings"
                     android:textColor="#1F2937"
                     android:textSize="18sp"
                     android:layout_marginBottom="12dp" />
 
-                <!-- Main Greetings RecyclerView -->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/greetings_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:nestedScrollingEnabled="false" />
-
             </LinearLayout>
 
             <!-- Loading State -->
@@ -344,7 +337,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Loading greetings..."
+                        android:text="@string/loading_greetings"
                         android:textColor="#6B7280"
                         android:textSize="14sp"
                         android:layout_marginTop="16dp" />
@@ -380,6 +373,7 @@
         app:fabSize="normal" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 
     <!-- Reference List
        Iarn Tech, 2022. Android Studio User Interface - Layout and XML. [video online]. Available at: https://www.youtube.com/watch?v=kn_7H8v4Emo [Accessed on 15 September 2025]

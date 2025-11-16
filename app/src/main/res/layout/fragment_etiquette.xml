@@ -42,7 +42,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="🎩"
+                        android:text="@string/emoji_hat"
                         android:textSize="56sp"
                         android:layout_marginBottom="8dp" />
 
@@ -50,7 +50,7 @@
                         android:id="@+id/header_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Social Etiquette"
+                        android:text="@string/social_etiquette"
                         android:textColor="@android:color/black"
                         android:textSize="24sp"
                         android:textAlignment="center" />
@@ -59,7 +59,7 @@
                         android:id="@+id/country_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Loading..."
+                        android:text="@string/loading"
                         android:textColor="#757575"
                         android:textSize="16sp"
                         android:layout_marginTop="4dp" />
@@ -104,7 +104,7 @@
                     </com.google.android.material.card.MaterialCardView>
 
                     <TextView
-                        android:id="@+id/content_title"
+                        android:id="@+id/content_title_coms"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -187,7 +187,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Save"
+                            android:text="@string/save"
                             android:textColor="@android:color/white"
                             android:textSize="17sp" />
                     </LinearLayout>
@@ -224,7 +224,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Share"
+                            android:text="@string/share"
                             android:textColor="@android:color/white"
                             android:textSize="17sp" />
                     </LinearLayout>
@@ -261,7 +261,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Bookmark"
+                            android:text="@string/bookmark"
                             android:textColor="@android:color/white"
                             android:textSize="17sp" />
                     </LinearLayout>
@@ -308,7 +308,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Cultural Context"
+                            android:text="@string/cultural_context"
                             android:textColor="#1F2937"
                             android:textSize="18sp"
                             android:layout_marginStart="24dp" />
@@ -318,12 +318,12 @@
                         android:id="@+id/content_description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Loading etiquette information..."
+                        android:text="@string/loading_etiquette_information"
                         android:textColor="#4B5563"
                         android:textSize="15sp"
                         android:lineSpacingExtra="8dp" />
 
-                    <!-- Tags Section - Updated Chips -->
+                    <!-- Tags Section -->
                     <com.google.android.material.chip.ChipGroup
                         android:id="@+id/etiquette_chip_group"
                         android:layout_width="match_parent"
@@ -337,7 +337,7 @@
                             style="@style/Widget.Material3.Chip.Suggestion"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Formal"
+                            android:text="@string/formal"
                             android:textColor="@color/white"
                             app:chipBackgroundColor="@color/black"
                             app:chipStrokeColor="#E5E7EB"
@@ -349,7 +349,7 @@
                             style="@style/Widget.Material3.Chip.Suggestion"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Business"
+                            android:text="@string/business"
                             android:textColor="@color/white"
                             app:chipBackgroundColor="@color/black"
                             app:chipStrokeColor="#E5E7EB"
@@ -361,7 +361,7 @@
                             style="@style/Widget.Material3.Chip.Suggestion"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Social"
+                            android:text="@string/social"
                             android:textColor="@color/white"
                             app:chipBackgroundColor="@color/black"
                             app:chipStrokeColor="#E5E7EB"
@@ -394,7 +394,7 @@
                         android:id="@+id/etiquette_category_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Formal Etiquette"
+                        android:text="@string/formal_etiquette"
                         android:textColor="#1F2937"
                         android:textSize="18sp"
                         android:fontFamily="sans-serif-medium"
@@ -411,11 +411,11 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Additional Info Cards -->
+            <!-- Additional Info -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Key Points"
+                android:text="@string/key_points"
                 android:textColor="#1F2937"
                 android:textSize="20sp"
                 android:layout_marginStart="16dp"
@@ -443,7 +443,7 @@
                         android:id="@+id/key_points_content"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Key etiquette points will appear here..."
+                        android:text="@string/key_points_placeholder"
                         android:textColor="#374151"
                         android:textSize="14sp"
                         android:lineSpacingExtra="6dp" />
@@ -453,7 +453,7 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <!-- Modern Floating Action Button -->
+    <!-- Floating Action Button -->
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/fab_quick_guide"
         android:layout_width="wrap_content"
@@ -461,19 +461,10 @@
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="90dp"
-        android:text="Quick Guide"
+        android:text="@string/quick_guide"
         app:icon="@drawable/ic_tourist_help"
         app:backgroundTint="#6366F1"
         android:textColor="@android:color/white"
         app:iconTint="@android:color/white" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-    <!-- Reference List
-       Iarn Tech, 2022. Android Studio User Interface - Layout and XML. [video online]. Available at: https://www.youtube.com/watch?v=kn_7H8v4Emo [Accessed on 15 September 2025]
-       UiLover, 2023. Android UI Design Mobile dashboard UI Tutorial | android projects. [video online]. Available at: https://www.youtube.com/watch?v=5dDHplq9rss  [Accessed on 18 September 2025]
-       WsCube Tech, 2021. Layouts in Android Studio (XML) | Android UI Design Explained. [video online]. Available at: https://www.youtube.com/watch?v=PeCOKgAua7A  [Accessed on 16 September 2025]
-       CodeWithTS, 2024. View Binding and Data Binding in Android Studio using Kotlin. [video online]. Available at: https://www.youtube.com/watch?v=tIXSuoJbX-8  [Accessed on 20 September 2025]
-       Android Developers, 2025. Develop a UI with Views. [online]. Available at: https://developer.android.com/studio/write/layout-editor [Accessed on 15 September 2025]
-
-       -->
