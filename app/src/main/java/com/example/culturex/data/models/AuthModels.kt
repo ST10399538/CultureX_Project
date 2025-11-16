@@ -5,9 +5,19 @@ import com.google.gson.annotations.SerializedName
 // DTO for login request
 // Contains the email and password needed to authenticate a user
 class AuthModels {
+
     data class LoginDTO(
         val email: String,
         val password: String
+    )
+
+    // DTO for Google Login request
+    // Includes email, password, display name, and an optional preferred language
+    data class GoogleLoginDTO(
+        @SerializedName("idToken") val idToken: String,
+        @SerializedName("displayName") val displayName: String?,
+        @SerializedName("email") val email: String?,
+        @SerializedName("profilePictureUrl") val profilePictureUrl: String?
     )
 
     // DTO for user registration request

@@ -19,7 +19,7 @@ import com.google.android.material.switchmaterial.SwitchMaterial
 
 class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
-    // Manager to handle SharedPreferences for storing user settings
+    /// Manager to handle SharedPreferences for storing user settings
     private lateinit var sharedPrefsManager: SharedPreferencesManager
     // Helper class to handle biometric authentication
     private lateinit var biometricHelper: BiometricHelper
@@ -27,6 +27,9 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
     // UI components
     private var isDarkMode = false
     private var isLanguageExpanded = false
+
+    // Biometric switch reference
+    private var biometricSwitch: SwitchMaterial? = null
 
     // Called when the fragment's view has been created
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -63,40 +66,99 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
     // Setup the biometric login toggle switch
     private fun setupBiometricToggle(view: View) {
-        val biometricSwitch = view.findViewById<SwitchMaterial>(R.id.biometric_switch)
+        biometricSwitch = view.findViewById(R.id.biometric_switch)
 
-        // Set the switch state based on saved preference
-        biometricSwitch?.isChecked = sharedPrefsManager.isBiometricEnabled()
+        // Check if biometric is available on device
+        val isBiometricAvailable = biometricHelper.isBiometricAvailable()
+        val hasSavedCredentials = !sharedPrefsManager.getEmail().isNullOrEmpty()
+        val currentBiometricState = sharedPrefsManager.isBiometricEnabled()
 
-        // Check if device supports biometric authentication
-        if (!biometricHelper.isBiometricAvailable()) {
+        Log.d("SettingsFragment", "Biometric setup - Available: $isBiometricAvailable, HasCreds: $hasSavedCredentials, CurrentState: $currentBiometricState")
+
+        // Set initial state
+        biometricSwitch?.isChecked = currentBiometricState
+
+        // Determine if switch should be enabled
+        if (!isBiometricAvailable) {
+            // Device doesn't support biometric
             biometricSwitch?.isEnabled = false
+            biometricSwitch?.isChecked = false
+            updateBiometricCardSubtext("Not available on this device")
             Log.d("SettingsFragment", "Biometric not available: ${biometricHelper.getBiometricStatusMessage()}")
+        } else if (!hasSavedCredentials) {
+            // Biometric available but user hasn't logged in yet
+            biometricSwitch?.isEnabled = false
+            biometricSwitch?.isChecked = false
+            updateBiometricCardSubtext("Login first to enable")
+            Log.d("SettingsFragment", "No saved credentials for biometric")
         } else {
+            // Everything is good, enable the switch
             biometricSwitch?.isEnabled = true
-            Log.d("SettingsFragment", "Biometric is available")
+            updateBiometricCardSubtext("Use fingerprint or face ID")
+            Log.d("SettingsFragment", "Biometric fully available and ready")
         }
+
+        // Remove any existing listeners to prevent duplicates
+        biometricSwitch?.setOnCheckedChangeListener(null)
 
         // Handle toggle changes
-        biometricSwitch?.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked && biometricHelper.isBiometricAvailable()) {
-                // Enable biometric login and save preference
-                sharedPrefsManager.setBiometricEnabled(true)
-                Toast.makeText(requireContext(), "✓ Biometric login enabled", Toast.LENGTH_SHORT).show()
-                Log.d("SettingsFragment", "Biometric login enabled")
+        biometricSwitch?.setOnCheckedChangeListener { buttonView, isChecked ->
+            // Prevent processing if the switch is disabled
+            if (!buttonView.isEnabled) {
+                return@setOnCheckedChangeListener
+            }
 
-            } else if (isChecked && !biometricHelper.isBiometricAvailable()) {
-                // Prevent enabling if biometric is not available
-                biometricSwitch.isChecked = false
-                Toast.makeText(requireContext(), biometricHelper.getBiometricStatusMessage(), Toast.LENGTH_LONG).show()
-                Log.w("SettingsFragment", "Attempted to enable biometric but not available")
+            Log.d("SettingsFragment", "Biometric switch changed to: $isChecked")
+
+            if (isChecked) {
+                // User wants to enable biometric
+                if (!isBiometricAvailable) {
+                    // Device doesn't support biometric
+                    buttonView.isChecked = false
+                    Toast.makeText(
+                        requireContext(),
+                        biometricHelper.getBiometricStatusMessage(),
+                        Toast.LENGTH_LONG
+                    ).show()
+                    Log.w("SettingsFragment", "Cannot enable - biometric not available")
+                } else if (!hasSavedCredentials) {
+                    // User hasn't logged in yet
+                    buttonView.isChecked = false
+                    Toast.makeText(
+                        requireContext(),
+                        "Please login with your account first to enable biometric authentication",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    Log.w("SettingsFragment", "Cannot enable - no saved credentials")
+                } else {
+                    // All conditions met - enable biometric
+                    sharedPrefsManager.setBiometricEnabled(true)
+                    Toast.makeText(
+                        requireContext(),
+                        "✓ Biometric login enabled",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    Log.d("SettingsFragment", "Biometric login enabled successfully")
+                }
             } else {
-                // Disable biometric login and save preference
+                // User wants to disable biometric
                 sharedPrefsManager.setBiometricEnabled(false)
-                Toast.makeText(requireContext(), "Biometric login disabled", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Biometric login disabled",
+                    Toast.LENGTH_SHORT
+                ).show()
                 Log.d("SettingsFragment", "Biometric login disabled")
             }
+
+            // Log current state after change
+            Log.d("SettingsFragment", "Current biometric state in SharedPrefs: ${sharedPrefsManager.isBiometricEnabled()}")
         }
+    }
+
+    // Helper function to update the biometric card subtext
+    private fun updateBiometricCardSubtext(text: String) {
+        view?.findViewById<TextView>(R.id.biometric_subtext)?.text = text
     }
 
     // Setup language selection with expandable card and radio buttons
@@ -273,6 +335,40 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
     override fun onResume() {
         super.onResume()
         Log.d("SettingsFragment", "Settings screen resumed")
+
+        // Refresh biometric switch state when returning to screen
+        refreshBiometricSwitch()
+    }
+
+    /**
+     * Refresh the biometric switch state based on current conditions
+     * This ensures the switch stays in sync with login state
+     */
+    private fun refreshBiometricSwitch() {
+        val isBiometricAvailable = biometricHelper.isBiometricAvailable()
+        val hasSavedCredentials = !sharedPrefsManager.getEmail().isNullOrEmpty()
+        val currentBiometricState = sharedPrefsManager.isBiometricEnabled()
+
+        Log.d("SettingsFragment", "Refreshing biometric switch - Available: $isBiometricAvailable, HasCreds: $hasSavedCredentials, State: $currentBiometricState")
+
+        biometricSwitch?.let { switch ->
+            // Update checked state
+            switch.isChecked = currentBiometricState
+
+            // Update enabled state
+            if (!isBiometricAvailable) {
+                switch.isEnabled = false
+                switch.isChecked = false
+                updateBiometricCardSubtext("Not available on this device")
+            } else if (!hasSavedCredentials) {
+                switch.isEnabled = false
+                switch.isChecked = false
+                updateBiometricCardSubtext("Login first to enable")
+            } else {
+                switch.isEnabled = true
+                updateBiometricCardSubtext("Use fingerprint or face ID")
+            }
+        }
     }
 
     override fun onPause() {

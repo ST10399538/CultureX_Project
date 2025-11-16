@@ -170,6 +170,7 @@
                                 android:fontFamily="sans-serif-medium" />
 
                             <TextView
+                                android:id="@+id/biometric_subtext"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Use fingerprint or face ID"
@@ -182,9 +183,10 @@
                             android:id="@+id/biometric_switch"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:checked="true"
+                            android:checked="false"
                             app:thumbTint="@android:color/white"
                             app:trackTint="@color/black" />
+
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 

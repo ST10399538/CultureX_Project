@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.culturex.databinding.FragmentMainBinding
 import android.widget.AdapterView
@@ -12,6 +13,7 @@ import androidx.fragment.app.viewModels
 import com.example.culturex.data.models.CountryModels
 import com.example.culturex.data.viewmodels.MainViewModel
 import com.example.culturex.utils.SharedPreferencesManager
+import com.example.culturex.utils.ItineraryEventScheduler
 import android.util.Log
 
 class MainFragment : Fragment(R.layout.fragment_main) {
@@ -29,12 +31,19 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private var countriesList = emptyList<CountryModels.CountryDTO>()
     private var categoriesList = emptyList<CountryModels.CulturalCategoryDTO>()
 
+    // Track if holidays have been scheduled for this session
+    private var lastScheduledCountry: String? = null
+    private var isInitialSelection = true
+
     // Called after the fragment's view has been created
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentMainBinding.bind(view)
 
         sharedPrefsManager = SharedPreferencesManager(requireContext())
+
+        // Reset flag when view is created
+        isInitialSelection = true
 
         // Setup LiveData observers
         setupObservers()
@@ -95,7 +104,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 // Update UI with selected country info if needed
             }
         }
-// Observe whether categories are loaded -> enable buttons if true
+        // Observe whether categories are loaded -> enable buttons if true
         mainViewModel.areCategoriesLoaded.observe(viewLifecycleOwner) { loaded ->
             if (loaded) {
                 enableCategoryButtons()
@@ -110,7 +119,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 disableCategoryButtons()
             }
         }
-// Observe error messages -> show toast and clear error
+        // Observe error messages -> show toast and clear error
         mainViewModel.error.observe(viewLifecycleOwner) { error ->
             error?.let {
                 Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
@@ -118,6 +127,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             }
         }
     }
+
     // Setup country spinner with a list of available countries
     private fun setupCountrySpinner(countries: List<CountryModels.CountryDTO>) {
         if (countries.isEmpty()) {
@@ -136,7 +146,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             countryNames
         )
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-// Handle spinner item selection
+
+        // Handle spinner item selection
         binding.countrySpinner.adapter = adapter
         binding.countrySpinner.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
@@ -145,11 +156,53 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 if (position < countries.size) {
                     val selectedCountry = countries[position]
                     mainViewModel.selectCountry(selectedCountry)
+
+                    // Only schedule holidays if:
+                    // 1. Not the initial spinner setup
+                    // 2. Country is different from last scheduled
+                    val countryName = selectedCountry.name ?: "Unknown"
+                    if (!isInitialSelection && countryName != lastScheduledCountry) {
+                        schedulePublicHolidayNotifications(countryName)
+                        lastScheduledCountry = countryName
+                    }
+
+                    // Mark that initial selection is complete
+                    isInitialSelection = false
                 }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
+    }
+
+    /**
+     * Schedules public holiday notifications for the selected country
+     */
+    private fun schedulePublicHolidayNotifications(countryName: String) {
+        Log.d("MainFragment", "Scheduling holidays for: $countryName")
+
+        // Show loading message
+        Toast.makeText(
+            requireContext(),
+            "🎉 Loading holiday reminders for $countryName...",
+            Toast.LENGTH_SHORT
+        ).show()
+
+        // Schedule notifications using ItineraryEventScheduler
+        ItineraryEventScheduler.schedulePublicHolidays(
+            context = requireContext(),
+            countryName = countryName,
+            scope = lifecycleScope
+        )
+
+        // Show success message after a short delay
+        view?.postDelayed({
+            Toast.makeText(
+                requireContext(),
+                "✓ Holiday notifications set for $countryName",
+                Toast.LENGTH_LONG
+            ).show()
+        }, 1500)
     }
 
     // Show/hide category buttons depending on availability for selected country
@@ -215,6 +268,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     // Setup click listeners for category and bottom navigation buttons
     private fun setupClickListeners() {
+        // About Country button
+        binding.aboutCountryCard.setOnClickListener {
+            navigateToAboutCountry()
+        }
+
         binding.menuDressCode.setOnClickListener {
             navigateToCategory("Dress Code")
         }
@@ -249,6 +307,28 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         }
     }
 
+    // Navigate to About Country page
+    private fun navigateToAboutCountry() {
+        val selectedCountry = mainViewModel.selectedCountry.value
+        if (selectedCountry == null) {
+            Toast.makeText(requireContext(), "Please select a country first",
+                Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val bundle = Bundle().apply {
+            putString("countryId", selectedCountry.id)
+            putString("countryName", selectedCountry.name)
+        }
+
+        try {
+            findNavController().navigate(R.id.aboutCountryFragment, bundle)
+        } catch (e: Exception) {
+            Toast.makeText(requireContext(), "Navigation error: ${e.message}",
+                Toast.LENGTH_SHORT).show()
+        }
+    }
+
     // Navigate to a specific cultural category (only if available)
     private fun navigateToCategory(categoryName: String) {
         val selectedCountry = mainViewModel.selectedCountry.value
@@ -257,7 +337,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 Toast.LENGTH_SHORT).show()
             return
         }
-// Check if category exists for selected country
+        // Check if category exists for selected country
         if (!mainViewModel.isCategoryAvailable(categoryName)) {
             Toast.makeText(requireContext(),
                 "$categoryName not available for ${selectedCountry.name}",
@@ -350,8 +430,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         }
     }
 
-    // Navigates to the clicked category
-
     // Clear binding when fragment view is destroyed
     override fun onDestroyView() {
         super.onDestroyView()
@@ -367,3 +445,4 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 // UiLover, 2023. Travel App Android Studio Tutorial Project - Android Material Design. [video online]. Available at: https://www.youtube.com/watch?v=PPhuxay3OV0 [Accessed on 12 September 2025]
 // CodeWithTS, 2024. View Binding and Data Binding in Android Studio using Kotlin. [video online]. Available at: https://www.youtube.com/watch?v=tIXSuoJbX-8  [Accessed on 20 September 2025]
 // Android Developers, 2025. Develop a UI with Views. [online]. Available at: https://developer.android.com/studio/write/layout-editor [Accessed on 15 September 2025]
+// Android Developers, 2025. Schedule tasks with WorkManager. [online]. Available at: https://developer.android.com/topic/libraries/architecture/workmanager [Accessed on 9 November 2025]

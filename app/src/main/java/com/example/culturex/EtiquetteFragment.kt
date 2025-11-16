@@ -6,55 +6,208 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import com.example.culturex.data.entities.CachedContent
+import com.example.culturex.data.repository.OfflineRepository
 import com.example.culturex.data.viewmodels.ContentViewModel
+import com.example.culturex.sync.NetworkStateManager
+import com.example.culturex.sync.SyncManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.chip.Chip
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
 
 class EtiquetteFragment : Fragment(R.layout.fragment_etiquette) {
 
     // ViewModel to fetch and hold content data
     private val contentViewModel: ContentViewModel by viewModels()
 
+    // Offline components
+    private lateinit var offlineRepository: OfflineRepository
+    private lateinit var syncManager: SyncManager
+    private lateinit var networkStateManager: NetworkStateManager
+
     // Current country information
     private var currentCountryId: String? = null
     private var currentCountryName: String = ""
+    private var currentCategoryId: String? = null
+    private var currentContentId: String? = null
+    private var currentEtiquetteType: String = "formal"
+
+    // State
+    private var isBookmarked = false
+    private var isSavedOffline = false
 
     // Views for displaying description and key points
     private lateinit var contentDescriptionView: TextView
     private lateinit var keyPointsContentView: TextView
+    private var offlineIndicator: View? = null
+
+    // Cached etiquette data
+    private var cachedEtiquetteData: Map<String, EtiquetteData>? = null
 
     // Called when the view is created
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Initialize offline components
+        offlineRepository = OfflineRepository.getInstance(requireContext())
+        syncManager = SyncManager.getInstance(requireContext())
+        networkStateManager = NetworkStateManager.getInstance(requireContext())
+
         // Get arguments passed from navigation
-        val countryId = arguments?.getString("countryId")
-        val categoryId = arguments?.getString("categoryId")
-        val countryName = arguments?.getString("countryName")
-// Save country info for later use
-        currentCountryId = countryId
-        currentCountryName = countryName ?: "Country"
+        currentCountryId = arguments?.getString("countryId")
+        currentCategoryId = arguments?.getString("categoryId")
+        currentCountryName = arguments?.getString("countryName") ?: "Country"
+
+        currentContentId = "${currentCountryId}_${currentCategoryId}"
+
         contentDescriptionView = view.findViewById(R.id.content_description)
         keyPointsContentView = view.findViewById(R.id.key_points_content)
+        offlineIndicator = view.findViewById(R.id.offline_indicator)
 
-        // If both country and category are available, load content from ViewModel
-        if (countryId != null && categoryId != null) {
-            contentViewModel.loadContent(countryId, categoryId)
-            setupObservers(view)
-        }
-
-        // Display country name in the UI if available
-        countryName?.let {
-            view.findViewById<TextView>(R.id.country_name)?.text = it
-        }
-
-        // Setup click listeners for various UI elements
+        // Setup UI and observers
+        setupObservers(view)
         setupClickListeners(view)
         setupChipClickListeners(view)
+        setupNetworkMonitoring()
+
+        // Display country name in the UI if available
+        view.findViewById<TextView>(R.id.country_name)?.text = currentCountryName
+
+        // Load content
+        loadContent()
+    }
+
+    // Setup network monitoring
+    private fun setupNetworkMonitoring() {
+        networkStateManager.startMonitoring {
+            // When connection is restored, sync pending operations
+            viewLifecycleOwner.lifecycleScope.launch {
+                syncPendingOperations()
+            }
+        }
+    }
+
+    // Load content from network or cache
+    private fun loadContent() {
+        if (networkStateManager.isCurrentlyConnected()) {
+            // Load from network
+            currentCountryId?.let { countryId ->
+                currentCategoryId?.let { categoryId ->
+                    contentViewModel.loadContent(countryId, categoryId)
+                }
+            }
+        } else {
+            // Load from cache
+            loadFromCache(requireView())
+        }
+    }
+
+    // Load content from local cache
+    private fun loadFromCache(view: View) {
+        currentCountryId?.let { countryId ->
+            currentCategoryId?.let { categoryId ->
+                viewLifecycleOwner.lifecycleScope.launch {
+                    val cachedContent = offlineRepository.getCachedContent(countryId, categoryId)
+
+                    if (cachedContent != null) {
+                        // Restore cached etiquette data
+                        cachedEtiquetteData = mapOf(
+                            "formal" to EtiquetteData(
+                                cachedContent.formalDescription ?: "",
+                                cachedContent.formalKeyPoints ?: ""
+                            ),
+                            "business" to EtiquetteData(
+                                cachedContent.businessDescription ?: "",
+                                cachedContent.businessKeyPoints ?: ""
+                            ),
+                            "social" to EtiquetteData(
+                                cachedContent.socialDescription ?: "",
+                                cachedContent.socialKeyPoints ?: ""
+                            )
+                        )
+
+                        // Update UI with cached data
+                        updateContentForEtiquetteType(currentEtiquetteType)
+
+                        view.findViewById<TextView>(R.id.content_title)?.text =
+                            cachedContent.title ?: "Social Etiquette"
+                        view.findViewById<TextView>(R.id.header_title)?.text =
+                            cachedContent.title ?: "Social Etiquette"
+                        view.findViewById<TextView>(R.id.country_name)?.text =
+                            cachedContent.countryName ?: currentCountryName
+
+                        Snackbar.make(
+                            view,
+                            "Showing offline content",
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        // No cache, show default
+                        showDefaultContent(view)
+                        Snackbar.make(
+                            view,
+                            "No offline content available",
+                            Snackbar.LENGTH_LONG
+                        ).show()
+                    }
+                }
+            }
+        }
+    }
+
+    // Show default content when no cache is available
+    private fun showDefaultContent(view: View) {
+        val etiquetteData = getEtiquetteData(currentCountryName, currentEtiquetteType)
+        contentDescriptionView.text = etiquetteData.description
+        keyPointsContentView.text = etiquetteData.keyPoints
+
+        // Cache this default data
+        cacheEtiquetteData()
+    }
+
+    // Cache etiquette data for all types
+    private fun cacheEtiquetteData() {
+        currentCountryId?.let { countryId ->
+            currentCategoryId?.let { categoryId ->
+                viewLifecycleOwner.lifecycleScope.launch {
+                    val formalData = getEtiquetteData(currentCountryName, "formal")
+                    val businessData = getEtiquetteData(currentCountryName, "business")
+                    val socialData = getEtiquetteData(currentCountryName, "social")
+
+                    val cachedContent = CachedContent(
+                        id = "${countryId}_${categoryId}",
+                        countryId = countryId,
+                        categoryId = categoryId,
+                        countryName = currentCountryName,
+                        categoryName = "Social Etiquette",
+                        title = "Social Etiquette",
+                        content = null,
+                        dos = null,
+                        donts = null,
+                        examples = null,
+                        formalDescription = formalData.description,
+                        formalKeyPoints = formalData.keyPoints,
+                        businessDescription = businessData.description,
+                        businessKeyPoints = businessData.keyPoints,
+                        socialDescription = socialData.description,
+                        socialKeyPoints = socialData.keyPoints,
+                        lastUpdated = System.currentTimeMillis(),
+                        isSynced = true,
+                        isBookmarked = isBookmarked,
+                        isSavedForOffline = isSavedOffline
+                    )
+
+                    offlineRepository.cacheContent(cachedContent)
+                }
+            }
+        }
     }
 
     // Setup listeners for etiquette type chips (Formal, Business, Social)
@@ -64,18 +217,21 @@ class EtiquetteFragment : Fragment(R.layout.fragment_etiquette) {
         val chipSocial = view.findViewById<Chip>(R.id.chip_social)
 
         chipFormal?.setOnClickListener {
+            currentEtiquetteType = "formal"
             updateContentForEtiquetteType("formal")
             resetOtherChips(chipFormal, chipBusiness, chipSocial)
             chipFormal.isChecked = true
         }
 
         chipBusiness?.setOnClickListener {
+            currentEtiquetteType = "business"
             updateContentForEtiquetteType("business")
             resetOtherChips(chipBusiness, chipFormal, chipSocial)
             chipBusiness.isChecked = true
         }
 
         chipSocial?.setOnClickListener {
+            currentEtiquetteType = "social"
             updateContentForEtiquetteType("social")
             resetOtherChips(chipSocial, chipFormal, chipBusiness)
             chipSocial.isChecked = true
@@ -89,10 +245,13 @@ class EtiquetteFragment : Fragment(R.layout.fragment_etiquette) {
 
     // Update the etiquette content based on the type (Formal, Business, Social)
     private fun updateContentForEtiquetteType(type: String) {
-        val countryId = currentCountryId ?: return
+        // First try to use cached data if available
+        val etiquetteData = if (cachedEtiquetteData != null) {
+            cachedEtiquetteData!![type] ?: getEtiquetteData(currentCountryName, type)
+        } else {
+            getEtiquetteData(currentCountryName, type)
+        }
 
-        // Update UI with description and key points
-        val etiquetteData = getEtiquetteData(currentCountryName, type)
         contentDescriptionView.text = etiquetteData.description
         keyPointsContentView.text = etiquetteData.keyPoints
     }
@@ -454,6 +613,7 @@ class EtiquetteFragment : Fragment(R.layout.fragment_etiquette) {
             else -> getDefaultEtiquette(type)
         }
     }
+
     // Default etiquette if country/type not found
     private fun getDefaultEtiquette(type: String): EtiquetteData {
         return EtiquetteData(
@@ -472,11 +632,9 @@ class EtiquetteFragment : Fragment(R.layout.fragment_etiquette) {
                 val description = it.content ?: getDefaultEtiquetteDescription()
                 contentDescriptionView.text = description
 
-                // Show correct country name
                 view.findViewById<TextView>(R.id.country_name)?.text =
                     it.countryName ?: arguments?.getString("countryName") ?: "Country"
 
-                // Display default key points
                 val keyPointsText = buildString {
                     append("• Respect local customs and traditions\n")
                     append("• Observe and follow social cues\n")
@@ -485,6 +643,22 @@ class EtiquetteFragment : Fragment(R.layout.fragment_etiquette) {
                     append("• Learn basic greetings in the local language")
                 }
                 keyPointsContentView.text = keyPointsText
+
+                // Cache the etiquette data
+                cacheEtiquetteData()
+            }
+        }
+
+        // Observe cached content
+        currentCountryId?.let { countryId ->
+            currentCategoryId?.let { categoryId ->
+                offlineRepository.getCachedContentLiveData(countryId, categoryId)
+                    .observe(viewLifecycleOwner) { cachedContent ->
+                        cachedContent?.let {
+                            isBookmarked = it.isBookmarked
+                            isSavedOffline = it.isSavedForOffline
+                        }
+                    }
             }
         }
 
@@ -492,11 +666,47 @@ class EtiquetteFragment : Fragment(R.layout.fragment_etiquette) {
             // Handle loading state if needed
         }
 
-        // Observe and handle errors
         contentViewModel.error.observe(viewLifecycleOwner) { error ->
             error?.let {
-                Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+                loadFromCache(requireView())
                 contentViewModel.clearError()
+            }
+        }
+
+        // Observe network state
+        viewLifecycleOwner.lifecycleScope.launch {
+            networkStateManager.isConnected.collect { isConnected ->
+                updateOfflineIndicator(isConnected)
+            }
+        }
+    }
+
+    // Update offline indicator
+    private fun updateOfflineIndicator(isConnected: Boolean) {
+        offlineIndicator?.isVisible = !isConnected
+
+        if (!isConnected) {
+            view?.let {
+                Snackbar.make(
+                    it,
+                    "You're offline. Changes will sync when connection is restored.",
+                    Snackbar.LENGTH_LONG
+                ).show()
+            }
+        }
+    }
+
+    // Sync pending operations
+    private suspend fun syncPendingOperations() {
+        val result = syncManager.syncAllPendingOperations()
+
+        if (result.syncedCount > 0) {
+            view?.let {
+                Snackbar.make(
+                    it,
+                    "Synced ${result.syncedCount} change(s)",
+                    Snackbar.LENGTH_SHORT
+                ).show()
             }
         }
     }
@@ -512,7 +722,7 @@ class EtiquetteFragment : Fragment(R.layout.fragment_etiquette) {
         }
 
         view.findViewById<MaterialCardView>(R.id.save_offline_card)?.setOnClickListener {
-            saveContentOffline()
+            toggleSaveOffline()
         }
 
         view.findViewById<MaterialCardView>(R.id.share_card)?.setOnClickListener {
@@ -520,7 +730,7 @@ class EtiquetteFragment : Fragment(R.layout.fragment_etiquette) {
         }
 
         view.findViewById<MaterialCardView>(R.id.bookmark_card)?.setOnClickListener {
-            bookmarkContent()
+            toggleBookmark()
         }
 
         view.findViewById<ExtendedFloatingActionButton>(R.id.fab_quick_guide)?.setOnClickListener {
@@ -528,6 +738,45 @@ class EtiquetteFragment : Fragment(R.layout.fragment_etiquette) {
         }
 
         setupBottomNavigation(view)
+    }
+
+    // Toggle bookmark
+    private fun toggleBookmark() {
+        currentContentId?.let { contentId ->
+            viewLifecycleOwner.lifecycleScope.launch {
+                isBookmarked = !isBookmarked
+                offlineRepository.toggleBookmark(contentId, isBookmarked)
+
+                val message = if (isBookmarked) "Bookmarked!" else "Bookmark removed"
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+
+                // Sync if online
+                if (networkStateManager.isCurrentlyConnected()) {
+                    syncPendingOperations()
+                }
+            }
+        }
+    }
+
+    // Toggle save offline
+    private fun toggleSaveOffline() {
+        currentContentId?.let { contentId ->
+            viewLifecycleOwner.lifecycleScope.launch {
+                isSavedOffline = !isSavedOffline
+                offlineRepository.toggleSaveOffline(contentId, isSavedOffline)
+
+                val message = if (isSavedOffline)
+                    "Content saved for offline viewing"
+                else
+                    "Removed from offline storage"
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+
+                // Sync if online
+                if (networkStateManager.isCurrentlyConnected()) {
+                    syncPendingOperations()
+                }
+            }
+        }
     }
 
     // Handle bottom navigation clicks
@@ -576,16 +825,8 @@ class EtiquetteFragment : Fragment(R.layout.fragment_etiquette) {
         Toast.makeText(context, "More options", Toast.LENGTH_SHORT).show()
     }
 
-    private fun saveContentOffline() {
-        Toast.makeText(context, "Content saved for offline viewing", Toast.LENGTH_SHORT).show()
-    }
-
     private fun shareContent() {
         Toast.makeText(context, "Sharing etiquette guide...", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun bookmarkContent() {
-        Toast.makeText(context, "Bookmarked!", Toast.LENGTH_SHORT).show()
     }
 
     private fun showQuickGuide() {
@@ -605,6 +846,11 @@ class EtiquetteFragment : Fragment(R.layout.fragment_etiquette) {
         val description: String,
         val keyPoints: String
     )
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        networkStateManager.stopMonitoring()
+    }
 }
 
 //Reference List:
