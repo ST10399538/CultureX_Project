@@ -1,211 +1,248 @@
-### Group Memebers:
-Nathan Hani - ST10322054
+# CultureX - Cultural Travel Etiquette Application
 
-Inge Dafel - ST10399538
+## Group Members
+- Nathan Hani - ST10322054
+- Inge Dafel - ST10399538
+- Ryan Stratford - ST10364151
 
-Ryan Stratford - ST10364151
+## Links
+- **YouTube Demo**: [https://youtu.be/esRVgvUBwFw](https://youtu.be/esRVgvUBwFw)
+- **API Documentation**: [https://culturex-api-a8f5g9avfjb3fyfy.southafricanorth-01.azurewebsites.net/swagger](https://culturex-api-a8f5g9avfjb3fyfy.southafricanorth-01.azurewebsites.net/swagger)
 
-________________________________________
+---
 
+## Recent Changes and Updates
 
-YouTube Link: https://youtu.be/esRVgvUBwFw 
+### Practice Mode with Text-to-Speech
+A new interactive learning feature has been implemented for the **Etiquette Category Page**:
+- **Text-to-Speech Integration**: Users can now listen to etiquette guidelines and cultural information being read aloud, enhancing accessibility and learning retention
+- **Practice Mode**: An interactive mode that allows users to practice cultural etiquette scenarios with audio guidance
+- **Hands-Free Learning**: Enables users to learn while multitasking or when reading is inconvenient
+- **Language Support**: Text-to-speech functionality supports multiple languages for authentic pronunciation and cultural context
+- **Improved Accessibility**: Makes cultural learning more accessible for users with visual impairments or reading difficulties
 
-API Link: https://culturex-api-a8f5g9avfjb3fyfy.southafricanorth-01.azurewebsites.net/swagger
+### About the Country Feature
+The **Main Menu/Home Page** now includes comprehensive country information:
+- **"About the Country" Button**: A dedicated button on the home page that provides detailed information about the selected country
+- **Comprehensive Overview**: Displays essential country information including:
+  - General country facts and statistics
+  - Cultural background and history
+  - Key cultural values and social norms
+  - Geographic and demographic information
+  - Important cultural considerations for travelers
+- **Enhanced User Experience**: Provides context before diving into specific cultural categories, helping users understand the broader cultural landscape
+- **Informed Travel Planning**: Allows users to gain foundational knowledge about their destination before exploring specific etiquette categories
 
-Executive Summary
+### UI/UX Improvements
+The application has undergone significant visual and user experience enhancements:
+- **Modern Material Design 3**: Updated UI components following Google's latest Material Design guidelines for a more contemporary look
+- **Enhanced Visual Hierarchy**: Improved layout structures with better spacing, typography, and color contrast for easier navigation
+- **Polished Interface Elements**: Refined buttons, cards, and interactive components with smooth animations and transitions
+- **Consistent Design Language**: Unified visual style across all screens for a more cohesive user experience
+- **Improved Readability**: Optimized font sizes, line spacing, and content layouts for better content consumption
+- **Enhanced Color Scheme**: Updated color palette that better reflects cultural diversity while maintaining excellent accessibility standards
+- **Intuitive Navigation**: Streamlined navigation patterns with clearer visual cues and improved user flow
+
+These updates enhance the app's educational value, visual appeal, and overall usability, providing users with a more engaging, accessible, and comprehensive cultural learning experience.
+
+---
+
+## Executive Summary
+
 CultureX is a mobile application designed to bridge cultural gaps for international travellers by providing authentic, localized insights into cultural etiquette and customs worldwide. This report details the app's purpose, design considerations, technical architecture, and development methodology, including the utilization of GitHub and GitHub Actions for version control and continuous integration/continuous deployment (CI/CD).
-________________________________________
 
-1. Project Purpose and Vision
+## Project Purpose and Vision
 
-1.1 Market Gap and Opportunity
+### 1.1 Market Gap and Opportunity
 The travel industry faces a significant challenge: tourists frequently commit cultural faux pas due to inadequate cultural education. Generic travel apps rely on automated content or superficial online resources, failing to provide the depth of cultural understanding necessary for meaningful interactions. CultureX addresses this gap by offering comprehensive, well-researched cultural information from verified local contributors rather than generic algorithms.
 
-
-1.2 Core Value Proposition
+### 1.2 Core Value Proposition
 CultureX transforms cultural education from passive information consumption to active learning through:
-•	Authentic Cultural Guidance: Content curated by verified local experts ensures accuracy and cultural sensitivity
-•	Comprehensive Coverage: Detailed information across multiple cultural dimensions (dress code, communication styles, etiquette, tipping norms, greetings)
-•	Practical Application: Real-world scenarios and interactive guides that prepare travellers for actual situations
-•	Accessibility: Offline functionality ensures cultural guidance remains available regardless of connectivity
+- **Authentic Cultural Guidance**: Content curated by verified local experts ensures accuracy and cultural sensitivity
+- **Comprehensive Coverage**: Detailed information across multiple cultural dimensions (dress code, communication styles, etiquette, tipping norms, greetings)
+- **Practical Application**: Real-world scenarios and interactive guides that prepare travellers for actual situations
+- **Accessibility**: Offline functionality ensures cultural guidance remains available regardless of connectivity
 
-
-1.3 Target Audience
+### 1.3 Target Audience
 The application targets culturally conscious travellers who:
-•	Value authentic local experiences over tourist attractions
-•	Seek to minimize cultural misunderstandings
-•	Desire deeper cultural understanding beyond surface-level tourist information
-•	Travel internationally for business or leisure
-________________________________________
-2. Design Philosophy and Considerations:
-2.1 User-Centric Design Approach
+- Value authentic local experiences over tourist attractions
+- Seek to minimize cultural misunderstandings
+- Desire deeper cultural understanding beyond surface-level tourist information
+- Travel internationally for business or leisure
+
+## Design Philosophy and Considerations
+
+### 2.1 User-Centric Design Approach
 Based on competitive analysis of Culture Trip, Withlocals, and TripAdvisor, CultureX incorporates best practices while addressing identified weaknesses:
-Strengths Adopted:
-•	Visually intuitive interface with high-quality imagery (Culture Trip model)
-•	Personalized content delivery based on user preferences (all three apps)
-•	Integration of multimedia content (articles, videos, guides)
-•	Direct booking capabilities within the platform
-Weaknesses Addressed:
-•	Robust offline functionality (addressing Culture Trip's connectivity dependence)
-•	Consistent search and filter functionality (improving on Culture Trip's limitations)
-•	Performance optimization for various device specifications (addressing TripAdvisor's issues)
-•	Verified, quality-controlled content (addressing TripAdvisor's fake review problem)
 
+**Strengths Adopted:**
+- Visually intuitive interface with high-quality imagery (Culture Trip model)
+- Personalized content delivery based on user preferences (all three apps)
+- Integration of multimedia content (articles, videos, guides)
+- Direct booking capabilities within the platform
 
-2.2 Visual Design Language
-Brand Identity: The CultureX icon features a stylized globe with cultural symbols (greeting gestures, traditional patterns) rendered in warm, welcoming colors. The design emphasizes connection and cultural harmony with a modern, approachable aesthetic.
-Color Palette:
-•	Primary: Warm earth tones suggesting cultural diversity and hospitality
-•	Secondary: Vibrant accent colors representing different cultures
-•	Neutral: Clean backgrounds ensuring content readability
-Typography:
-•	Clear, accessible fonts supporting multilingual content
-•	Hierarchical text sizing for information prioritization
-•	Adequate spacing for mobile readability
+**Weaknesses Addressed:**
+- Robust offline functionality (addressing Culture Trip's connectivity dependence)
+- Consistent search and filter functionality (improving on Culture Trip's limitations)
+- Performance optimization for various device specifications (addressing TripAdvisor's issues)
+- Verified, quality-controlled content (addressing TripAdvisor's fake review problem)
 
+### 2.2 Visual Design Language
+**Brand Identity**: The CultureX icon features a stylized globe with cultural symbols (greeting gestures, traditional patterns) rendered in warm, welcoming colors. The design emphasizes connection and cultural harmony with a modern, approachable aesthetic.
 
-2.3 Navigation Architecture
+**Color Palette:**
+- Primary: Warm earth tones suggesting cultural diversity and hospitality
+- Secondary: Vibrant accent colors representing different cultures
+- Neutral: Clean backgrounds ensuring content readability
+
+**Typography:**
+- Clear, accessible fonts supporting multilingual content
+- Hierarchical text sizing for information prioritization
+- Adequate spacing for mobile readability
+
+### 2.3 Navigation Architecture
 The application follows a hub-and-spoke navigation pattern:
-1.	Authentication Flow: Load Screen → Login/Sign Up → Biometric Setup → Onboarding
-2.	Main Hub: Home Page (country selection) serving as the central navigation point
-3.	Content Spokes: Category-specific pages (Dress Code, Communication, Etiquette, Tipping, Greetings)
-4.	Utility Features: Profile, Settings, Notifications, Travel Itinerary, Emergency Contacts, Map
+
+- **Authentication Flow**: Load Screen → Login/Sign Up → Biometric Setup → Onboarding
+- **Main Hub**: Home Page (country selection) serving as the central navigation point
+- **Content Spokes**: Category-specific pages (Dress Code, Communication, Etiquette, Tipping, Greetings)
+- **Utility Features**: Profile, Settings, Notifications, Travel Itinerary, Emergency Contacts, Map
+
 This architecture ensures users can quickly access specific information while maintaining contextual awareness of their location within the app.
 
+### 2.4 Interaction Design Principles
+**Minimalist Complexity**: Complex information is presented through progressive disclosure, showing essential details immediately while providing access to deeper information through deliberate user actions.
 
-2.4 Interaction Design Principles
-Minimalist Complexity: Complex information is presented through progressive disclosure, showing essential details immediately while providing access to deeper information through deliberate user actions.
-Contextual Awareness: The app adapts to user context:
-•	Location-based emergency contact information
-•	Travel itinerary-triggered notifications
-•	Offline availability of previously accessed content
-Feedback and Confirmation: All user actions receive immediate visual feedback through:
-•	Loading states for network operations
-•	Success/error messages for data modifications
-•	Progress indicators for multi-step processes
+**Contextual Awareness**: The app adapts to user context:
+- Location-based emergency contact information
+- Travel itinerary-triggered notifications
+- Offline availability of previously accessed content
 
+**Feedback and Confirmation**: All user actions receive immediate visual feedback through:
+- Loading states for network operations
+- Success/error messages for data modifications
+- Progress indicators for multi-step processes
 
+## Feature Implementation Details
 
-3. Feature Implementation Details:
+### 3.1 Core Functional Requirements
 
-3.1 Core Functional Requirements
-
-1. Single Sign-On (SSO) Authentication
+#### Single Sign-On (SSO) Authentication
 The authentication system provides seamless user onboarding through:
-•	Google OAuth 2.0 integration
-•	Facebook Login SDK integration
-•	Automatic account creation on first SSO login
-•	Secure session management with automatic token refresh
-•	Encrypted credential storage compliant with GDPR and international data protection standards
+- Google OAuth 2.0 integration
+- Facebook Login SDK integration
+- Automatic account creation on first SSO login
+- Secure session management with automatic token refresh
+- Encrypted credential storage compliant with GDPR and international data protection standards
 
-2. Biometric Authentication
+#### Biometric Authentication
 Building upon SSO, biometric authentication offers:
-•	Fingerprint recognition using Android BiometricPrompt API
-•	Face recognition support on compatible devices
-•	Fallback to PIN/password authentication
-•	Local-only storage of biometric data (device hardware security module)
-•	Protection for sensitive features (saved itineraries, personal preferences)
+- Fingerprint recognition using Android BiometricPrompt API
+- Face recognition support on compatible devices
+- Fallback to PIN/password authentication
+- Local-only storage of biometric data (device hardware security module)
+- Protection for sensitive features (saved itineraries, personal preferences)
 
-3. Comprehensive Settings Management
+#### Comprehensive Settings Management
 The settings module provides extensive customization:
-•	Language preferences (English, Afrikaans, isiZulu)
-•	Notification preferences (types, frequency, quiet hours)
-•	Privacy controls (data sharing, analytics opt-out)
-•	Cultural content preferences (favorite countries, interest categories)
-•	Theme customization (light/dark mode)
-•	Real-time synchronization across devices
+- Language preferences (English, Afrikaans, isiZulu)
+- Notification preferences (types, frequency, quiet hours)
+- Privacy controls (data sharing, analytics opt-out)
+- Cultural content preferences (favorite countries, interest categories)
+- Theme customization (light/dark mode)
+- Real-time synchronization across devices
 
-4. RESTful API Architecture
+#### RESTful API Architecture
 The custom-built REST API manages:
-•	CRUD operations for all cultural data
-•	User profile and preference management
-•	Rating and review system
-•	Proper HTTP status codes and error handling
-•	JSON response formatting with consistent structure
-•	Pagination for large datasets
-•	Intelligent caching strategies for optimal performance
+- CRUD operations for all cultural data
+- User profile and preference management
+- Rating and review system
+- Proper HTTP status codes and error handling
+- JSON response formatting with consistent structure
+- Pagination for large datasets
+- Intelligent caching strategies for optimal performance
 
-5. Offline Mode with Intelligent Synchronization
+#### Offline Mode with Intelligent Synchronization
 Offline functionality ensures continuous access:
-•	Firebase Realtime Database for local storage
-•	Selective content download based on user itineraries
-•	Differential synchronization (only changes uploaded/downloaded)
-•	Conflict resolution for simultaneous edits
-•	Background sync when connectivity restored
-•	Storage optimization to minimize device space usage
+- Firebase Realtime Database for local storage
+- Selective content download based on user itineraries
+- Differential synchronization (only changes uploaded/downloaded)
+- Conflict resolution for simultaneous edits
+- Background sync when connectivity restored
+- Storage optimization to minimize device space usage
 
-6. Real-Time Push Notification System
+#### Real-Time Push Notification System
 The notification system provides contextual alerts:
-•	Firebase Cloud Messaging (FCM) integration
-•	Scheduled notifications for upcoming travel
-•	Cultural event alerts (holidays, festivals)
-•	Personalization based on user preferences and itineraries
-•	Notification categories (urgent cultural alerts, tips, content updates)
-•	User control over notification types and frequency
-•	Quiet hours respect
+- Firebase Cloud Messaging (FCM) integration
+- Scheduled notifications for upcoming travel
+- Cultural event alerts (holidays, festivals)
+- Personalization based on user preferences and itineraries
+- Notification categories (urgent cultural alerts, tips, content updates)
+- User control over notification types and frequency
+- Quiet hours respect
 
-7. Multi-Language Support System
+#### Multi-Language Support System
 Full localization across three languages:
-•	English, Afrikaans, and isiZulu support
-•	Comprehensive translation of UI elements, cultural content, and system messages
-•	Right-to-left (RTL) layout support where applicable
-•	Language-specific content delivery
-•	Seamless language switching preserving app state
-•	Localized date, time, and number formatting
+- English, Afrikaans, and isiZulu support
+- Comprehensive translation of UI elements, cultural content, and system messages
+- Right-to-left (RTL) layout support where applicable
+- Language-specific content delivery
+- Seamless language switching preserving app state
+- Localized date, time, and number formatting
 
+### 3.2 Additional Features
 
-3.2 Additional Features
-
-8. Advanced Favourites and Bookmarking System
+#### Advanced Favourites and Bookmarking System
 Users can organize cultural information through:
-•	Country favorites for quick access
-•	Bookmarked specific cultural tips
-•	Personalized cultural reference collections
-•	Tagging and categorization by trip or theme
-•	Offline availability of bookmarked content
-•	Sharing capabilities for recommendations
+- Country favorites for quick access
+- Bookmarked specific cultural tips
+- Personalized cultural reference collections
+- Tagging and categorization by trip or theme
+- Offline availability of bookmarked content
+- Sharing capabilities for recommendations
 
-3.3 Innovative Features:
+### 3.3 Innovative Features
 
-1. Comprehensive Cultural Database
+#### Comprehensive Cultural Database
 Unlike competitors offering surface-level information, CultureX provides:
-•	Multiple category coverage (dress code, communication, etiquette, tipping, greetings)
-•	Scenario-based guidance for practical application
-•	Cultural context explaining the "why" behind customs
-•	Regular updates from local contributors
-•	Verification process ensuring accuracy
+- Multiple category coverage (dress code, communication, etiquette, tipping, greetings)
+- Scenario-based guidance for practical application
+- Cultural context explaining the "why" behind customs
+- Regular updates from local contributors
+- Verification process ensuring accuracy
 
-2. Interactive Cultural Scenarios
+#### Interactive Cultural Scenarios
 "What would you do?" guides present:
-•	Real-world cultural situations
-•	Multiple-choice responses with explanations
-•	Gamified learning approach
-•	Progressive difficulty levels
-•	Achievement system for engagement
+- Real-world cultural situations
+- Multiple-choice responses with explanations
+- Gamified learning approach
+- Progressive difficulty levels
+- Achievement system for engagement
 
-3. Emergency Cultural Assistance
+#### Emergency Cultural Assistance
 Red-tab emergency feature provides:
-•	Immediate access to critical cultural information
-•	Local emergency contacts by country
-•	Embassy/consulate information
-•	Common emergency phrases in local language
-•	Cultural considerations for emergency situations
+- Immediate access to critical cultural information
+- Local emergency contacts by country
+- Embassy/consulate information
+- Common emergency phrases in local language
+- Cultural considerations for emergency situations
 
-4. Adaptive Cultural Calendar
+#### Adaptive Cultural Calendar
 The app learns and proactively provides:
-•	Travel pattern recognition
-•	Proactive cultural reminders based on upcoming trips
-•	Local holiday and cultural event notifications
-•	Festival etiquette guides
-•	Seasonal cultural considerations
+- Travel pattern recognition
+- Proactive cultural reminders based on upcoming trips
+- Local holiday and cultural event notifications
+- Festival etiquette guides
+- Seasonal cultural considerations
 
-5. Offline Cultural Passport
+#### Offline Cultural Passport
 Comprehensive offline access through:
-•	Full country guide downloads
-•	Category-specific offline packages
-•	Media content caching
-•	Automatic updates when online
-•	Storage management tools
+- Full country guide downloads
+- Category-specific offline packages
+- Media content caching
+- Automatic updates when online
+- Storage management tools
+
 
 
 
