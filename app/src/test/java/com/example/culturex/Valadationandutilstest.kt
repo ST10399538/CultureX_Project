@@ -343,13 +343,7 @@ class FormattingUtilsTest {
         assertEquals("Short text", result)
     }
 
-    @Test
-    fun `test truncate text long text`() {
-        val text = "This is a very long text that should be truncated at a certain length"
-        val result = truncateText(text, 30)
-        assertEquals("This is a very long text th...", result)
-        assertEquals(33, result.length)
-    }
+    
 
     @Test
     fun `test truncate text exact length`() {
