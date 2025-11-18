@@ -1,3 +1,13 @@
+### Group Memebers:
+Nathan Hani - ST10322054
+
+Inge Dafel - ST10399538
+
+Ryan Stratford - 
+
+________________________________________
+
+
 YouTube Link: https://youtu.be/esRVgvUBwFw 
 API Link: https://culturex-api-a8f5g9avfjb3fyfy.southafricanorth-01.azurewebsites.net/swagger
 
