@@ -4,8 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.culturex.data.models.CountryInfo
 import kotlinx.coroutines.launch
+import com.example.culturex.data.models.CountryInfo
+
 
 class AboutCountryViewModel : ViewModel() {
 

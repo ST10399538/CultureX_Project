@@ -1,6 +1,7 @@
 package com.example.culturex
 
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -8,9 +9,11 @@ import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.example.culturex.utils.AppLanguageHelper
 import com.example.culturex.utils.NotificationHelper
+import com.example.culturex.utils.SharedPreferencesManager
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     // Add this property at the top of your MainActivity class
     private val requestPermissionLauncher = registerForActivityResult(
@@ -26,22 +29,21 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private lateinit var sharedPrefsManager: SharedPreferencesManager
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        sharedPrefsManager = SharedPreferencesManager(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Create notification channel (add this line)
-        NotificationHelper.createNotificationChannel(this)
-
-        // Request notification permission (add this line)
         checkNotificationPermission()
-
-        // ... rest of your existing onCreate code
-        // For example, if you're setting up navigation, fragments, etc.
     }
 
-    // Add this method to your MainActivity class
-    private fun checkNotificationPermission() {
+
+
+        // Add this method to your MainActivity class
+     fun checkNotificationPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             when {
                 ContextCompat.checkSelfPermission(

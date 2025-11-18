@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -7,126 +6,58 @@
 
     <!-- App Bar -->
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar_layout"
+        android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/gradient_background"
         app:elevation="0dp">
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
+        <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:contentScrim="@drawable/gradient_background"
-            app:expandedTitleMarginStart="20dp"
-            app:expandedTitleMarginBottom="20dp">
+            android:layout_height="?attr/actionBarSize"
+            android:paddingHorizontal="8dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingTop="24dp"
-                android:paddingBottom="32dp"
-                android:paddingHorizontal="20dp"
-                app:layout_collapseMode="parallax">
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
-                <!-- Top Bar -->
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="@android:color/white">
+
+                    <ImageView
+                        android:id="@+id/back_arrow"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_arrow_back"
+                        app:tint="#1F2937"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="?android:attr/selectableItemBackgroundBorderless" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="24dp">
+                    android:layout_weight="1"
+                    android:text="@string/trip_itinerary"
+                    android:textColor="#1F2937"
+                    android:textSize="22sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center"
+                    android:letterSpacing="0.01" />
 
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        app:cardCornerRadius="20dp"
-                        app:cardElevation="2dp"
-                        app:cardBackgroundColor="@android:color/white">
-
-                        <ImageView
-                            android:id="@+id/back_arrow"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:padding="8dp"
-                            android:src="@drawable/ic_arrow_back"
-                            app:tint="#1F2937"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:background="?android:attr/selectableItemBackgroundBorderless" />
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_weight="1" />
-
-                    <!-- View Saved Button as MaterialCardView but behaves like Button -->
-                    <Button
-                        android:id="@+id/view_saved_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:text="View All"
-                        android:textColor="@android:color/white"
-                        android:textSize="14sp"
-                        android:fontFamily="sans-serif-medium"
-                        android:paddingHorizontal="16dp"
-                        android:background="@drawable/button_primary_background"
-                        android:backgroundTint="#6366F1"
-                        android:drawableLeft="@drawable/ic_itinerary"
-                        android:drawablePadding="6dp"
-                        android:drawableTint="@android:color/white"
-                        style="?android:attr/borderlessButtonStyle" />
-                </LinearLayout>
-
-                <!-- Title and Icon -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Trip Itinerary"
-                            android:textColor="#1F2937"
-                            android:textSize="32sp"
-                            android:fontFamily="sans-serif-medium"
-                            android:layout_marginBottom="4dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Plan your perfect journey"
-                            android:textColor="#6B7280"
-                            android:textSize="14sp" />
-                    </LinearLayout>
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        app:cardCornerRadius="28dp"
-                        app:cardElevation="4dp"
-                        app:cardBackgroundColor="@android:color/white">
-
-                        <ImageView
-                            android:layout_width="28dp"
-                            android:layout_height="28dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ic_itinerary"
-                            app:tint="#6366F1" />
-                    </com.google.android.material.card.MaterialCardView>
-                </LinearLayout>
+                <View
+                    android:layout_width="40dp"
+                    android:layout_height="40dp" />
             </LinearLayout>
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
     <!-- Main Content -->
@@ -134,152 +65,165 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:fillViewport="true"
-        android:clipToPadding="false">
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingHorizontal="20dp"
-            android:paddingTop="16dp"
-            android:paddingBottom="100dp">
+            android:padding="20dp">
 
-            <!-- Quick Action Cards -->
-            <LinearLayout
+            <!-- Action Buttons Grid -->
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="20dp">
+                app:cardCornerRadius="20dp"
+                app:cardElevation="4dp"
+                app:strokeWidth="0dp"
+                android:layout_marginBottom="24dp"
+                app:cardBackgroundColor="@android:color/white">
 
-                <!-- Add Event Card - Using FrameLayout wrapper for Button -->
-                <FrameLayout
-                    android:layout_width="0dp"
-                    android:layout_height="120dp"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="8dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-                    <com.google.android.material.card.MaterialCardView
+                    <!-- Title -->
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:cardCornerRadius="20dp"
-                        app:cardElevation="4dp"
-                        app:cardBackgroundColor="#6a329f">
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="16dp">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:gravity="center"
-                            android:padding="16dp">
+                        <ImageView
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:src="@drawable/ic_itinerary"
+                            app:tint="#6366F1"
+                            android:layout_marginEnd="12dp" />
 
-                            <com.google.android.material.card.MaterialCardView
-                                android:layout_width="48dp"
-                                android:layout_height="48dp"
-                                app:cardCornerRadius="24dp"
-                                app:cardElevation="0dp"
-                                app:cardBackgroundColor="#351c75"
-                                android:layout_marginBottom="8dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/quick_actions"
+                            android:textColor="#1F2937"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium" />
+                    </LinearLayout>
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:text="+"
-                                    android:textColor="@android:color/white"
-                                    android:textSize="28sp"
-                                    android:fontFamily="sans-serif-light" />
-                            </com.google.android.material.card.MaterialCardView>
+                    <!-- Action Buttons Grid -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Add Event"
-                                android:textColor="@android:color/white"
+                        <!-- Add Event Button -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="0dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="8dp"
+                            app:cardCornerRadius="16dp"
+                            app:cardElevation="0dp"
+                            app:cardBackgroundColor="#EEF2FF">
+
+                            <Button
+                                android:id="@+id/add_event_button"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="@string/add_event_symbol"
+                                android:textSize="32sp"
+                                android:textColor="#6366F1"
+                                android:background="@android:color/transparent"
+                                android:fontFamily="sans-serif-light" />
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <!-- Edit Button -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="0dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="1"
+                            android:layout_marginStart="8dp"
+                            app:cardCornerRadius="16dp"
+                            app:cardElevation="0dp"
+                            app:cardBackgroundColor="#FEF3C7">
+
+                            <Button
+                                android:id="@+id/edit_button"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="@string/edit"
                                 android:textSize="16sp"
+                                android:textColor="#F59E0B"
+                                android:background="@android:color/transparent"
                                 android:fontFamily="sans-serif-medium" />
-                        </LinearLayout>
-                    </com.google.android.material.card.MaterialCardView>
+                        </com.google.android.material.card.MaterialCardView>
+                    </LinearLayout>
 
-                    <!-- Invisible Button overlay for click handling -->
-                    <Button
-                        android:id="@+id/add_event_button"
+                    <!-- Second Row -->
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="?android:attr/selectableItemBackground"
-                        style="?android:attr/borderlessButtonStyle" />
-                </FrameLayout>
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="12dp">
 
-                <!-- Filter Card - Using FrameLayout wrapper for Button -->
-                <FrameLayout
-                    android:layout_width="0dp"
-                    android:layout_height="120dp"
-                    android:layout_weight="1"
-                    android:layout_marginStart="8dp">
+                        <!-- Filter Button -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="0dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="8dp"
+                            app:cardCornerRadius="16dp"
+                            app:cardElevation="0dp"
+                            app:cardBackgroundColor="#DBEAFE">
 
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:cardCornerRadius="20dp"
-                        app:cardElevation="4dp"
-                        app:cardBackgroundColor="@android:color/white"
-                        app:strokeWidth="2dp"
-                        app:strokeColor="#E5E7EB">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:gravity="center"
-                            android:padding="16dp">
-
-                            <com.google.android.material.card.MaterialCardView
-                                android:layout_width="48dp"
-                                android:layout_height="48dp"
-                                app:cardCornerRadius="24dp"
-                                app:cardElevation="0dp"
-                                app:cardBackgroundColor="#F3F4F6"
-                                android:layout_marginBottom="8dp">
-
-                                <ImageView
-                                    android:layout_width="24dp"
-                                    android:layout_height="24dp"
-                                    android:layout_gravity="center"
-                                    android:src="@drawable/ic_search"
-                                    app:tint="#6366F1" />
-                            </com.google.android.material.card.MaterialCardView>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Filter"
-                                android:textColor="#1F2937"
+                            <Button
+                                android:id="@+id/filter_button"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="@string/filter"
                                 android:textSize="16sp"
+                                android:textColor="#3B82F6"
+                                android:background="@android:color/transparent"
                                 android:fontFamily="sans-serif-medium" />
-                        </LinearLayout>
-                    </com.google.android.material.card.MaterialCardView>
+                        </com.google.android.material.card.MaterialCardView>
 
-                    <!-- Invisible Button overlay for click handling -->
-                    <Button
-                        android:id="@+id/filter_button"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="?android:attr/selectableItemBackground"
-                        style="?android:attr/borderlessButtonStyle" />
-                </FrameLayout>
-            </LinearLayout>
+                        <!-- View Saved Button -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="0dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="1"
+                            android:layout_marginStart="8dp"
+                            app:cardCornerRadius="16dp"
+                            app:cardElevation="0dp"
+                            app:cardBackgroundColor="#D1FAE5">
 
-            <!-- Create Event Card (Expandable) -->
+                            <Button
+                                android:id="@+id/view_saved_button"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="@string/view_all"
+                                android:textSize="14sp"
+                                android:textColor="#10B981"
+                                android:background="@android:color/transparent"
+                                android:fontFamily="sans-serif-medium" />
+                        </com.google.android.material.card.MaterialCardView>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Create Event Card -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/create_event_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="24dp"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="4dp"
+                app:strokeWidth="0dp"
                 app:cardBackgroundColor="@android:color/white"
-                app:strokeWidth="1dp"
-                app:strokeColor="#E5E7EB"
                 android:visibility="gone">
 
                 <LinearLayout
@@ -296,39 +240,30 @@
                         android:gravity="center_vertical"
                         android:layout_marginBottom="20dp">
 
-                        <com.google.android.material.card.MaterialCardView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            app:cardCornerRadius="20dp"
-                            app:cardElevation="0dp"
-                            app:cardBackgroundColor="#EEF2FF"
-                            android:layout_marginEnd="12dp">
-
-                            <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:layout_gravity="center"
-                                android:src="@drawable/ic_itinerary"
-                                app:tint="#6366F1" />
-                        </com.google.android.material.card.MaterialCardView>
+                        <ImageView
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:src="@drawable/ic_itinerary"
+                            app:tint="#6366F1"
+                            android:layout_marginEnd="12dp" />
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Create Event"
+                            android:text="@string/create_event"
                             android:textColor="#1F2937"
                             android:textSize="20sp"
                             android:fontFamily="sans-serif-medium" />
                     </LinearLayout>
 
-                    <!-- Date & Time Selector -->
+                    <!-- Date and Time Selector -->
                     <com.google.android.material.card.MaterialCardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:cardCornerRadius="16dp"
+                        app:cardCornerRadius="12dp"
                         app:cardElevation="0dp"
-                        app:cardBackgroundColor="#F9FAFB"
+                        app:cardBackgroundColor="#F3F4F6"
                         android:layout_marginBottom="16dp">
 
                         <LinearLayout
@@ -344,37 +279,27 @@
                                 android:gravity="center_vertical"
                                 android:layout_marginBottom="12dp">
 
-                                <ImageView
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:src="@drawable/ic_itinerary"
-                                    app:tint="#6B7280"
-                                    android:layout_marginEnd="8dp" />
-
                                 <TextView
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:text="Date and Time"
-                                    android:textColor="#374151"
+                                    android:text="@string/set_date_time"
+                                    android:textColor="#1F2937"
                                     android:textSize="16sp"
                                     android:fontFamily="sans-serif-medium" />
 
-                                <!-- Calendar Icon as ImageView wrapped in MaterialCardView -->
                                 <com.google.android.material.card.MaterialCardView
-                                    android:layout_width="36dp"
-                                    android:layout_height="36dp"
-                                    app:cardCornerRadius="18dp"
-                                    app:cardElevation="0dp"
-                                    app:cardBackgroundColor="#6366F1"
-                                    android:clickable="true"
-                                    android:focusable="true">
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    app:cardCornerRadius="20dp"
+                                    app:cardElevation="2dp"
+                                    app:cardBackgroundColor="#6366F1">
 
                                     <ImageView
                                         android:id="@+id/calendar_icon"
-                                        android:layout_width="18dp"
-                                        android:layout_height="18dp"
-                                        android:layout_gravity="center"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:padding="8dp"
                                         android:src="@drawable/ic_itinerary"
                                         app:tint="@android:color/white"
                                         android:clickable="true"
@@ -383,130 +308,74 @@
                                 </com.google.android.material.card.MaterialCardView>
                             </LinearLayout>
 
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="#E5E7EB"
-                                android:layout_marginBottom="12dp" />
-
+                            <!-- Date Display -->
                             <TextView
                                 android:id="@+id/selected_date_text"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="📅 Date: Not selected"
-                                android:textColor="#6B7280"
+                                android:text="@string/date_not_selected"
+                                android:textColor="#374151"
                                 android:textSize="14sp"
-                                android:layout_marginBottom="8dp" />
+                                android:layout_marginBottom="8dp"
+                                android:drawablePadding="8dp" />
 
+                            <!-- Time Display -->
                             <TextView
                                 android:id="@+id/selected_time_text"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="🕐 Time: Not selected"
-                                android:textColor="#6B7280"
-                                android:textSize="14sp" />
+                                android:text="@string/time_not_selected"
+                                android:textColor="#374151"
+                                android:textSize="14sp"
+                                android:drawablePadding="8dp" />
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
 
                     <!-- Event Description -->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Event Description"
-                        android:textColor="#374151"
-                        android:textSize="14sp"
-                        android:fontFamily="sans-serif-medium"
-                        android:layout_marginBottom="8dp" />
-
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:boxBackgroundMode="filled"
-                        app:boxBackgroundColor="#F9FAFB"
-                        app:boxStrokeWidth="0dp"
-                        app:boxStrokeWidthFocused="2dp"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                         app:boxStrokeColor="#6366F1"
-                        app:boxCornerRadiusTopStart="12dp"
-                        app:boxCornerRadiusTopEnd="12dp"
-                        app:boxCornerRadiusBottomStart="12dp"
-                        app:boxCornerRadiusBottomEnd="12dp"
-                        app:hintEnabled="false"
-                        android:layout_marginBottom="16dp">
+                        app:hintTextColor="#6366F1"
+                        android:layout_marginBottom="20dp">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/event_description_input"
                             android:layout_width="match_parent"
-                            android:layout_height="120dp"
-                            android:hint="Describe your event (e.g., Visit Eiffel Tower, Lunch at local café...)"
+                            android:layout_height="wrap_content"
+                            android:minHeight="120dp"
+                            android:hint="@string/describe_event_hint"
                             android:gravity="start|top"
-                            android:inputType="textMultiLine|textCapSentences"
+                            android:inputType="textMultiLine"
                             android:padding="16dp"
                             android:textSize="14sp"
-                            android:textColor="#1F2937"
-                            android:textColorHint="#9CA3AF" />
+                            android:textColor="#1F2937" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <!-- Save Button (styled as MaterialButton but using Button) -->
-                    <Button
+                    <!-- Save Button -->
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/save_button"
                         android:layout_width="match_parent"
                         android:layout_height="56dp"
-                        android:text="Save Event"
-                        android:textColor="@android:color/white"
+                        android:text="@string/save"
                         android:textSize="16sp"
                         android:fontFamily="sans-serif-medium"
-                        android:background="@drawable/button_primary_background"
-                        android:backgroundTint="#6366F1"
-                        android:drawableLeft="@drawable/ic_itinerary"
-                        android:drawablePadding="8dp"
-                        android:drawableTint="@android:color/white" />
+                        app:cornerRadius="12dp"
+                        app:backgroundTint="#6366F1"
+                        style="@style/Widget.Material3.Button" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Events Section Header -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="16dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Upcoming Events"
-                    android:textColor="#1F2937"
-                    android:textSize="20sp"
-                    android:fontFamily="sans-serif-medium" />
-
-                <!-- Edit Button styled as chip -->
-                <Button
-                    android:id="@+id/edit_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="36dp"
-                    android:text="Edit"
-                    android:textColor="@android:color/white"
-                    android:textSize="12sp"
-                    android:fontFamily="sans-serif-medium"
-                    android:paddingHorizontal="12dp"
-                    android:background="@drawable/button_primary_background"
-                    android:backgroundTint="#45818e"
-                    android:drawableLeft="@android:drawable/ic_menu_edit"
-                    android:drawablePadding="4dp"
-                    android:drawableTint="@android:color/white"
-                    style="?android:attr/borderlessButtonStyle" />
-            </LinearLayout>
-
-            <!-- Events List Container -->
+            <!-- Events List Section -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="20dp"
-                app:cardElevation="2dp"
+                app:cardElevation="4dp"
+                app:strokeWidth="0dp"
                 app:cardBackgroundColor="@android:color/white"
-                app:strokeWidth="1dp"
-                app:strokeColor="#E5E7EB">
+                android:layout_marginBottom="24dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -514,58 +383,48 @@
                     android:orientation="vertical"
                     android:padding="16dp">
 
-                    <!-- Events RecyclerView -->
+                    <!-- Section Header -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="16dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_bookmark"
+                            app:tint="#10B981"
+                            android:layout_marginEnd="12dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/your_events"
+                            android:textColor="#1F2937"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-medium" />
+                    </LinearLayout>
+
+                    <!-- Saved Events List -->
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/events_recycler_view"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:clipToPadding="false" />
+                        android:visibility="gone" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Info Card -->
-            <com.google.android.material.card.MaterialCardView
+            <!-- Info Text -->
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
-                app:cardBackgroundColor="#EEF2FF"
-                app:strokeWidth="0dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="16dp"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/ic_notifications"
-                        app:tint="#6366F1"
-                        android:layout_marginEnd="12dp" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Tip: Use edit mode to modify or delete events"
-                        android:textColor="#4F46E5"
-                        android:textSize="13sp"
-                        android:lineSpacingExtra="2dp" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+                android:text="@string/tip_edit_mode"
+                android:textColor="#6B7280"
+                android:textSize="13sp"
+                android:gravity="center"
+                android:padding="16dp" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-    <!-- Reference List
-    Iarn Tech, 2022. Android Studio User Interface - Layout and XML. [video online]. Available at: https://www.youtube.com/watch?v=kn_7H8v4Emo [Accessed on 15 September 2025]
-    UiLover, 2023. Android UI Design Mobile dashboard UI Tutorial | android projects. [video online]. Available at: https://www.youtube.com/watch?v=5dDHplq9rss  [Accessed on 18 September 2025]
-    WsCube Tech, 2021. Layouts in Android Studio (XML) | Android UI Design Explained. [video online]. Available at: https://www.youtube.com/watch?v=PeCOKgAua7A  [Accessed on 16 September 2025]
-    CodeWithTS, 2024. View Binding and Data Binding in Android Studio using Kotlin. [video online]. Available at: https://www.youtube.com/watch?v=tIXSuoJbX-8  [Accessed on 20 September 2025]
-    Android Developers, 2025. Develop a UI with Views. [online]. Available at: https://developer.android.com/studio/write/layout-editor [Accessed on 15 September 2025]
-
-    -->

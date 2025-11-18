@@ -23,13 +23,11 @@ import com.google.android.material.card.MaterialCardView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import android.speech.tts.TextToSpeech
-import java.util.*
-import androidx.navigation.fragment.findNavController
-import androidx.core.view.isVisible
-import androidx.fragment.app.viewModels
 import android.speech.tts.UtteranceProgressListener
 import android.os.Handler
 import android.os.Looper
+import androidx.navigation.fragment.findNavController
+import java.util.*
 
 class GreetingsFragment : Fragment(R.layout.fragment_greetings) {
 
@@ -348,8 +346,6 @@ class GreetingsFragment : Fragment(R.layout.fragment_greetings) {
                 getPredeterminedAmericanGreetings()
             currentCountryName.contains("Spain", ignoreCase = true) ->
                 getPredeterminedSpanishGreetings()
-
-
             else ->
                 getPredeterminedDefaultGreetings()
         }
@@ -763,9 +759,14 @@ class GreetingsFragment : Fragment(R.layout.fragment_greetings) {
             findNavController().navigateUp()
         }
 
-        // TTS Settings button
+        // TTS Settings button (may not exist in first layout)
         view.findViewById<MaterialCardView>(R.id.tts_settings_card)?.setOnClickListener {
             showTTSSettings()
+        }
+
+        // Audio button (may not exist in second layout)
+        view.findViewById<MaterialCardView>(R.id.audio_button_card)?.setOnClickListener {
+            playAudioPronunciation()
         }
 
         // Save offline
@@ -778,7 +779,12 @@ class GreetingsFragment : Fragment(R.layout.fragment_greetings) {
             startPracticeMode()
         }
 
-        // FAB play all
+        // FAB translate (may not exist in second layout)
+        view.findViewById<FloatingActionButton>(R.id.fab_translate)?.setOnClickListener {
+            showTranslationOptions()
+        }
+
+        // FAB play all (may not exist in first layout)
         view.findViewById<FloatingActionButton>(R.id.fab_play_all)?.setOnClickListener {
             playAllGreetings()
         }
@@ -859,6 +865,15 @@ class GreetingsFragment : Fragment(R.layout.fragment_greetings) {
             "🔊 ${greeting.greeting}\n${greeting.greetingTranslation}",
             Toast.LENGTH_LONG
         ).show()
+    }
+
+    /**
+     * Play audio pronunciation (stub from first version)
+     */
+    private fun playAudioPronunciation() {
+        Toast.makeText(context, "Playing pronunciation guide...", Toast.LENGTH_SHORT).show()
+        // Could trigger TTS settings or play all greetings
+        showTTSSettings()
     }
 
     /**
@@ -981,7 +996,9 @@ class GreetingsFragment : Fragment(R.layout.fragment_greetings) {
             speakText("Goodbye. ${greeting.goodbye}", TextToSpeech.QUEUE_ADD)
             textToSpeech?.playSilence(1000, TextToSpeech.QUEUE_ADD, null)
             speakText("Again. ${greeting.goodbye}", TextToSpeech.QUEUE_ADD, utteranceId, null)
-
+        } else {
+            // No goodbye, so mark this as the final utterance
+            textToSpeech?.speak("", TextToSpeech.QUEUE_ADD, null, utteranceId)
         }
 
         currentGreetingIndex++
@@ -1008,6 +1025,10 @@ class GreetingsFragment : Fragment(R.layout.fragment_greetings) {
             "✓ ${currentGreetings.size} greetings saved for offline use in ${currentCountryName}",
             Toast.LENGTH_SHORT
         ).show()
+    }
+
+    private fun showTranslationOptions() {
+        Toast.makeText(context, "Translation options", Toast.LENGTH_SHORT).show()
     }
 
     private fun getDefaultGreetingDescription(): String {

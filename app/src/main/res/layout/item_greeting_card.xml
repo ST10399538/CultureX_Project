@@ -7,10 +7,12 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="16dp"
     app:cardCornerRadius="20dp"
-    app:cardElevation="4dp"
+    app:cardElevation="6dp"
     android:clickable="true"
     android:focusable="true"
-    app:rippleColor="#6366F1">
+    app:rippleColor="#6366F1"
+    app:strokeWidth="0dp"
+    app:cardBackgroundColor="@android:color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,52 +20,96 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-        <!-- Language Title -->
-        <TextView
-            android:id="@+id/language_title"
-            android:layout_width="wrap_content"
+        <!-- Enhanced Language Title with Icon -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="1. Language Name"
-            android:textColor="#1F2937"
-            android:textSize="18sp"
-            android:layout_marginBottom="16dp" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="18dp">
 
-        <!-- Greeting Section -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="4dp"
+                android:layout_marginEnd="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/gradient_background"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🗣️"
+                        android:textSize="20sp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/language_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="1. Language Name"
+                android:textColor="#111827"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium" />
+        </LinearLayout>
+
+        <!-- Enhanced Greeting Section -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginBottom="16dp"
+            android:background="@drawable/bottom_nav_background"
+            android:backgroundTint="#F0FDF4"
+            android:padding="16dp"
             android:gravity="center_vertical">
 
-            <LinearLayout
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:background="@drawable/ic_globe"
-                android:backgroundTint="#DCFCE7"
-                android:gravity="center">
+            <androidx.cardview.widget.CardView
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                app:cardCornerRadius="26dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="#DCFCE7">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="👋"
-                    android:textSize="20sp" />
-            </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="👋"
+                        android:textSize="26sp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:layout_marginHorizontal="12dp">
+                android:layout_marginHorizontal="14dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Greeting (Hello):"
-                    android:textColor="#6B7280"
-                    android:textSize="12sp"
-                    android:layout_marginBottom="4dp" />
+                    android:text="Hello"
+                    android:textColor="#065F46"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-medium"
+                    android:textAllCaps="true"
+                    android:letterSpacing="0.05"
+                    android:layout_marginBottom="6dp" />
 
                 <TextView
                     android:id="@+id/greeting_text"
@@ -71,69 +117,92 @@
                     android:layout_height="wrap_content"
                     android:text="Sawubona"
                     android:textColor="#111827"
-                    android:textSize="16sp"
-                    android:layout_marginBottom="2dp" />
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-medium"
+                    android:layout_marginBottom="4dp" />
 
                 <TextView
                     android:id="@+id/greeting_translation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="(I see you)"
-                    android:textColor="#6B7280"
+                    android:textColor="#4B5563"
                     android:textSize="13sp"
-                     />
+                    android:fontFamily="sans-serif" />
 
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/play_greeting_audio"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:background="@drawable/ic_shield"
-                android:padding="6dp"
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                app:cardCornerRadius="22dp"
+                app:cardElevation="4dp"
                 android:clickable="true"
                 android:focusable="true"
-                app:tint="#6366F1" />
+                app:cardBackgroundColor="#10B981">
+
+                <ImageView
+                    android:id="@+id/play_greeting_audio"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_shield"
+                    app:tint="@android:color/white" />
+            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
 
-        <!-- Goodbye Section -->
+        <!-- Enhanced Goodbye Section -->
         <LinearLayout
             android:id="@+id/goodbye_section"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="12dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bottom_nav_background"
+            android:backgroundTint="#FEF2F2"
+            android:padding="16dp"
             android:gravity="center_vertical">
 
-            <LinearLayout
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:background="@drawable/ic_globe"
-                android:backgroundTint="#FEE2E2"
-                android:gravity="center">
+            <androidx.cardview.widget.CardView
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                app:cardCornerRadius="26dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="#FEE2E2">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="👋"
-                    android:textSize="20sp" />
-            </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="👋"
+                        android:textSize="26sp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:layout_marginHorizontal="12dp">
+                android:layout_marginHorizontal="14dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Goodbye:"
-                    android:textColor="#6B7280"
-                    android:textSize="12sp"
-                    android:layout_marginBottom="4dp" />
+                    android:text="Goodbye"
+                    android:textColor="#991B1B"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-medium"
+                    android:textAllCaps="true"
+                    android:letterSpacing="0.05"
+                    android:layout_marginBottom="6dp" />
 
                 <TextView
                     android:id="@+id/goodbye_text"
@@ -141,59 +210,98 @@
                     android:layout_height="wrap_content"
                     android:text="Hamba kahle"
                     android:textColor="#111827"
-                    android:textSize="16sp"
-                    android:layout_marginBottom="2dp" />
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-medium"
+                    android:layout_marginBottom="4dp" />
 
                 <TextView
                     android:id="@+id/goodbye_translation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="(Go well)"
-                    android:textColor="#6B7280"
+                    android:textColor="#4B5563"
                     android:textSize="13sp"
-                    />
+                    android:fontFamily="sans-serif" />
 
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/play_goodbye_audio"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:background="@drawable/ic_shield"
-                android:padding="6dp"
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                app:cardCornerRadius="22dp"
+                app:cardElevation="4dp"
                 android:clickable="true"
                 android:focusable="true"
-                app:tint="#6366F1" />
+                app:cardBackgroundColor="#EF4444">
+
+                <ImageView
+                    android:id="@+id/play_goodbye_audio"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_goodbye"
+                    app:tint="@android:color/white" />
+            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
 
-        <!-- Pronunciation Hint -->
+        <!-- Enhanced Pronunciation Hint -->
         <LinearLayout
             android:id="@+id/pronunciation_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:background="@drawable/bottom_nav_background"
-            android:backgroundTint="#F3F4F6"
-            android:padding="12dp"
+            android:backgroundTint="#EFF6FF"
+            android:padding="14dp"
+            android:gravity="center_vertical"
             android:visibility="visible">
 
-            <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:src="@drawable/ic_bookmark"
-                app:tint="#6366F1"
-                android:layout_marginEnd="8dp"
-                android:layout_gravity="center_vertical" />
+            <androidx.cardview.widget.CardView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="#DBEAFE"
+                android:layout_marginEnd="10dp">
 
-            <TextView
-                android:id="@+id/pronunciation_hint"
-                android:layout_width="wrap_content"
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="6dp"
+                    android:src="@drawable/ic_info"
+                    app:tint="#3B82F6" />
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Pronunciation: sah-woo-BOH-nah"
-                android:textColor="#4B5563"
-                android:textSize="16sp"
-                 />
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pronunciation"
+                    android:textColor="#1E40AF"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-medium"
+                    android:textAllCaps="true"
+                    android:letterSpacing="0.05"
+                    android:layout_marginBottom="2dp" />
+
+                <TextView
+                    android:id="@+id/pronunciation_hint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="sah-woo-BOH-nah"
+                    android:textColor="#1F2937"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-medium" />
+            </LinearLayout>
 
         </LinearLayout>
 

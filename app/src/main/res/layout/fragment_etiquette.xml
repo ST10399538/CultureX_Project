@@ -6,7 +6,25 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background">
 
-    <!-- Collapsing App Bar -->
+    <!-- Enhanced Offline Indicator -->
+    <TextView
+        android:id="@+id/offline_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FF9800"
+        android:gravity="center"
+        android:padding="12dp"
+        android:text="@string/offline_mode"
+        android:textColor="@android:color/white"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-medium"
+        android:visibility="gone"
+        android:elevation="12dp"
+        app:layout_anchor="@id/app_bar"
+        app:layout_anchorGravity="bottom" />
+
+    <!-- Enhanced Collapsing App Bar -->
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
@@ -16,11 +34,13 @@
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
-            android:layout_height="260dp"
+            android:layout_height="280dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:contentScrim="@color/cardview_shadow_end_color">
+            app:contentScrim="@android:color/transparent"
+            app:expandedTitleMarginStart="24dp"
+            app:expandedTitleMarginBottom="28dp">
 
-            <!-- Header Background -->
+            <!-- Enhanced Header Background -->
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -29,51 +49,55 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@android:color/transparent" />
+                    android:background="@drawable/gradient_background" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:gravity="center"
-                    android:padding="24dp"
-                    android:paddingTop="40dp">
+                    android:padding="28dp"
+                    android:paddingTop="48dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="🎩"
-                        android:textSize="56sp"
-                        android:layout_marginBottom="8dp" />
+                        android:text="@string/emoji_hat"
+                        android:textSize="64sp"
+                        android:layout_marginBottom="16dp" />
 
                     <TextView
                         android:id="@+id/header_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Social Etiquette"
-                        android:textColor="@android:color/black"
-                        android:textSize="24sp"
-                        android:textAlignment="center" />
+                        android:text="@string/social_etiquette"
+                        android:textColor="#111827"
+                        android:textSize="26sp"
+                        android:textStyle="bold"
+                        android:fontFamily="sans-serif-medium"
+                        android:textAlignment="center"
+                        android:letterSpacing="0.01" />
 
                     <TextView
                         android:id="@+id/country_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Loading..."
-                        android:textColor="#757575"
+                        android:text="@string/loading"
+                        android:textColor="#6B7280"
                         android:textSize="16sp"
-                        android:layout_marginTop="4dp" />
+                        android:fontFamily="sans-serif"
+                        android:layout_marginTop="6dp" />
 
                 </LinearLayout>
             </FrameLayout>
 
-            <!-- Toolbar -->
+            <!-- Enhanced Toolbar -->
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:layout_gravity="top"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 app:layout_collapseMode="pin"
                 app:contentInsetStart="0dp">
 
@@ -82,51 +106,56 @@
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:paddingHorizontal="8dp">
+                    android:paddingHorizontal="12dp">
 
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/back_arrow_card"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        app:cardCornerRadius="20dp"
-                        app:cardElevation="4dp"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        app:cardCornerRadius="22dp"
+                        app:cardElevation="6dp"
                         android:clickable="true"
                         android:focusable="true"
-                        app:cardBackgroundColor="@android:color/white">
+                        app:cardBackgroundColor="@android:color/white"
+                        android:stateListAnimator="@null">
 
                         <ImageView
                             android:id="@+id/back_arrow"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:padding="8dp"
+                            android:padding="10dp"
                             android:src="@drawable/ic_arrow_back"
-                            app:tint="#1F2937" />
+                            app:tint="#374151" />
                     </com.google.android.material.card.MaterialCardView>
 
                     <TextView
-                        android:id="@+id/content_title"
+                        android:id="@+id/content_title_coms"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text=""
-                        android:textColor="#1F2937"
+                        android:textColor="#111827"
                         android:textSize="18sp"
-                        android:gravity="center" />
+                        android:textStyle="bold"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center"
+                        android:layout_marginHorizontal="8dp" />
 
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/more_options_card"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        app:cardCornerRadius="20dp"
-                        app:cardElevation="4dp"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        app:cardCornerRadius="22dp"
+                        app:cardElevation="6dp"
                         android:clickable="true"
                         android:focusable="true"
-                        app:cardBackgroundColor="@android:color/white">
+                        app:cardBackgroundColor="@android:color/white"
+                        android:stateListAnimator="@null">
 
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:padding="8dp"
+                            android:padding="10dp"
                             android:src="@drawable/ic_menu"
                             app:tint="#6B7280" />
                     </com.google.android.material.card.MaterialCardView>
@@ -141,15 +170,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        android:scrollbars="none"
+        android:overScrollMode="never">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingBottom="100dp">
+            android:paddingBottom="24dp">
 
-            <!-- Quick Actions Section -->
+            <!-- Enhanced Quick Actions Section -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -159,14 +190,15 @@
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/save_offline_card"
                     android:layout_width="0dp"
-                    android:layout_height="100dp"
+                    android:layout_height="110dp"
                     android:layout_weight="1"
                     android:layout_marginEnd="8dp"
                     app:cardCornerRadius="20dp"
-                    app:cardElevation="4dp"
+                    app:cardElevation="8dp"
                     android:clickable="true"
                     android:focusable="true"
-                    app:rippleColor="#6366F1">
+                    app:rippleColor="#3B82F6"
+                    app:strokeWidth="0dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -174,36 +206,39 @@
                         android:orientation="vertical"
                         android:gravity="center"
                         android:background="@drawable/bottom_nav_background"
-                        android:backgroundTint="#3d85c6"
+                        android:backgroundTint="#3B82F6"
                         android:padding="16dp">
 
                         <ImageView
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:src="@drawable/ic_download"
                             app:tint="@android:color/white"
-                            android:layout_marginBottom="8dp" />
+                            android:layout_marginBottom="10dp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Save"
+                            android:text="@string/save"
                             android:textColor="@android:color/white"
-                            android:textSize="17sp" />
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:fontFamily="sans-serif-medium" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/share_card"
                     android:layout_width="0dp"
-                    android:layout_height="100dp"
+                    android:layout_height="110dp"
                     android:layout_weight="1"
                     android:layout_marginHorizontal="8dp"
                     app:cardCornerRadius="20dp"
-                    app:cardElevation="4dp"
+                    app:cardElevation="8dp"
                     android:clickable="true"
                     android:focusable="true"
-                    app:rippleColor="#10B981">
+                    app:rippleColor="#10B981"
+                    app:strokeWidth="0dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -211,36 +246,39 @@
                         android:orientation="vertical"
                         android:gravity="center"
                         android:background="@drawable/bottom_nav_background"
-                        android:backgroundTint="#6aa84f"
+                        android:backgroundTint="#10B981"
                         android:padding="16dp">
 
                         <ImageView
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:src="@drawable/ic_export"
                             app:tint="@android:color/white"
-                            android:layout_marginBottom="8dp" />
+                            android:layout_marginBottom="10dp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Share"
+                            android:text="@string/share"
                             android:textColor="@android:color/white"
-                            android:textSize="17sp" />
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:fontFamily="sans-serif-medium" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/bookmark_card"
                     android:layout_width="0dp"
-                    android:layout_height="100dp"
+                    android:layout_height="110dp"
                     android:layout_weight="1"
                     android:layout_marginStart="8dp"
                     app:cardCornerRadius="20dp"
-                    app:cardElevation="4dp"
+                    app:cardElevation="8dp"
                     android:clickable="true"
                     android:focusable="true"
-                    app:rippleColor="#F59E0B">
+                    app:rippleColor="#F59E0B"
+                    app:strokeWidth="0dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -248,36 +286,38 @@
                         android:orientation="vertical"
                         android:gravity="center"
                         android:background="@drawable/bottom_nav_background"
-                        android:backgroundTint="#f1c232"
+                        android:backgroundTint="#F59E0B"
                         android:padding="16dp">
 
                         <ImageView
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:src="@drawable/ic_bookmark"
                             app:tint="@android:color/white"
-                            android:layout_marginBottom="8dp" />
+                            android:layout_marginBottom="10dp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Bookmark"
+                            android:text="@string/bookmark"
                             android:textColor="@android:color/white"
-                            android:textSize="17sp" />
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:fontFamily="sans-serif-medium" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
 
-            <!-- Content Description -->
+            <!-- Enhanced Content Description Card -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginBottom="24dp"
                 app:cardCornerRadius="24dp"
-                app:cardElevation="0dp"
-                app:strokeWidth="2dp"
-                app:strokeColor="#E5E7EB">
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:strokeWidth="0dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -292,136 +332,174 @@
                         android:layout_marginBottom="16dp"
                         android:gravity="center_vertical">
 
-                        <View
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:background="@drawable/ic_globe"
-                            android:backgroundTint="#EEF2FF" />
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="44dp"
+                            android:layout_height="44dp"
+                            app:cardCornerRadius="22dp"
+                            app:cardElevation="4dp"
+                            android:layout_marginEnd="12dp">
 
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@drawable/ic_globe"
-                            app:tint="#6366F1"
-                            android:layout_marginStart="-32dp" />
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/gradient_background"
+                                android:gravity="center">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="🌍"
+                                    android:textSize="22sp" />
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Cultural Context"
+                            android:text="@string/cultural_context"
                             android:textColor="#1F2937"
                             android:textSize="18sp"
-                            android:layout_marginStart="24dp" />
+                            android:textStyle="bold"
+                            android:fontFamily="sans-serif-medium" />
                     </LinearLayout>
 
                     <TextView
                         android:id="@+id/content_description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Loading etiquette information..."
+                        android:text="@string/loading_etiquette_information"
                         android:textColor="#4B5563"
                         android:textSize="15sp"
-                        android:lineSpacingExtra="8dp" />
+                        android:lineSpacingExtra="6dp"
+                        android:lineSpacingMultiplier="1.3" />
 
-                    <!-- Tags Section - Updated Chips -->
+                    <!-- Enhanced Tags Section -->
                     <com.google.android.material.chip.ChipGroup
                         android:id="@+id/etiquette_chip_group"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="20dp"
                         app:singleSelection="true"
-                        app:selectionRequired="false">
+                        app:selectionRequired="false"
+                        app:chipSpacingHorizontal="8dp">
 
                         <com.google.android.material.chip.Chip
                             android:id="@+id/chip_formal"
                             style="@style/Widget.Material3.Chip.Suggestion"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Formal"
+                            android:text="@string/formal"
                             android:textColor="@color/white"
+                            android:textStyle="bold"
                             app:chipBackgroundColor="@color/black"
                             app:chipStrokeColor="#E5E7EB"
                             app:chipStrokeWidth="1dp"
-                            app:chipCornerRadius="18dp" />
+                            app:chipCornerRadius="20dp"
+                            android:paddingHorizontal="16dp"
+                            android:paddingVertical="8dp" />
 
                         <com.google.android.material.chip.Chip
                             android:id="@+id/chip_business"
                             style="@style/Widget.Material3.Chip.Suggestion"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Business"
+                            android:text="@string/business"
                             android:textColor="@color/white"
+                            android:textStyle="bold"
                             app:chipBackgroundColor="@color/black"
                             app:chipStrokeColor="#E5E7EB"
                             app:chipStrokeWidth="1dp"
-                            app:chipCornerRadius="18dp" />
+                            app:chipCornerRadius="20dp"
+                            android:paddingHorizontal="16dp"
+                            android:paddingVertical="8dp" />
 
                         <com.google.android.material.chip.Chip
                             android:id="@+id/chip_social"
                             style="@style/Widget.Material3.Chip.Suggestion"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Social"
+                            android:text="@string/social"
                             android:textColor="@color/white"
+                            android:textStyle="bold"
                             app:chipBackgroundColor="@color/black"
                             app:chipStrokeColor="#E5E7EB"
                             app:chipStrokeWidth="1dp"
-                            app:chipCornerRadius="18dp" />
+                            app:chipCornerRadius="20dp"
+                            android:paddingHorizontal="16dp"
+                            android:paddingVertical="8dp" />
                     </com.google.android.material.chip.ChipGroup>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Dynamic Etiquette Content Card -->
+            <!-- Enhanced Dynamic Etiquette Content Card -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/etiquette_details_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="20dp"
                 app:cardCornerRadius="20dp"
-                app:cardElevation="4dp"
-                android:visibility="gone">
+                app:cardElevation="6dp"
+                app:cardBackgroundColor="#E0F2FE"
+                android:visibility="gone"
+                app:strokeWidth="2dp"
+                app:strokeColor="#7DD3FC">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="20dp"
-                    android:background="@drawable/bottom_nav_background"
-                    android:backgroundTint="#E0F2FE">
+                    android:padding="24dp">
 
                     <TextView
                         android:id="@+id/etiquette_category_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Formal Etiquette"
-                        android:textColor="#1F2937"
-                        android:textSize="18sp"
+                        android:text="@string/formal_etiquette"
+                        android:textColor="#0C4A6E"
+                        android:textSize="19sp"
+                        android:textStyle="bold"
                         android:fontFamily="sans-serif-medium"
-                        android:layout_marginBottom="12dp" />
+                        android:layout_marginBottom="14dp" />
 
                     <TextView
                         android:id="@+id/etiquette_details_content"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text=""
-                        android:textColor="#374151"
-                        android:textSize="14sp"
-                        android:lineSpacingExtra="6dp" />
+                        android:textColor="#075985"
+                        android:textSize="15sp"
+                        android:lineSpacingExtra="6dp"
+                        android:lineSpacingMultiplier="1.3" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Additional Info Cards -->
-            <TextView
-                android:layout_width="wrap_content"
+            <!-- Enhanced Key Points Section Header -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Key Points"
-                android:textColor="#1F2937"
-                android:textSize="20sp"
-                android:layout_marginStart="16dp"
-                android:layout_marginBottom="12dp" />
+                android:orientation="horizontal"
+                android:paddingHorizontal="16dp"
+                android:layout_marginBottom="12dp"
+                android:gravity="center_vertical">
 
-            <!-- Placeholder for dynamic content -->
+                <View
+                    android:layout_width="5dp"
+                    android:layout_height="28dp"
+                    android:background="@drawable/bottom_nav_background" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/key_points"
+                    android:textColor="#1F2937"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-medium"
+                    android:layout_marginStart="12dp" />
+            </LinearLayout>
+
+            <!-- Enhanced Key Points Card -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/key_points_card"
                 android:layout_width="match_parent"
@@ -429,51 +507,94 @@
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginBottom="24dp"
                 app:cardCornerRadius="20dp"
-                app:cardElevation="6dp">
+                app:cardElevation="6dp"
+                app:cardBackgroundColor="#F3F4F6"
+                app:strokeWidth="2dp"
+                app:strokeColor="#C4B5FD">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="20dp"
-                    android:background="@drawable/bottom_nav_background"
-                    android:backgroundTint="#d9d2e9">
+                    android:padding="24dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="14dp">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            app:cardCornerRadius="20dp"
+                            app:cardElevation="4dp"
+                            app:cardBackgroundColor="#8B5CF6"
+                            android:layout_marginEnd="12dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="✓"
+                                android:textColor="@android:color/white"
+                                android:textSize="22sp"
+                                android:textStyle="bold"
+                                android:gravity="center" />
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Essential Tips"
+                            android:textColor="#5B21B6"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            android:fontFamily="sans-serif-medium" />
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/key_points_content"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Key etiquette points will appear here..."
+                        android:text="@string/key_points_placeholder"
                         android:textColor="#374151"
-                        android:textSize="14sp"
-                        android:lineSpacingExtra="6dp" />
+                        android:textSize="15sp"
+                        android:lineSpacingExtra="6dp"
+                        android:lineSpacingMultiplier="1.3" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <!-- Modern Floating Action Button -->
+    <!-- Enhanced Floating Action Button -->
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/fab_quick_guide"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="90dp"
-        android:text="Quick Guide"
+        android:layout_marginBottom="24dp"
+        android:text="@string/quick_guide"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-medium"
         app:icon="@drawable/ic_tourist_help"
         app:backgroundTint="#6366F1"
         android:textColor="@android:color/white"
-        app:iconTint="@android:color/white" />
+        app:iconTint="@android:color/white"
+        app:elevation="8dp"
+        app:cornerRadius="16dp" />
+
+    <!-- Enhanced Bottom Navigation (if needed) -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@drawable/bottom_nav_background"
+        app:menu="@menu/menu_main"
+        app:labelVisibilityMode="labeled"
+        android:visibility="gone" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-    <!-- Reference List
-       Iarn Tech, 2022. Android Studio User Interface - Layout and XML. [video online]. Available at: https://www.youtube.com/watch?v=kn_7H8v4Emo [Accessed on 15 September 2025]
-       UiLover, 2023. Android UI Design Mobile dashboard UI Tutorial | android projects. [video online]. Available at: https://www.youtube.com/watch?v=5dDHplq9rss  [Accessed on 18 September 2025]
-       WsCube Tech, 2021. Layouts in Android Studio (XML) | Android UI Design Explained. [video online]. Available at: https://www.youtube.com/watch?v=PeCOKgAua7A  [Accessed on 16 September 2025]
-       CodeWithTS, 2024. View Binding and Data Binding in Android Studio using Kotlin. [video online]. Available at: https://www.youtube.com/watch?v=tIXSuoJbX-8  [Accessed on 20 September 2025]
-       Android Developers, 2025. Develop a UI with Views. [online]. Available at: https://developer.android.com/studio/write/layout-editor [Accessed on 15 September 2025]
-
-       -->

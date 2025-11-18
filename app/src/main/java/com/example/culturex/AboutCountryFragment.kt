@@ -160,5 +160,4 @@ class AboutCountryFragment : Fragment(R.layout.fragment_about_country) {
                 Toast.LENGTH_SHORT).show()
         }
     }
-
 }
