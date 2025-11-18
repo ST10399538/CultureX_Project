@@ -217,9 +217,12 @@ Images of the App:
 - Onboarding Page:
 <img width="483" height="1056" alt="image" src="https://github.com/user-attachments/assets/c6f69e87-4fe3-4eb0-b35c-a6f7c3bf0924" />
 
+
 - Home Page:
-<img width="485" height="1051" alt="image" src="https://github.com/user-attachments/assets/b25e4971-71e6-4006-bd53-b28d7a899b2f" />
-<img width="483" height="1054" alt="image" src="https://github.com/user-attachments/assets/0c8725b5-e83c-4f93-9c63-fb29d32b616c" />
+<img width="403" height="848" alt="image" src="https://github.com/user-attachments/assets/cc8ef75d-1d62-4ac0-bf22-f926669cdb6e" />
+<img width="397" height="842" alt="image" src="https://github.com/user-attachments/assets/a1f29018-2882-4907-b7ad-57383a6476b9" />
+
+
 
 - Profile & Edit Profile Pages:
 <img width="484" height="1056" alt="image" src="https://github.com/user-attachments/assets/793a5ead-db36-412d-b35f-0e1a16e12ce1" />
@@ -232,22 +235,41 @@ Images of the App:
 <img width="490" height="1056" alt="image" src="https://github.com/user-attachments/assets/16077dae-f1c2-4d20-b99b-6caeba139cd8" />
 <img width="490" height="1051" alt="image" src="https://github.com/user-attachments/assets/78981f15-b45b-49cd-8eaa-6b0bed14280e" />
 
+
 - The Five Categories:
-<img width="484" height="1053" alt="image" src="https://github.com/user-attachments/assets/c2b742d9-ab51-4a7c-847f-fc4770dc7a7a" />
-<img width="476" height="1051" alt="image" src="https://github.com/user-attachments/assets/eebd48e5-b65b-4bea-9bae-698b4740a67f" />
-<img width="483" height="1054" alt="image" src="https://github.com/user-attachments/assets/914cd799-1be0-449a-851e-a44e49e3d15a" />
-<img width="484" height="1051" alt="image" src="https://github.com/user-attachments/assets/2f0a0e6b-b26e-4ad0-affe-54b1c9810107" />
-<img width="476" height="1051" alt="image" src="https://github.com/user-attachments/assets/eb257954-4729-4fb4-8444-74c1d826dd50" />
-<img width="481" height="1053" alt="image" src="https://github.com/user-attachments/assets/7c9c67b1-00e7-4aef-807b-551952d92659" />
-<img width="494" height="1048" alt="image" src="https://github.com/user-attachments/assets/a180193d-8b38-4aa4-9358-28dbdf919f45" />
-<img width="484" height="1059" alt="image" src="https://github.com/user-attachments/assets/7d3ced62-5b37-4e1d-b858-98542a001203" />
-<img width="484" height="1056" alt="image" src="https://github.com/user-attachments/assets/168abe2a-13e9-4826-abf6-780a6e367081" />
-<img width="478" height="1058" alt="image" src="https://github.com/user-attachments/assets/203671b1-4f14-4ed6-9c80-0cbbd61d773f" />
-<img width="476" height="1056" alt="image" src="https://github.com/user-attachments/assets/af7a6a30-222b-4907-972f-c0e7228322b3" />
+<img width="385" height="832" alt="image" src="https://github.com/user-attachments/assets/65776669-57b5-43ba-acd8-b7945a32d5dc" />
+<img width="397" height="842" alt="image" src="https://github.com/user-attachments/assets/71c264a2-266f-4663-89ed-8654ef00e06a" />
+
+<img width="395" height="842" alt="image" src="https://github.com/user-attachments/assets/4e9cf7d3-0cda-4636-a894-3d946e088ef1" />
+<img width="382" height="835" alt="image" src="https://github.com/user-attachments/assets/ff734f79-593b-44de-8864-b54025f49764" />
+
+<img width="392" height="835" alt="image" src="https://github.com/user-attachments/assets/a1ec1e64-2195-44c6-afaa-12e02994bbaf" />
+<img width="385" height="838" alt="image" src="https://github.com/user-attachments/assets/68b23ff9-c3bb-4dfd-9f4f-3b350285b61a" /> 
+<img width="402" height="841" alt="image" src="https://github.com/user-attachments/assets/2a24b485-05f8-4060-8fea-6bba891220ca" />
+
+<img width="388" height="833" alt="image" src="https://github.com/user-attachments/assets/e60bc051-5d6c-4494-b0e4-e7269e7ee410" />
+<img width="395" height="838" alt="image" src="https://github.com/user-attachments/assets/0727f196-27d3-46e1-87b9-5538b8436a7f" />
+<img width="383" height="830" alt="image" src="https://github.com/user-attachments/assets/fb5d77a9-8b8f-4954-9db6-4b97ef7c4deb" />
+
+<img width="387" height="825" alt="image" src="https://github.com/user-attachments/assets/52348e91-f110-4db0-bb91-37412c74fd97" />
+<img width="388" height="832" alt="image" src="https://github.com/user-attachments/assets/97c2612f-d9bb-4979-a2d6-5b56034048be" />
+
 
 - Tourist Attraction Page:
 <img width="489" height="1046" alt="image" src="https://github.com/user-attachments/assets/f0de4300-47c4-4e3e-8bcb-aebd8c63c9a5" />
 <img width="476" height="1048" alt="image" src="https://github.com/user-attachments/assets/f0101cc9-44fe-49ee-8b56-c4dc65cc03e1" />
+
+
+- Saved Page:
+<img width="387" height="838" alt="image" src="https://github.com/user-attachments/assets/e3f8a37b-b7a2-49e7-903e-48c43e274a75" />
+
+- Notification Page:
+<img width="393" height="823" alt="image" src="https://github.com/user-attachments/assets/25d89ccb-dbba-4f43-b37a-da82a4316c0f" />
+
+- Emergency Page:
+<img width="385" height="837" alt="image" src="https://github.com/user-attachments/assets/536c63f9-0fa2-4b47-8bea-69afc241272f" />
+<img width="386" height="836" alt="image" src="https://github.com/user-attachments/assets/6ecad36e-cb33-4b4f-968f-b5a8c6b24a5d" />
+
 
 
 
