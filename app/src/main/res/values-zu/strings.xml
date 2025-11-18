@@ -1,0 +1,239 @@
+<resources>
+    <string name="web_client_id" translatable="false">257009955481-8aikluaaghc2ctdat5pu5hu62komdmdg.apps.googleusercontent.com</string>
+
+    <string name="app_name">CultureX</string>
+    <string name="action_settings">Izilungiselelo</string>
+    <string name="first_fragment_label">Ingxenye Yokuqala</string>
+    <string name="second_fragment_label">Ingxenye Yesibili</string>
+    <string name="next">Okulandelayo</string>
+    <string name="previous">Okwangaphambilini</string>
+
+    <string name="communication_style">Isitayela Sokuxhumana</string>
+    <string name="connect_authentically">Xhuma Ngokwethembeka</string>
+    <string name="dos_count">Izinto Okufanele Uzenze</string>
+    <string name="donts_count">Izinto Ongazenzi</string>
+    <string name="examples_count">Amathiphu</string>
+    <string name="emergency_notice">Isaziso Esiphuthumayo</string>
+    <string name="emergency_tips_content">Amathiphu abalulekile nezinyathelo okufanele ulandele.</string>
+    <string name="loading_communication">Kulayishwa imihlahlandlela yokuxhumana…</string>
+    <string name="master_local_communication">Funda Ukuxhumana Kwasekhaya</string>
+    <string name="save_offline">Londoloza Ungaxhunyiwe Ku-inthanethi</string>
+
+    <string name="nav_emergency">Izimo Eziphuthumayo</string>
+    <string name="nav_home">Ikhaya</string>
+    <string name="nav_saved">Ezigcinwe</string>
+    <string name="nav_notifications">Izaziso</string>
+
+    <string name="home_title">Ikhaya</string>
+    <string name="select_country">Khetha Izwe</string>
+    <string name="menu_dress_code">Ikhodi Yokugqoka</string>
+    <string name="menu_communication">Isitayela Sokuxhumana</string>
+    <string name="menu_greetings">Izibingelelo</string>
+    <string name="menu_etiquette">Imithetho Yokuziphatha</string>
+    <string name="menu_tipping">Amasiko Wokunikeza Amathiphu</string>
+    <string name="search">Sesha</string>
+
+    <string name="settings_title">Izilungiselelo</string>
+    <string name="customize_experience">Lungisa Okuhlangenwe Nakho Kwakho</string>
+
+    <string name="account_section">I-akhawunti</string>
+    <string name="biometric_login">Ngena Ngokobuso/Imfingqo</string>
+    <string name="biometric_subtext">Sebenzisa iminwe noma i-ID yobuso</string>
+    <string name="biometric_not_available">Ayitholakali kule divayisi</string>
+    <string name="biometric_login_first">Ngena kuqala ukuze uvule</string>
+    <string name="biometric_enabled">✓ Ukungena ngobuchwepheshe be-biometric kuvuliwe</string>
+    <string name="biometric_disabled">Ukungena ngobuchwepheshe be-biometric kuvaliwe</string>
+
+    <string name="preferences_section">Okukhethayo</string>
+    <string name="language">Ulimi</string>
+    <string name="language_english">English</string>
+    <string name="language_afrikaans">Afrikaans</string>
+    <string name="language_zulu">Zulu</string>
+    <string name="language_french">French</string>
+    <string name="language_spanish">Spanish</string>
+    <string name="language_changed">Ulimi lushintshile lwaba %s</string>
+
+    <string name="theme">Isitayela</string>
+    <string name="light_mode">Imodi Ekhaliphile</string>
+    <string name="dark_mode">Imodi Emnyama</string>
+    <string name="theme_changed">Isitayela sishintshile</string>
+
+    <string name="notifications_subtext">Hlala unolwazi ngezaziso</string>
+    <string name="notifications_enabled">Izaziso zivuliwe</string>
+    <string name="notifications_disabled">Izaziso zivaliwe</string>
+
+    <string name="about_section">Mayelana</string>
+    <string name="privacy_policy">Inqubomgomo Yobumfihlo</string>
+    <string name="app_version">Inguqulo Yohlelo</string>
+    <string name="export_data">Thumela Idatha</string>
+    <string name="export_success">Kuthunyelwe ku-Downloads/culturex_export.json</string>
+    <string name="export_failed">Ukuthumela kwehlulekile: %s</string>
+
+    <string name="profile_title">Iphrofayela</string>
+    <string name="edit_profile">Hlela Iphrofayela</string>
+
+    <string name="content_section">Okuqukethwe</string>
+    <string name="download">Landa</string>
+
+    <string name="itinerary_plans">Izinhlelo Zohambo</string>
+    <string name="itinerary_subtext">Buka futhi uhlele uhambo lwakho</string>
+    <string name="sign_out">Phuma</string>
+
+    <string name="name">Igama</string>
+    <string name="surname">Isibongo</string>
+    <string name="email">I-imeyili</string>
+    <string name="phone_number">Inombolo Yocingo</string>
+    <string name="change_picture">Shintsha Isithombe</string>
+    <string name="update_profile">Buyekeza Iphrofayela</string>
+    <string name="name_hint">Faka igama lakho</string>
+    <string name="surname_hint">Faka isibongo sakho</string>
+    <string name="email_hint">isibonelo@email.com</string>
+    <string name="phone_hint">XX XXX XXXX</string>
+    <string name="personal_info_security">Ulwazi lwakho lomuntu siqu luphephile futhi aluzukwabiwa kwabanye.</string>
+
+    <string name="emergency_title">Izinsiza Eziphuthumayo</string>
+    <string name="emergency_services">Finyelela izinsiza eziphuthumayo ngokushesha.</string>
+    <string name="emergency_tip">Hlala unezinombolo eziphuthumayo ezigcinwe ocingweni lwakho.</string>
+
+    <string name="police">Amaphoyisa</string>
+    <string name="medical_emergency">Izimo Zokuphuthuma Zokwelashwa</string>
+    <string name="fire_department">Umnyango Wezicishamlilo</string>
+    <string name="tourist_helpline">Ucingo Losizo Lwezivakashi</string>
+    <string name="general_emergency">Izimo Eziphuthumayo Ezivamile</string>
+    <string name="emergency_tips">Amathiphu Ezimo Eziphuthumayo</string>
+
+    <string name="emergency_tips_list">
+1. Hlala uzolile uhlaziye okuzungezile.\n
+2. Bheka uhlobo lwezimo eziphuthumayo futhi uthinte insiza efanele.\n
+3. Gcina ucingo lwakho lukhokhelwe futhi lutholakala njalo.\n
+4. Yabelana ngendawo yakho nabasizi.\n
+5. Landela imiyalelo ngokucophelela kuze kufike usizo.
+</string>
+
+    <string name="share">Yabelana</string>
+    <string name="translate">Humusha</string>
+    <string name="bookmark">Faka Esikhumbuzweni</string>
+    <string name="overview">Uhlolojikelele</string>
+    <string name="cultural_context">Umgomo Wamasiko</string>
+    <string name="loading_content">Kulayishwa okuqukethwe...</string>
+
+    <string name="dress_code_guide">Umhlahlandlela Wokugqoka</string>
+    <string name="local_fashion_etiquette">Imithetho Yokugqoka Yendawo</string>
+    <string name="recommended_attire">Okunconywayo Ukugqoka</string>
+    <string name="items_to_avoid">Izinto Okufanele Uzibambele</string>
+    <string name="practical_examples">Izibonelo Ezisebenzayo</string>
+    <string name="dress_code_description">Ukuqonda izikhodi zokugqoka zasendaweni kusiza ukuhlonipha amasiko futhi kudale umbono omuhle. Okulindelwe ekugqokweni kuhluka ngokuya ngendawo, inkolo, nohlobo lomcimbi.</string>
+
+    <string name="what_to_wear">Okufanele Ukugqoke</string>
+    <string name="what_to_avoid">Okufanele Ukugweme</string>
+    <string name="scenario_examples">Izibonelo Zezimiso</string>
+
+    <string name="interactive_card_emoji">🗣️</string>
+    <string name="interactive_card_title">Funda Ukuxhumana Kwasekhaya</string>
+    <string name="interactive_card_subtitle">Xhuma ngokwethembeka nabantu bendawo</string>
+
+    <string name="dos_emoji">👍</string>
+    <string name="donts_emoji">⚠️</string>
+    <string name="examples_emoji">💬</string>
+
+    <string name="trip_itinerary">Uhlelo Lohambo</string>
+    <string name="quick_actions">Izinyathelo Ezisheshayo</string>
+    <string name="add_event_symbol">+</string>
+    <string name="edit">Hlela</string>
+    <string name="filter">Hlunga</string>
+    <string name="view_all">Buka Konke</string>
+    <string name="create_event">Dala Umcimbi</string>
+    <string name="set_date_time">Setha Usuku Nesikhathi</string>
+    <string name="date_not_selected">Usuku: Alukhethwanga</string>
+    <string name="time_not_selected">Isikhathi: Asikhethwanga</string>
+    <string name="describe_event_hint">Chaza umcimbi wakho...</string>
+    <string name="save">Londoloza</string>
+    <string name="your_events">Imicimbi Yakho</string>
+    <string name="tip_edit_mode">💡 Iseluleko: Sebenzisa Imodi Yokuhlela ukuguqula noma ukususa imicimbi yakho</string>
+
+    <string name="emoji_wave">👋</string>
+    <string name="learn_local_greetings">Funda Izibingelelo Zasendaweni</string>
+    <string name="practice">Zijwayeze</string>
+    <string name="emoji_speech">🗣️</string>
+    <string name="language_diversity">Umehluko Wezilimi</string>
+    <string name="loading_greeting_info">Kulayishwa imininingwane yezibingelelo…</string>
+    <string name="common_greetings">Izibingelelo Ezivamile</string>
+    <string name="loading_greetings">Kulayishwa izibingelelo...</string>
+
+    <string name="content_title">Isitayela Sokuxhumana</string>
+    <string name="recommended_practices">Izincomo Ezinconyiwe</string>
+    <string name="common_mistakes">Amaphutha Avamile</string>
+    <string name="real_world_scenarios">Izimo Zangempela</string>
+
+    <string name="offline_mode">Imodi Engaxhunyiwe Ku-inthanethi</string>
+    <string name="loading">Kulayishwa...</string>
+    <string name="emergency">Izimo Eziphuthumayo</string>
+    <string name="home">Ikhaya</string>
+    <string name="saved">Ezigcinwe</string>
+    <string name="notifications">Izaziso</string>
+
+    <string name="emoji_hat">🎩</string>
+    <string name="social_etiquette">Imithetho Yokuziphatha Komphakathi</string>
+    <string name="loading_etiquette_information">Kulayishwa imininingwane yomthetho wokuziphatha…</string>
+    <string name="formal">Esemthethweni</string>
+
+    <string name="introduction_text">CultureX izibophezele ekuvikeleni ulwazi lwakho lomuntu siqu. Le Nqubomgomo Yobumfihlo ichaza ukuthi yiluphi ulwazi esiluqoqa, ukuthi silusebenzisa kanjani, namalungelo onawo.</string>
+    <string name="personal_info_text">Singaqoqa ulwazi lomuntu siqu njengegama lakho, i-imeyili, nomsebenzi wakho ngaphakathi kohlelo.</string>
+    <string name="usage_info_text">Siqoqa ulwazi lokusebenzisa ukuthuthukisa ukusebenza kohlelo, kufaka phakathi amakhasi avakashelwe, izici ezisetshenzisiwe, nesikhathi esichithwe kuhlelo.</string>
+    <string name="how_use_info_text">Sisebenzisa idatha eqoqiwe ukuhlinzeka ngezinsizakalo, ukuthuthukisa ulwazi lomsebenzisi, ukwenza okuqukethwe kube ngokwakho, nokuthuthukisa ukuphepha kohlelo.</string>
+    <string name="data_security_text">Sisebenzisa izinyathelo zokuphepha ezijwayelekile emkhakheni ukuvikela ulwazi lwakho ekufinyeleleni okungagunyaziwe noma ukusetshenziswa kabi.</string>
+    <string name="info_sharing_text">Asidayisi noma ukuqasha ulwazi lomuntu siqu. Idatha ingabelwana kuphela nabaqondisi abathembekile abadingekayo ukuze uhlelo lusebenze.</string>
+    <string name="privacy_rights_text">Unelungelo lokufinyelela, ukubuyekeza, noma ukususa ulwazi lwakho, kanye nokulawula ukuthi lusetshenziswa kanjani.</string>
+    <string name="data_retention_text">Sigcina idatha kuphela isikhathi esidingekayo ukuhlinzeka ngezinsizakalo noma ukuhambisana nemithetho.</string>
+    <string name="child_privacy_text">CultureX ayiqoqi ngokwazi idatha yabantwana abangaphansi kweminyaka engu-13. Abazali bangaxhumana nathi ukuze bacelwe ukususa idatha.</string>
+    <string name="policy_changes_text">Singavuselela le Nqubomgomo Yobumfihlo ngezikhathi ezithile. Ukusebenzisa uhlelo kuqhubekayo kusho ukuthi uyayamukela noma yiziphi izinguquko.</string>
+    <string name="offline">Ungaxhunyiwe Ku-inthanethi</string>
+
+    <string name="total_with_tip">I-Total NgeTip</string>
+    <string name="per_person">Ngomuntu Ngamunye</string>
+
+    <string name="enter_bill_amount">Faka inani lebhili</string>
+    <string name="split_hint">Faka inani labantu ozohlukanisa nabo</string>
+    <string name="people">abantu</string>
+    <string name="custom_hint">Faka iphesenti elenziwe ngokwezifiso</string>
+    <string name="percent_symbol">%</string>
+    <string name="app_custom">Ngokwezifiso</string>
+
+    <string name="contact_us_text">Uma unemibuzo mayelana nale Nqubomgomo Yobumfihlo noma idatha yakho, sicela uxhumane nathi ngezansi.</string>
+    <string name="contact_email">I-imeyili: support@culturex.app</string>
+    <string name="contact_address">Ikheli: CultureX Support, Johannesburg, South Africa</string>
+
+    <string name="business">Ibhizinisi</string>
+    <string name="social">Umphakathi</string>
+    <string name="formal_etiquette">Imithetho Esemthethweni</string>
+    <string name="key_points">Amaphuzu Avelele</string>
+    <string name="key_points_placeholder">Akukho amaphuzu atholakalayo.</string>
+    <string name="quick_guide">Umhlahlandlela Osheshayo</string>
+
+    <string name="calculate">Bala</string>
+    <string name="tip_amount">Inani LeTip</string>
+    <string name="total_amount">Inani Eliphelele</string>
+    <string name="total_per_person">Inani Ngomuntu Ngamunye</string>
+
+    <string name="content_title_tip">Isiko Lokunikeza Amathiphu</string>
+    <string name="country_name">Izwe</string>
+    <string name="content_title_coms">Isitayela Sokuxhumana</string>
+    <string name="quick_tip_calculator">Isibali Se-Tip Esisheshayo</string>
+    <string name="recommended_tip">Kunconywa: 15%</string>
+    <string name="bill_hint">Faka inani lebhili</string>
+    <string name="currency_symbol">$</string>
+    <string name="split_between">Hlukanisa phakathi</string>
+    <string name="people_label">abantu</string>
+    <string name="select_tip_percentage">Khetha Iphecentage LeTip</string>
+    <string name="tip_10">10%</string>
+    <string name="tip_15">15%</string>
+    <string name="tip_20">20%</string>
+    <string name="custom_tip_hint">Ngokwezifiso</string>
+    <string name="apply_custom_tip">Faka Ngokwezifiso</string>
+    <string name="tip_amount_label">Inani LeTip</string>
+    <string name="total_amount_label">Inani Eliphelele</string>
+    <string name="per_person_amount">Ngomuntu: $0.00</string>
+
+    <string name="tipping_guidelines">Imihlahlandlela Yokunikeza Amathiphu</string>
+    <string name="loading_tips">Kulayishwa amathiphu…</string>
+</resources>

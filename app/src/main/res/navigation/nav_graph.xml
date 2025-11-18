@@ -159,6 +159,13 @@
         android:label="Tourist Attractions" />
 
     <!-- Cultural Content Fragments -->
+
+    <fragment
+        android:id="@+id/aboutCountryFragment"
+        android:name="com.example.culturex.AboutCountryFragment"
+        android:label="About Country"
+        tools:layout="@layout/fragment_about_country" />
+
     <fragment
         android:id="@+id/dressCodeFragment"
         android:name="com.example.culturex.DressCodeFragment"

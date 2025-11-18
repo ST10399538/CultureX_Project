@@ -11,11 +11,13 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.culturex.utils.SharedPreferencesManager
 import android.util.Log
+import com.example.culturex.utils.BiometricHelper
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     // SharedPreferences manager to handle saved user data like profile picture URL
     private lateinit var sharedPrefsManager: SharedPreferencesManager
+    private lateinit var biometricHelper: BiometricHelper
     private lateinit var profileImage: ImageView
     private lateinit var editProfileButton: Button
     private lateinit var downloadOption: LinearLayout
@@ -34,6 +36,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         super.onViewCreated(view, savedInstanceState)
 
         sharedPrefsManager = SharedPreferencesManager(requireContext())
+        biometricHelper = BiometricHelper(this)
 
         initializeViews(view)
         loadProfilePicture()
@@ -170,15 +173,62 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             .show()
     }
 
-    // Clears user data and navigates to login screen
+    /**
+     * Performs sign out while preserving biometric login credentials
+     * This allows the user to quickly sign back in using biometric authentication
+     */
     private fun performSignOut() {
-        // Clear all saved data
+        // Save current user credentials before logging out (for biometric login)
+        val currentEmail = sharedPrefsManager.getEmail()
+        val currentUserId = sharedPrefsManager.getUserId()
+        val currentDisplayName = sharedPrefsManager.getDisplayName()
+        val currentBiometricEnabled = sharedPrefsManager.isBiometricEnabled()
+        val isBiometricAvailable = biometricHelper.isBiometricAvailable()
+
+        Log.d("ProfileFragment", "Signing out user: $currentEmail")
+        Log.d("ProfileFragment", "Biometric status - Available: $isBiometricAvailable, Enabled: $currentBiometricEnabled")
+
+        // Clear all session data (tokens, etc.)
         sharedPrefsManager.logout()
 
-        Toast.makeText(requireContext(), "Signed out successfully", Toast.LENGTH_SHORT).show()
+        // If biometric is available and was enabled, restore minimal credentials for biometric login
+        if (isBiometricAvailable && currentBiometricEnabled && !currentEmail.isNullOrEmpty() && !currentUserId.isNullOrEmpty()) {
+            Log.d("ProfileFragment", "Preserving biometric credentials for: $currentEmail")
+
+            // Restore only the necessary data for biometric login
+            sharedPrefsManager.saveAuthData(
+                accessToken = null, // Clear tokens for security
+                refreshToken = null,
+                userId = currentUserId, // Keep user ID for biometric login
+                email = currentEmail, // Keep email for display
+                displayName = currentDisplayName, // Keep display name for personalization
+                phoneNumber = null // Clear sensitive data
+            )
+
+            // Ensure biometric remains enabled
+            sharedPrefsManager.setBiometricEnabled(true)
+
+            Toast.makeText(
+                requireContext(),
+                "Signed out. Use biometric to sign in quickly!",
+                Toast.LENGTH_LONG
+            ).show()
+
+            Log.d("ProfileFragment", "Biometric credentials preserved for quick login")
+        } else {
+            // Standard sign out without biometric preservation
+            Toast.makeText(
+                requireContext(),
+                "Signed out successfully",
+                Toast.LENGTH_SHORT
+            ).show()
+
+            Log.d("ProfileFragment", "Standard sign out - biometric not preserved")
+        }
 
         // Navigate to login screen
         try {
+            // Clear the entire back stack and navigate to login
             findNavController().navigate(R.id.loginFragment)
         } catch (e: Exception) {
             Log.e("ProfileFragment", "Navigation to login failed", e)

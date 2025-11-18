@@ -33,9 +33,9 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private lateinit var loginButton: Button
     private lateinit var signUpLink: TextView
     private lateinit var forgotPasswordLink: TextView
-    private lateinit var fingerprintContainer: View
-    private lateinit var fingerprintIcon: ImageView
-    private lateinit var fingerprintText: TextView
+    private lateinit var biometricLoginButton: View
+    private lateinit var biometricIcon: ImageView
+    private lateinit var biometricHelperText: TextView
     private lateinit var googleLoginButton: ImageView
 
     // Utility and helper classes
@@ -51,8 +51,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
-
-            // Retrieve sign-in result from the returned intent
             val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
             handleGoogleSignInResult(task)
         } else {
@@ -77,9 +75,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun setupGoogleSignIn() {
-        // Configure Google Sign-In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.web_client_id)) // You'll add this to strings.xml
+            .requestIdToken(getString(R.string.web_client_id))
             .requestEmail()
             .requestProfile()
             .build()
@@ -94,66 +91,106 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         loginButton = view.findViewById(R.id.login_button)
         signUpLink = view.findViewById(R.id.sign_up_link)
         forgotPasswordLink = view.findViewById(R.id.forgot_password)
-        fingerprintContainer = view.findViewById(R.id.fingerprint_container)
-        fingerprintIcon = view.findViewById(R.id.fingerprint_icon)
-        fingerprintText = view.findViewById(R.id.fingerprint_text)
+        biometricLoginButton = view.findViewById(R.id.biometric_login_button)
+        biometricIcon = view.findViewById(R.id.biometric_icon)
+        biometricHelperText = view.findViewById(R.id.biometric_helper_text)
         googleLoginButton = view.findViewById(R.id.google_login)
     }
 
     // Setup biometric authentication and listeners
     private fun setupBiometric() {
         biometricHelper.setAuthListener(object : BiometricHelper.BiometricAuthListener {
-            // Called when authentication succeeds
             override fun onAuthenticationSucceeded() {
                 Log.d("LoginFragment", "Biometric authentication succeeded")
                 val savedEmail = sharedPrefsManager.getEmail()
                 val savedUserId = sharedPrefsManager.getUserId()
 
-                // Proceed only if user credentials exist
                 if (!savedEmail.isNullOrEmpty() && !savedUserId.isNullOrEmpty()) {
                     handleBiometricLogin()
                 } else {
-                    Toast.makeText(requireContext(), "No saved credentials found. Please login with email and password first.",
-                        Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "No saved credentials found. Please login with email and password first.",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
-            // Called when biometric fails
+
             override fun onAuthenticationFailed() {
-                Toast.makeText(requireContext(), "Biometric authentication failed. Try again.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Biometric authentication failed. Try again.",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
-            // Handles biometric errors
+
             override fun onAuthenticationError(errorCode: Int, errorMessage: String) {
                 Log.e("LoginFragment", "Biometric error: $errorCode - $errorMessage")
                 when (errorCode) {
                     androidx.biometric.BiometricPrompt.ERROR_USER_CANCELED -> {}
                     androidx.biometric.BiometricPrompt.ERROR_NEGATIVE_BUTTON -> {
-                        Toast.makeText(requireContext(), "Please login with email and password", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(),
+                            "Please login with email and password",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                     else -> {
-                        Toast.makeText(requireContext(), "Biometric error: $errorMessage", Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            requireContext(),
+                            "Biometric error: $errorMessage",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                 }
             }
         })
-// Show or hide fingerprint section
-        updateFingerprintVisibility()
+
+        // Update biometric button visibility
+        updateBiometricButtonVisibility()
     }
 
-    // Control visibility of fingerprint UI elements
-    private fun updateFingerprintVisibility() {
+    /**
+     * Control visibility of biometric button
+     * Button is visible when:
+     * 1. Device has biometric capability
+     * 2. User has saved credentials (has logged in before)
+     * 3. Biometric is enabled in settings
+     */
+    private fun updateBiometricButtonVisibility() {
         val isBiometricAvailable = biometricHelper.isBiometricAvailable()
         val hasSavedCredentials = !sharedPrefsManager.getEmail().isNullOrEmpty()
         val isBiometricEnabled = sharedPrefsManager.isBiometricEnabled()
 
-        if (isBiometricAvailable && hasSavedCredentials && isBiometricEnabled) {
-            fingerprintContainer.visibility = View.VISIBLE
-            fingerprintText.visibility = View.VISIBLE
-            fingerprintText.text = "Tap fingerprint to login as ${sharedPrefsManager.getEmail()}"
+        Log.d("LoginFragment", "Biometric status - Available: $isBiometricAvailable, HasCreds: $hasSavedCredentials, Enabled: $isBiometricEnabled")
+
+        // Show button if biometric is available AND either:
+        // - User has credentials saved and biometric enabled, OR
+        // - Just biometric hardware is available (for first-time setup visibility)
+        if (isBiometricAvailable) {
+            biometricLoginButton.visibility = View.VISIBLE
+
+            if (hasSavedCredentials && isBiometricEnabled) {
+                // Show with user info
+                biometricHelperText.visibility = View.VISIBLE
+                val email = sharedPrefsManager.getEmail()
+                biometricHelperText.text = "Quick login as ${email?.substringBefore("@") ?: "user"}"
+                biometricLoginButton.alpha = 1.0f
+                biometricLoginButton.isEnabled = true
+            } else {
+                // Show but indicate not set up
+                biometricHelperText.visibility = View.VISIBLE
+                biometricHelperText.text = "Biometric login (setup required)"
+                biometricLoginButton.alpha = 0.6f
+                biometricLoginButton.isEnabled = true
+            }
         } else {
-            fingerprintContainer.visibility = View.GONE
-            fingerprintText.visibility = View.GONE
+            // Hide if no biometric hardware
+            biometricLoginButton.visibility = View.GONE
+            biometricHelperText.visibility = View.GONE
         }
     }
+
     // Logs user in using saved biometric credentials
     private fun handleBiometricLogin() {
         val savedEmail = sharedPrefsManager.getEmail()
@@ -161,18 +198,31 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         val savedDisplayName = sharedPrefsManager.getDisplayName()
 
         if (!savedEmail.isNullOrEmpty() && !savedUserId.isNullOrEmpty()) {
-            Toast.makeText(requireContext(), "Welcome back, ${savedDisplayName ?: savedEmail}!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                "Welcome back, ${savedDisplayName ?: savedEmail}!",
+                Toast.LENGTH_SHORT
+            ).show()
 
             try {
                 findNavController().navigate(R.id.mainFragment)
             } catch (e: Exception) {
                 Log.e("LoginFragment", "Navigation failed", e)
-                Toast.makeText(requireContext(), "Navigation error: ${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Navigation error: ${e.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         } else {
-            Toast.makeText(requireContext(), "Please login with email and password first to enable biometric login.", Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                requireContext(),
+                "Please login with email and password first to enable biometric login.",
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
+
     // Observe LiveData from ViewModel to update UI based on authentication result
     private fun setupObservers() {
         // Observe email/password login result
@@ -195,10 +245,17 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
                         if (biometricHelper.isBiometricAvailable()) {
                             sharedPrefsManager.setBiometricEnabled(true)
-                            Toast.makeText(requireContext(), "Login successful! Biometric login enabled for next time.",
-                                Toast.LENGTH_LONG).show()
+                            Toast.makeText(
+                                requireContext(),
+                                "Login successful! Biometric login enabled for next time.",
+                                Toast.LENGTH_LONG
+                            ).show()
                         } else {
-                            Toast.makeText(requireContext(), "Login successful!", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                requireContext(),
+                                "Login successful!",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
 
                         try {
@@ -209,13 +266,21 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                                 findNavController().navigate(R.id.mainFragment)
                             } catch (e2: Exception) {
                                 Log.e("LoginFragment", "Navigation to main also failed", e2)
-                                Toast.makeText(requireContext(), "Navigation error: ${e2.message}", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Navigation error: ${e2.message}",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
                         }
                     },
                     onFailure = { error ->
                         Log.e("LoginFragment", "Login failed: ${error.message}")
-                        Toast.makeText(requireContext(), error.message ?: "Login failed", Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            requireContext(),
+                            error.message ?: "Login failed",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                 )
                 authViewModel.clearResults()
@@ -238,12 +303,11 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                             phoneNumber = null
                         )
 
-                        // Save profile picture URL separately if needed
-                        authResponse.user?.profilePictureUrl?.let { url ->
-                            // You can add a method to SharedPreferencesManager to save this
-                        }
-
-                        Toast.makeText(requireContext(), "Welcome, ${authResponse.user?.displayName}!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(),
+                            "Welcome, ${authResponse.user?.displayName}!",
+                            Toast.LENGTH_SHORT
+                        ).show()
 
                         try {
                             findNavController().navigate(R.id.action_login_to_onboarding)
@@ -258,7 +322,11 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                     },
                     onFailure = { error ->
                         Log.e("LoginFragment", "Google login failed: ${error.message}")
-                        Toast.makeText(requireContext(), error.message ?: "Google login failed", Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            requireContext(),
+                            error.message ?: "Google login failed",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                 )
                 authViewModel.clearResults()
@@ -268,20 +336,21 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         authViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             loginButton.isEnabled = !isLoading
             googleLoginButton.isEnabled = !isLoading
+            biometricLoginButton.isEnabled = !isLoading
             loginButton.text = if (isLoading) "Logging in..." else "Log In"
+
             if (isLoading) {
                 loginButton.alpha = 0.6f
                 googleLoginButton.alpha = 0.6f
-                fingerprintContainer.isEnabled = false
+                biometricLoginButton.alpha = 0.6f
             } else {
                 loginButton.alpha = 1.0f
                 googleLoginButton.alpha = 1.0f
-                fingerprintContainer.isEnabled = true
+                updateBiometricButtonVisibility() // Restore proper alpha
             }
         }
     }
 
-    // --- Observe authentication results from ViewModel ---
     private fun setupClickListeners() {
         loginButton.setOnClickListener {
             val email = emailInput.text.toString().trim()
@@ -304,11 +373,29 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             signInWithGoogle()
         }
 
-        fingerprintContainer.setOnClickListener {
+        // Biometric login button - always attempts authentication when clicked
+        biometricLoginButton.setOnClickListener {
             if (biometricHelper.isBiometricAvailable()) {
-                biometricHelper.authenticate()
+                val hasSavedCredentials = !sharedPrefsManager.getEmail().isNullOrEmpty()
+                val isBiometricEnabled = sharedPrefsManager.isBiometricEnabled()
+
+                if (hasSavedCredentials && isBiometricEnabled) {
+                    // User has credentials, proceed with biometric auth
+                    biometricHelper.authenticate()
+                } else {
+                    // No saved credentials yet
+                    Toast.makeText(
+                        requireContext(),
+                        "Please login with email and password first to enable biometric login",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
             } else {
-                Toast.makeText(requireContext(), biometricHelper.getBiometricStatusMessage(), Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    requireContext(),
+                    biometricHelper.getBiometricStatusMessage(),
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
 
@@ -317,12 +404,20 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 findNavController().navigate(R.id.action_login_to_signup)
             } catch (e: Exception) {
                 Log.e("LoginFragment", "Navigation to signup failed", e)
-                Toast.makeText(requireContext(), "Navigation error: ${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Navigation error: ${e.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
 
         forgotPasswordLink.setOnClickListener {
-            Toast.makeText(requireContext(), "Forgot password functionality coming soon", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                "Forgot password functionality coming soon",
+                Toast.LENGTH_SHORT
+            ).show()
         }
 
         view?.findViewById<View>(R.id.back_arrow)?.setOnClickListener {
@@ -333,30 +428,30 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 activity?.onBackPressed()
             }
         }
-        
 
         view?.findViewById<View>(R.id.facebook_login)?.setOnClickListener {
-            Toast.makeText(requireContext(), "Facebook login coming soon", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                "Facebook login coming soon",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
-    // --- Start Google Sign-In flow ---
+
     private fun signInWithGoogle() {
-        // Sign out first to force account selection
         googleSignInClient.signOut().addOnCompleteListener {
             val signInIntent = googleSignInClient.signInIntent
             googleSignInLauncher.launch(signInIntent)
         }
     }
-    // --- Handle Google Sign-In result ---
+
     private fun handleGoogleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
             val account = completedTask.getResult(ApiException::class.java)
             Log.d("LoginFragment", "Google Sign-In successful: ${account?.email}")
 
-            // Get the ID token
             val idToken = account?.idToken
             if (idToken != null) {
-                // Send to backend
                 authViewModel.googleLogin(
                     idToken = idToken,
                     displayName = account.displayName,
@@ -364,15 +459,22 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                     profilePictureUrl = account.photoUrl?.toString()
                 )
             } else {
-                Toast.makeText(requireContext(), "Failed to get Google ID token", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Failed to get Google ID token",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         } catch (e: ApiException) {
             Log.e("LoginFragment", "Google Sign-In failed", e)
-            Toast.makeText(requireContext(), "Google Sign-In failed: ${e.message}", Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                requireContext(),
+                "Google Sign-In failed: ${e.message}",
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
 
-    // --- Handle Admin test login (for testing only) ---
     private fun handleAdminLogin() {
         sharedPrefsManager.saveAuthData(
             accessToken = "mock_access_token",
@@ -392,14 +494,17 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             findNavController().navigate(R.id.mainFragment)
         } catch (e: Exception) {
             Log.e("LoginFragment", "Admin navigation failed", e)
-            Toast.makeText(requireContext(), "Navigation error: ${e.message}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                "Navigation error: ${e.message}",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
-    // --- Validate email and password inputs ---
+
     private fun validateInput(email: String, password: String): Boolean {
         var isValid = true
 
-        // Email validation
         if (email.isEmpty()) {
             emailInput.error = "Email is required"
             isValid = false
@@ -410,7 +515,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             emailInput.error = null
         }
 
-        // Password validation
         if (password.isEmpty()) {
             passwordInput.error = "Password is required"
             isValid = false
@@ -424,13 +528,11 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         return isValid
     }
 
-    // --- Refresh fingerprint visibility when returning to screen ---
     override fun onResume() {
         super.onResume()
-        updateFingerprintVisibility()
+        updateBiometricButtonVisibility()
     }
 
-    // --- Clean up ViewModel state ---
     override fun onDestroyView() {
         super.onDestroyView()
         authViewModel.clearResults()

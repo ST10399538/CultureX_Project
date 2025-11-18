@@ -156,20 +156,6 @@
                             android:layout_marginTop="4dp" />
                     </LinearLayout>
 
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        app:cardCornerRadius="28dp"
-                        app:cardElevation="4dp"
-                        app:cardBackgroundColor="@android:color/white">
-
-                        <ImageView
-                            android:layout_width="28dp"
-                            android:layout_height="28dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ic_notifications"
-                            app:tint="#6366F1" />
-                    </com.google.android.material.card.MaterialCardView>
                 </LinearLayout>
             </LinearLayout>
 

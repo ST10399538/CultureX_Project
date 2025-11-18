@@ -1,16 +1,74 @@
 package com.example.culturex
 
+import android.Manifest
+import android.content.Context
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import com.example.culturex.utils.AppLanguageHelper
+import com.example.culturex.utils.NotificationHelper
+import com.example.culturex.utils.SharedPreferencesManager
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
+
+    // Add this property at the top of your MainActivity class
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            // Permission granted, notifications will work
+            Log.d("Notifications", "Permission granted")
+        } else {
+            // Permission denied
+            Log.d("Notifications", "Permission denied")
+            // Optionally show a message to the user explaining why notifications are useful
+        }
+    }
+
+    private lateinit var sharedPrefsManager: SharedPreferencesManager
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        sharedPrefsManager = SharedPreferencesManager(this)
         super.onCreate(savedInstanceState)
-        // Set the main activity layout that contains the NavHostFragment
         setContentView(R.layout.activity_main)
+
+        checkNotificationPermission()
+    }
+
+
+
+        // Add this method to your MainActivity class
+     fun checkNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            when {
+                ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) == PackageManager.PERMISSION_GRANTED -> {
+                    // Permission already granted
+                    Log.d("Notifications", "Permission already granted")
+                }
+                shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS) -> {
+                    // Show an explanation to the user why we need this permission
+                    // Then request the permission
+                    requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                }
+                else -> {
+                    // Directly request the permission
+                    requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                }
+            }
+        } else {
+            // For devices below Android 13, notification permission is granted by default
+            Log.d("Notifications", "Permission not required for this Android version")
+        }
     }
 }
-
 //Reference List:
 // UiLover, 2025. Build a Coffee Shop app with Kotlin & Firebase in Android Studio Project. [video online]. Available at: https://www.youtube.com/watch?v=Pnw_9tZ2z4wn [Accessed on 16 September 2025]
 // Guedmioui, A. 2023. Retrofit Android Tutorial - Make API Calls. [video online]. Available at: https://www.youtube.com/watch?v=8IhNq0ng-wk [Accessed on 14 September 2025]

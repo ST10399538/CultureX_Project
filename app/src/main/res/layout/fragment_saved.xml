@@ -167,7 +167,7 @@
                         style="@style/Widget.Material3.Chip.Filter"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Customs"
+                        android:text="Dress Code"
                         app:chipBackgroundColor="@color/border_color"
                         app:chipStrokeWidth="0dp" />
 
